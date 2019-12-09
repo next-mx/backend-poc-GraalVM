@@ -107,4 +107,4 @@
 
 
 ##### Tecnologías relacionadas
-> `GraalVM` `Java` `Python` `Node`  `Go`  `React`  `Angular`  `Micronaut`  `Quarkus`  `Spring-boot`  `Docker`  `Native application`
+> `GraalVM` `Java` `Python` `Node` `React`  `Angular`  `Micronaut`  `Quarkus`  `Spring-boot`  `Docker`  `Native application`
