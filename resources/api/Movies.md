@@ -302,7 +302,7 @@
 ### POST
 > Respaldar catalogo de películas bajo los siguientes criterios:
 
-1. Se respaldan todas las peliculas existentes en la colección de la BD Movies
+1. Se respaldan todas las peliculas existentes en la colección Movies
 2. El respaldo se agenda en un job que será ejecutado 5 segundos después de haber recibido la petición
 3. El respaldo se guarda en un archivo de texto plano llamado movies_catalog.csv
 4. Si el archivo de respaldo ya fue creado será reemplazado.
@@ -416,7 +416,7 @@
 
 ```json
 {
-"message": "Pelicula consultada exitosamente",
+"message": "Respaldo consultado exitosamente",
 "result": [
     {
         "_id": {
