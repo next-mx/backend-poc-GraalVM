@@ -1,60 +1,182 @@
-* **URL**
+# Comments
+> Definición de contrato de interface para el recurso Comentario
 
-  /comments/{version}
 
-* **Method:**
-  
-  POST 
+### POST
+> Agregar un comentario
 
-* **Body**
+
+* **URI**
+
+    [/movies/{movieId}/comments/](http://localhost:8080/pocgraalvm/api/v1/movies/{movieId}/comments/)
+
+
+* **PETICION**
+
 ```json
-	{
-		"name": [Comment author's name],
-		"email": [Email author's name],
-		"movie_id": [Commented movie id],
-		"text": [Text of comment]
-	}
-```
-* **Success Response:**
-  
-  Comment added successfully
-
-  * **Code:** 201 <br />
-    **Content:** 
-```json	
-    {
-		"_id": [Id created for this comment],
-		"name": [Comment author's name],
-		"email": [Email author's name],
-		"movie_id": [Commented movie id],
-		"text": [Text of comment],
-		"date": [Coment creation date]
+{
+    "name": "Crisanto Jeronimo",
+    "email": "cjeronimomx@gmail.com",
+    "text": "Muy buena para algunos criticada por otros.",
+    "date": {
+        "$date": {
+            "$numberLong": "995052309000"
+        }
     }
- ```
-* **Error Response:**
+}
+```
+     
+     
+* **RESPUESTA**
+    
+```json	
+{
+    "message": "Comentario agregado exitosamente",
+    "result": null
+}
+```
 
-  * **Code:** 400 Bad request error <br />
-    **Content:** ```json	`{ type:{numeric}, message: "[Error message]" }`     ```
-	Types:<br />
-		100 - Invalid email address<br />
-		200 - Text comment exceded, the maximun text size allowed is 500 characters<br />
-		300 - movie_id is required<br />
-		400 - Email address is required<br />
-		
-  * **Code:** 500 Internal server error <br />
-    **Content:** `{ type:500, message : "Service is down, please try again later" }`<br />
+    
+* **CABECERAS**
+    
+`LOCATION` = [protocolo://ip:puerto/pocgraalvm/api/v1/movies/{movieId}/comments/{oid}](protocolo://ip:puerto/pocgraalvm/api/v1/comments/{oid})
+    
 
-* **Sample Call:**
+<br/><br/>
 
-  POST: /comments/v1/
-```json  
-	{
-		"name":"Qui-Gon Jin",
-		"email":"quigonjin@jedicouncil.org",
-		"movie_id": "5a9427648b0beebeb69579d5",
-		"text":"I don't like the Star Wars The phantom menace because it's really bored, the most part of movie is about repair a racer's pod for a race. The only good thing is Liam Neeson's acting but his charater is killed by a devil with a double sword."
-	}
+
+
+
+### GET
+> Consultar un comentario
+
+
+* **URI**
+
+    [/movies/{movieId}/comments/{commentId}](http://localhost:8080/pocgraalvm/api/v1/movies/{movieId}/comments/)
+
+
+* **PETICION**
+
+    Sin cuerpo
+ 
+ 
+* **RESPUESTA**
+
+```json	
+{
+    "_id": {
+        "$oid": "5a9427648b0beebeb69579d5"
+    },
+    "name": "Crisanto Jeronimo",
+    "email": "cjeronimomx@gmail.com",
+    "movie_id": {
+        "$oid": "573a1390f29313caabcd4132"
+    },
+    "text": "Muy buena para algunos criticada por otros.",
+    "date": {
+        "$date": {
+            "$numberLong": "995052309000"
+        }
+    }
+}
 ```
 
 
+<br/><br/>
+
+
+
+### PUT
+> Modificar un comentario
+
+
+* **URI**
+
+    [/movies/{movieId}/comments/{commentId}](http://localhost:8080/pocgraalvm/api/v1/movies/{movieId}/comments/{commentId})
+
+
+* **PETICION**
+
+```json
+{
+    "name": "Crisanto Jeronimo",
+    "email": "cjeronimomx@gmail.com",
+    "text": "Muy buena para algunos, criticada por otros.",
+    "date": {
+        "$date": {
+            "$numberLong": "995052308000"
+        }
+    }
+}
+```
  
+ 
+* **RESPUESTA**
+
+```json	
+{
+    "message": "Comentario modificado exitosamente",
+    "result": null
+}
+``` 
+
+
+<br/><br/>
+
+
+
+### PATCH
+> Editar un comentario
+
+
+* **URI**
+
+    [/movies/{movieId}/comments/{commentId}](http://localhost:8080/pocgraalvm/api/v1/movies/{movieId}comments/{commentId})
+
+
+* **PETICION**
+
+```json
+{
+    "text": "Muy buena para algunos pero criticada por otros."
+}
+```
+
+
+* **RESPUESTA**
+
+```json	
+{
+    "message": "Comentario editado exitosamente",
+    "result": null
+}
+``` 
+
+
+<br/><br/>
+
+
+
+### DELETE
+> Eliminar un comentario
+
+
+* **URI**
+
+    [/movies/{movieId}/comments/{commentId}](http://localhost:8080/pocgraalvm/api/v1/movies/{movieId}/comments/{commentId})
+
+
+* **PETICION**
+
+    Sin cuerpo
+
+
+* **RESPUESTA**
+
+```json	
+{
+    "message": "Comentario eliminado exitosamente",
+    "result": null
+}
+``` 

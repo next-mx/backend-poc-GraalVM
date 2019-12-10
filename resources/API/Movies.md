@@ -1,130 +1,295 @@
-* **URL**
+# Movies
+> Definición de contrato de interface para el recurso Pelicula
 
-  /movies/{version}
 
-* **Method:**
-  
-  POST 
+### POST
+> Agregar una pelicula
 
-* **Body**
+
+* **URI**
+
+    [/movies/](http://localhost:8080/pocgraalvm/api/v1/movies/)
+
+
+* **PETICION**
+
 ```json
 {
-    "title": [Title],
-    "year":[Year],
-    "runtime":[Minutes lenght],
+    "title": "Avengers: Endgame",
+    "year": {
+        "$numberInt": "2019"
+    },
+    "runtime": {
+        "$numberInt": "1"
+    },
     "cast": [
-        Actor/Actress 1,Actor/Actress 2, ...,Actor/Actress N
+        "Thanos"
     ],
-    "poster": [Poster image URL],
-    "plot": [Plot],
-    "fullplot": [Full plot],
+    "poster": "https://pulpfictioncine.com/contenido/4809/se-revela-epico-poster-de-avengers-endgame#&gid=1&pid=1",
+    "plot": "Tras los eventos devastadores de Avengers: Infinity War, el universo está en ruinas debido a los efectos del titán loco, Thanos",
+    "fullplot": "Tras los eventos devastadores de Avengers: Infinity War, el universo está en ruinas debido a los efectos del titán loco, Thanos. Con la ayuda de los aliados restantes, los Vengadores deben reunirse una vez más para deshacer las acciones de Thanos y restaurar el orden del universo de una vez y para siempre, sin importar las consecuencias que pueda tener, aunque algunos pagarán el precio. 2​ Además cuenta con la aparición de Ant-Man, Wasp y Capitana Marvel.",
+    "lastupdated": {
+        "$date": {
+            "$numberLong": "1440565425000"
+        }
+    },
     "type": "movie",
     "directors": [
-        Director 1, Director 2, ....., Director N
+        "Anthony y Joe Russo"
     ],
     "imdb": {
-        "rating": [number],
-        "votes": [votes number],
-        "id": [id]
+        "rating": {
+            "$numberDouble": "5.9"
+        },
+        "votes": {
+            "$numberInt": "1032"
+        },
+        "id": {
+            "$numberInt": "1"
+        }
     },
     "countries": [
-        Country 1, Conuntry 2, ...., Country N
+        "USA"
     ],
-    "rated": [Rated],
+    "rated": "NOT RATED",
     "genres": [
-        Genre 1, Genre 2, ...., Genre N
+        "Superhéroes",
+        "Acción",
+        "Ciencia ficción"
     ]
 }
 ```
-* **Success Response:**
-  
-  Movie added successfully
-
-  * **Code:** 201 <br />
-    **Content:** 
+     
+     
+* **RESPUESTA**
+    
 ```json	
-   {
-    "_id": "573a1390f29313caabcd4132",
-    "title": "Carmencita",
-    "year": "1894",
-    "runtime": "1",
-    "cast": [
-        "Carmencita"
-    ],
-    "poster": "http://ia.media-imdb.com/images/M/MV5BMjAzNDEwMzk3OV5BMl5BanBnXkFtZTcwOTk4OTM5Ng@@._V1_SX300.jpg",
-    "plot": "Performing on what looks like a small wooden stage, wearing a dress with a hoop skirt and white high-heeled pumps, Carmencita does a dance with kicks and twirls, a smile always on her face.",
-    "fullplot": "Performing on what looks like a small wooden stage, wearing a dress with a hoop skirt and white high-heeled pumps, Carmencita does a dance with kicks and twirls, a smile always on her face.",
-    "lastupdated":"1440565425000",
-    "type": "movie",
-    "directors": [
-        "William K.L. Dickson"
-    ],
-    "imdb": {
-        "rating": "5.9",
-        "votes":"1032",
-        "id": "1"
-    },
-    "countries": [
-        "USA"
-    ],
-    "rated": "NOT RATED",
-    "genres": [
-        "Documentary",
-        "Short"
-    ]
+{
+    "message": "Pelicula agregada exitosamente",
+    "result": null
 }
+```
+
+    
+* **CABECERAS**
+    
+`LOCATION` = [protocolo://ip:puerto/pocgraalvm/api/v1/movies/{oid}](protocolo://ip:puerto/pocgraalvm/api/v1/movies/{oid})
+    
+
+<br/><br/>
 
 
- ```
- Types:<br />
-		Movie<br />
-		Documentary<br />
-		
-* **Error Response:**
-
-  * **Code:** 400 Bad request error <br />
-    **Content:** ```json	`{ type:{numeric}, message: "[Error message]" }`     ```
-	Types:<br />
-	100 - Title is mandatory<br />
-    200 - poster is mandatory<br />
-		
-  * **Code:** 500 Internal server error <br />
-    **Content:** `{ type:500, message : "Service is down, please try again later" }`<br />
-
-* **Sample Call:**
-
-  POST: /theathers/v1/
-```json	
-     {
-    "title": "Carmencita",
-    "year": "1894",
-    "runtime": "1",
-    "cast": [
-        "Carmencita"
-    ],
-    "poster": "http://ia.media-imdb.com/images/M/MV5BMjAzNDEwMzk3OV5BMl5BanBnXkFtZTcwOTk4OTM5Ng@@._V1_SX300.jpg",
-    "plot": "Performing on what looks like a small wooden stage, wearing a dress with a hoop skirt and white high-heeled pumps, Carmencita does a dance with kicks and twirls, a smile always on her face.",
-    "fullplot": "Performing on what looks like a small wooden stage, wearing a dress with a hoop skirt and white high-heeled pumps, Carmencita does a dance with kicks and twirls, a smile always on her face.",
-    "type": "movie",
-    "directors": [
-        "William K.L. Dickson"
-    ],
-    "imdb": {
-        "rating": "5.9",
-        "votes":"1032",
-        "id": "1"
-    },
-    "countries": [
-        "USA"
-    ],
-    "rated": "NOT RATED",
-    "genres": [
-        "Documentary",
-        "Short"
-    ]
-}
-
- ```
 
 
+### GET
+> Consultar una pelicula
+
+
+* **URI**
+
+    [/movies/{movieId}](http://localhost:8080/pocgraalvm/api/v1/movies/{movieId})
+
+
+* **PETICION**
+
+    Sin cuerpo
  
+ 
+* **RESPUESTA**
+
+```json	
+{
+"message": "Pelicula consultada exitosamente",
+"result":
+    {
+        "_id": {
+            "$oid": "573a1390f29313caabcd4132"
+        },
+        "title": "Avengers: Endgame",
+        "year": {
+            "$numberInt": "2019"
+        },
+        "runtime": {
+            "$numberInt": "1"
+        },
+        "cast": [
+            "Thanos"
+        ],
+        "poster": "https://pulpfictioncine.com/contenido/4809/se-revela-epico-poster-de-avengers-endgame#&gid=1&pid=1",
+        "plot": "Tras los eventos devastadores de Avengers: Infinity War, el universo está en ruinas debido a los efectos del titán loco, Thanos",
+        "fullplot": "Tras los eventos devastadores de Avengers: Infinity War, el universo está en ruinas debido a los efectos del titán loco, Thanos. Con la ayuda de los aliados restantes, los Vengadores deben reunirse una vez más para deshacer las acciones de Thanos y restaurar el orden del universo de una vez y para siempre, sin importar las consecuencias que pueda tener, aunque algunos pagarán el precio. 2​ Además cuenta con la aparición de Ant-Man, Wasp y Capitana Marvel.",
+        "lastupdated": {
+            "$date": {
+                "$numberLong": "1440565425000"
+            }
+        },
+        "type": "movie",
+        "directors": [
+            "Anthony y Joe Russo"
+        ],
+        "imdb": {
+            "rating": {
+                "$numberDouble": "5.9"
+            },
+            "votes": {
+                "$numberInt": "1032"
+            },
+            "id": {
+                "$numberInt": "1"
+            }
+        },
+        "countries": [
+            "USA"
+        ],
+        "rated": "NOT RATED",
+        "genres": [
+            "Superhéroes",
+            "Acción",
+            "Ciencia ficción"
+        ]
+    }
+}
+```
+
+
+<br/><br/>
+
+
+
+### PUT
+> Modificar una pelicula
+
+
+* **URI**
+
+    [/movies/{movieId}](http://localhost:8080/pocgraalvm/api/v1/movies/{movieId})
+
+
+* **PETICION**
+
+```json
+{
+    "title": "Avengers: Endgame",
+    "year": {
+        "$numberInt": "2019"
+    },
+    "runtime": {
+        "$numberInt": "2"
+    },
+    "cast": [
+        "Thanos"
+    ],
+    "poster": "https://pulpfictioncine.com/contenido/4809/se-revela-epico-poster-de-avengers-endgame#&gid=1&pid=1",
+    "plot": "Tras los eventos devastadores de Avengers: Infinity War, el universo está en ruinas debido a los efectos del titán loco Thanos",
+    "fullplot": "Tras los eventos devastadores de Avengers: Infinity War, el universo está en ruinas debido a los efectos del titán loco, Thanos. Con la ayuda de los aliados restantes, los Vengadores deben reunirse una vez más para deshacer las acciones de Thanos y restaurar el orden del universo de una vez y para siempre, sin importar las consecuencias que pueda tener, aunque algunos pagarán el precio. 2​ Además cuenta con la aparición de Ant-Man, Wasp y Capitana Marvel.",
+    "lastupdated": {
+        "$date": {
+            "$numberLong": "1440565425000"
+        }
+    },
+    "type": "movie",
+    "directors": [
+        "Anthony y Joe Russo"
+    ],
+    "imdb": {
+        "rating": {
+            "$numberDouble": "8.9"
+        },
+        "votes": {
+            "$numberInt": "100032"
+        },
+        "id": {
+            "$numberInt": "1"
+        }
+    },
+    "countries": [
+        "USA"
+    ],
+    "rated": "NOT RATED",
+    "genres": [
+        "Superhéroes",
+        "Acción",
+        "Ciencia ficción"
+    ]
+}
+```
+ 
+ 
+* **RESPUESTA**
+
+```json	
+{
+    "message": "Pelicula modificada exitosamente",
+    "result": null
+}
+``` 
+
+
+<br/><br/>
+
+
+
+### PATCH
+> Editar una pelicula
+
+
+* **URI**
+
+    [/movies/{movieId}](http://localhost:8080/pocgraalvm/api/v1/movies/{movieId})
+
+
+* **PETICION**
+
+```json
+{
+    "imdb": {
+        "rating": {
+            "$numberDouble": "9.9"
+        },
+        "votes": {
+            "$numberInt": "100000"
+        },
+        "id": {
+            "$numberInt": "1"
+        }
+    }
+}
+```
+
+
+* **RESPUESTA**
+
+```json	
+{
+    "message": "Pelicula editada exitosamente",
+    "result": null
+}
+``` 
+
+
+<br/><br/>
+
+
+
+### DELETE
+> Eliminar una pelicula
+
+
+* **URI**
+
+    [/movies/{movieId}](http://localhost:8080/pocgraalvm/api/v1/movies/{movieId})
+
+
+* **PETICION**
+
+    Sin cuerpo
+
+
+* **RESPUESTA**
+
+```json	
+{
+    "message": "Pelicula eliminada exitosamente",
+    "result": null
+}
+``` 

@@ -13,12 +13,13 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import com.poc.graalvm.service.QuarkusService;
 import com.poc.quarkus.obj.Comment;
+import com.poc.quarkus.obj.Movie;
 import com.poc.quarkus.obj.Response;
 
 
 
-@Path("/comments")
-public class QuarkusResource {
+@Path("/movies")
+public class QuarkusResourceMovie {
 
     @Inject
     QuarkusService service;
@@ -26,36 +27,36 @@ public class QuarkusResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     //@Path("/path/{name}")
-    public Response addComment(Comment name) {
-        return service.saveComment(name);
+    public Response addMovie(Movie movie) {
+        return service.saveMovie(movie);
     }
 
     
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}")
-    public Comment GetComment(@PathParam("id") String id) {
-        return service.getComment(id);
+    public Movie GetComment(@PathParam("id") String id) {
+        return service.getMovie(id);
     }
     
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}")
-    public Response updateComment(@PathParam("id") String id,Comment comment) {
-        return service.updateComment(id,comment);
+    public Response updateMovie(@PathParam("id") String id,Movie movie) {
+        return service.updateMovie(id,movie);
     }
     
     @PATCH
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}")
-    public Response modifComment(@PathParam("id") String id,Comment comment) {
-        return service.modifComment(id,comment);
+    public Response modifMovie(@PathParam("id") String id,Movie movie) {
+        return service.modifMovie(id,movie);
     }
     
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}")
-    public Response deleteComment(@PathParam("id") String id) {
-        return service.deleteComment(id);
+    public Response deleteMovie(@PathParam("id") String id) {
+        return service.deleteMovie(id);
     }
 }

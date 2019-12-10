@@ -31,56 +31,6 @@
 ```
 
 
-# Theater collection
-
-|fileName  |Type|Type|Type|
-|--|--|--|--|
-|_id  |ObjectId()  |||
-|theater_id | Int32 |||
-|location |Object |||
-|-->|address |Object ||
-| |--> | street1|String |
-| |--> | city|String |
-| |--> | state|String |
-| |--> | zipCode|String |
-|--> |geo |Object | |
-| |--> |type |String |
-| |--> |coordinates |Array |
-| | |--> |Double |
-
-##### Example
-
-```json
-{
-    "_id": {
-        "$oid": "59a47286cfa9a3a73e51e72c"
-    },
-    "theaterId": {
-        "$numberInt": "1000"
-    },
-    "location": {
-        "address": {
-            "street1": "340 W Market",
-            "city": "Bloomington",
-            "state": "MN",
-            "zipcode": "55425"
-        },
-        "geo": {
-            "type": "Point",
-            "coordinates": [
-                {
-                    "$numberDouble": "-93.24565"
-                },
-                {
-                    "$numberDouble": "44.85466"
-                }
-            ]
-        }
-    }
-}
-```
-
-
 # Collection Movies
 
 | FileName | Type | Type 
