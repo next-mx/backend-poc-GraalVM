@@ -96,9 +96,20 @@ public class HttpMovies {
         return HttpResponse.ok(movieResponse);
     }
 
+    @Delete("{id}")
+    public HttpResponse delete(@NotBlank String id){
+
+        LOGGER.debug("Objeto a borrar {}",id);
+
+        getCollection().deleteOne(eq("_id", new ObjectId(id)));
+
+        Response<Movie> movieResponse = new Response<>("Pelicula eliminada exitosamente");
+        return HttpResponse.ok(movieResponse);
+    }
+
     private MongoCollection<Movie> getCollection() {
         return mongoClient
-                .getDatabase("movies")
+                .getDatabase("poc-db")
                 .getCollection("Movies", Movie.class)
                 .withCodecRegistry(pojoCodecRegistry);
     }
