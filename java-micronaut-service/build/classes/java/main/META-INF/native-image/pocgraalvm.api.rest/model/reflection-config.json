@@ -3,4 +3,9 @@
   "allDeclaredFields" : true,
   "allPublicMethods" : true,
   "allDeclaredConstructors" : true
+}, {
+  "name" : "pocgraalvm.api.rest.model.Comment",
+  "allDeclaredFields" : true,
+  "allPublicMethods" : true,
+  "allDeclaredConstructors" : true
 } ]
