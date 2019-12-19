@@ -27,6 +27,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 import static com.mongodb.client.model.Filters.eq;
@@ -115,6 +116,8 @@ public class HttpMovies {
     @Post("/{task}")
     public HttpResponse backup(@NotBlank String task){
         LOGGER.debug("task {}",task);
+
+        LOGGER.info("Fecha de envio de Backup {}", LocalDateTime.now());
 
         TimerBakcupMovies timerBakcupMovies = new TimerBakcupMovies(getMoviesCollection(), getCommentsCollection());
         Timer timerBackup = new Timer();

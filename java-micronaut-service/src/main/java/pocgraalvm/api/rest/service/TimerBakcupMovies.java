@@ -14,6 +14,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.time.LocalDateTime;
 import java.util.TimerTask;
 
 import static com.mongodb.client.model.Filters.eq;
@@ -34,11 +35,11 @@ public class TimerBakcupMovies extends TimerTask {
     @Override
     public void run() {
 
-        BufferedWriter writer = null;
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter("movies_catalog.csv"))){
 
-        try {
-            Thread.sleep(5000);
-            writer = new BufferedWriter(new FileWriter("movies_catalog.csv"));
+            long time = System.currentTimeMillis();
+
+            LOGGER.info("Inicia Backup {}", LocalDateTime.now());
 
             /**
              * Inicializacion de variables
@@ -46,7 +47,7 @@ public class TimerBakcupMovies extends TimerTask {
             long countMovies = this.movieMongoCollection.countDocuments();
             FindIterable<Movie> findIterable = this.movieMongoCollection.find();
             MongoCursor<Movie> movieMongoCursor = findIterable.iterator();
-            BigDecimal id = BigDecimal.ZERO;
+            BigDecimal id = null;
             long commentsCount = 0;
             Movie movieIt = null;
             Document document = new Document();
@@ -78,15 +79,10 @@ public class TimerBakcupMovies extends TimerTask {
                 writer.newLine();
             }
 
-        } catch (InterruptedException | IOException e) {
+            LOGGER.info("Termina Backup {}", LocalDateTime.now());
+            LOGGER.info("Tiempo total de respaldo {}",System.currentTimeMillis()-time);
+        } catch (IOException e) {
             LOGGER.error(e);
-        } finally {
-            try {
-                writer.close();
-            } catch (IOException e) {
-                LOGGER.error(e);
-            }
         }
-
     }
 }
