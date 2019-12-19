@@ -5,9 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.MongoClient;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
 import com.mongodb.client.result.UpdateResult;
-import io.micronaut.context.annotation.Parameter;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.*;
@@ -23,19 +21,13 @@ import org.bson.types.ObjectId;
 import pocgraalvm.api.rest.http.Response;
 import pocgraalvm.api.rest.model.Comment;
 import pocgraalvm.api.rest.model.Movie;
+import pocgraalvm.api.rest.service.TimerBakcupMovies;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static com.mongodb.client.model.Filters.eq;
 
@@ -124,58 +116,9 @@ public class HttpMovies {
     public HttpResponse backup(@NotBlank String task){
         LOGGER.debug("task {}",task);
 
-        BufferedWriter writer = null;
-
-        try {
-            Thread.sleep(5000);
-            writer = new BufferedWriter(new FileWriter("movies_catalog.csv"));
-
-            /**
-             * Inicializacion de variables
-             */
-            long countMovies = getMoviesCollection().countDocuments();
-            FindIterable<Movie> findIterable = getMoviesCollection().find();
-            MongoCursor<Movie> movieMongoCursor = findIterable.iterator();
-            BigDecimal id = BigDecimal.ZERO;
-            long commentsCount = 0;
-            Movie movieIt = null;
-            Document document = new Document();
-
-            for (int i = 1; movieMongoCursor.hasNext() ; i++) {
-
-                movieIt = movieMongoCursor.next();
-
-                id = BigDecimal.valueOf(System.currentTimeMillis()+i);
-                LOGGER.debug("Fecha + iteracion {}",id);
-
-                commentsCount = getCommentsCollection().countDocuments(eq("movie_Id", movieIt.getId().toHexString()));
-                commentsCount = commentsCount == 0 ? 1 : commentsCount;
-
-                LOGGER.debug("commentsCount {}",commentsCount);
-
-                id = id.multiply(BigDecimal.valueOf(commentsCount));
-
-                LOGGER.debug("Mulitplicado por comentarios {}",id);
-
-                id = id.divide(BigDecimal.valueOf(countMovies));
-
-                LOGGER.debug("Dividido por conteo de Movies {}",id);
-
-                document.append("id",id);
-                document.append("pelicula",movieIt.toString());
-                writer.write(document.toJson());
-                writer.newLine();
-            }
-
-        } catch (InterruptedException | IOException e) {
-            LOGGER.error(e);
-        } finally {
-            try {
-                writer.close();
-            } catch (IOException e) {
-                LOGGER.error(e);
-            }
-        }
+        TimerBakcupMovies timerBakcupMovies = new TimerBakcupMovies(getMoviesCollection(), getCommentsCollection());
+        Timer timerBackup = new Timer();
+        timerBackup.schedule(timerBakcupMovies, 5000);
 
         Response<Movie> movieResponse = new Response<>("Respaldo agendado exitosamente");
         return HttpResponse.ok(movieResponse);
