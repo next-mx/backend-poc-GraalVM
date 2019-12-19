@@ -1,9 +1,11 @@
 package pocgraalvm.api.rest.http;
 
+import java.util.List;
+
 public class Response<T> {
 
     private String message;
-    private T result;
+    private List<T> result;
 
     public Response(String message){
         this.message = message;
@@ -17,11 +19,11 @@ public class Response<T> {
         this.message = message;
     }
 
-    public T getResult() {
+    public List<T> getResult() {
         return result;
     }
 
-    public void setResult(T result) {
+    public void setResult(List<T> result) {
         this.result = result;
     }
 

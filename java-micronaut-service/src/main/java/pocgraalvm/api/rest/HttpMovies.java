@@ -3,8 +3,11 @@ package pocgraalvm.api.rest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.MongoClient;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.result.UpdateResult;
+import io.micronaut.context.annotation.Parameter;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.*;
@@ -18,11 +21,21 @@ import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 import org.bson.types.ObjectId;
 import pocgraalvm.api.rest.http.Response;
+import pocgraalvm.api.rest.model.Comment;
 import pocgraalvm.api.rest.model.Movie;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 import static com.mongodb.client.model.Filters.eq;
 
@@ -44,7 +57,7 @@ public class HttpMovies {
     @Post
     public HttpResponse post(@Valid @Body Movie movie) {
 
-        getCollection().insertOne(movie);
+        getMoviesCollection().insertOne(movie);
 
         return HttpResponse.created(new Response<Movie>("Pelicula agregada exitosamente"));
     }
@@ -53,17 +66,17 @@ public class HttpMovies {
     public HttpResponse get(@NotBlank String id){
 
         LOGGER.debug("id {}",id);
-        Movie movie = getCollection().find(eq("_id", new ObjectId(id))).first();
+        Movie movie = getMoviesCollection().find(eq("_id", new ObjectId(id))).first();
         LOGGER.debug(movie);
 
         Response<Movie> movieReturned = new Response<>("Pelicula consultada exitosamente");
-        movieReturned.setResult(movie);
+        movieReturned.setResult(Arrays.asList(movie));
         return HttpResponse.ok(movieReturned);
     }
 
     @Put("{id}")
     public HttpResponse put(@NotBlank String id, @Valid @Body Movie movie){
-        UpdateResult updateResult = getCollection().replaceOne(eq("_id", new ObjectId(id)), movie);
+        UpdateResult updateResult = getMoviesCollection().replaceOne(eq("_id", new ObjectId(id)), movie);
         long updated = updateResult.getModifiedCount();
 
         HttpResponse response = null;
@@ -90,7 +103,7 @@ public class HttpMovies {
         Document setDocument = new Document();
         setDocument.append("$set",updateDocument);
 
-        getCollection().updateOne(eq("_id", new ObjectId(id)), setDocument);
+        getMoviesCollection().updateOne(eq("_id", new ObjectId(id)), setDocument);
 
         Response<Movie> movieResponse = new Response<>("Pelicula editada exitosamente");
         return HttpResponse.ok(movieResponse);
@@ -101,16 +114,96 @@ public class HttpMovies {
 
         LOGGER.debug("Objeto a borrar {}",id);
 
-        getCollection().deleteOne(eq("_id", new ObjectId(id)));
+        getMoviesCollection().deleteOne(eq("_id", new ObjectId(id)));
 
         Response<Movie> movieResponse = new Response<>("Pelicula eliminada exitosamente");
         return HttpResponse.ok(movieResponse);
     }
 
-    private MongoCollection<Movie> getCollection() {
+    @Post("/{task}")
+    public HttpResponse backup(@NotBlank String task){
+        LOGGER.debug("task {}",task);
+
+        BufferedWriter writer = null;
+
+        try {
+            Thread.sleep(5000);
+            writer = new BufferedWriter(new FileWriter("movies_catalog.csv"));
+
+            /**
+             * Inicializacion de variables
+             */
+            long countMovies = getMoviesCollection().countDocuments();
+            FindIterable<Movie> findIterable = getMoviesCollection().find();
+            MongoCursor<Movie> movieMongoCursor = findIterable.iterator();
+            BigDecimal id = BigDecimal.ZERO;
+            long commentsCount = 0;
+            Movie movieIt = null;
+            Document document = new Document();
+
+            for (int i = 1; movieMongoCursor.hasNext() ; i++) {
+
+                movieIt = movieMongoCursor.next();
+
+                id = BigDecimal.valueOf(System.currentTimeMillis()+i);
+                LOGGER.debug("Fecha + iteracion {}",id);
+
+                commentsCount = getCommentsCollection().countDocuments(eq("movie_Id", movieIt.getId().toHexString()));
+                commentsCount = commentsCount == 0 ? 1 : commentsCount;
+
+                LOGGER.debug("commentsCount {}",commentsCount);
+
+                id = id.multiply(BigDecimal.valueOf(commentsCount));
+
+                LOGGER.debug("Mulitplicado por comentarios {}",id);
+
+                id = id.divide(BigDecimal.valueOf(countMovies));
+
+                LOGGER.debug("Dividido por conteo de Movies {}",id);
+
+                document.append("id",id);
+                document.append("pelicula",movieIt.toString());
+                writer.write(document.toJson());
+                writer.newLine();
+            }
+
+        } catch (InterruptedException | IOException e) {
+            LOGGER.error(e);
+        } finally {
+            try {
+                writer.close();
+            } catch (IOException e) {
+                LOGGER.error(e);
+            }
+        }
+
+        Response<Movie> movieResponse = new Response<>("Respaldo agendado exitosamente");
+        return HttpResponse.ok(movieResponse);
+    }
+
+    @Get("/get/{task}")
+    public HttpResponse getBackup(@NotBlank String task){
+        LOGGER.debug("task {}",task);
+
+        List<Movie> movieList = new ArrayList<>();
+        FindIterable<Movie> findIterable = getMoviesCollection().find();
+        findIterable.iterator().forEachRemaining(movieList::add);
+        Response<Movie> movieResponse = new Response<>("Respaldo consultado exitosamente");
+        movieResponse.setResult(movieList);
+        return HttpResponse.ok(movieResponse);
+    }
+
+    private MongoCollection<Movie> getMoviesCollection() {
         return mongoClient
                 .getDatabase("poc-db")
                 .getCollection("Movies", Movie.class)
+                .withCodecRegistry(pojoCodecRegistry);
+    }
+
+    private MongoCollection<Comment> getCommentsCollection() {
+        return mongoClient
+                .getDatabase("poc-db")
+                .getCollection("Comment", Comment.class)
                 .withCodecRegistry(pojoCodecRegistry);
     }
 

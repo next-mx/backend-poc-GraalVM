@@ -21,6 +21,8 @@ import pocgraalvm.api.rest.model.Movie;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
+import java.util.Arrays;
+
 import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
@@ -64,7 +66,7 @@ public class HttpComments {
        LOGGER.debug(comment);
 
        Response<Comment> movieReturned = new Response<>("Pelicula consultada exitosamente");
-       movieReturned.setResult(comment);
+       movieReturned.setResult(Arrays.asList(comment));
        return HttpResponse.ok(movieReturned);
    }
 
