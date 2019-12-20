@@ -1,5 +1,0 @@
-profile: service
-defaultPackage: pocgraalvm.api.rest
----
-testFramework: junit
-sourceLanguage: java

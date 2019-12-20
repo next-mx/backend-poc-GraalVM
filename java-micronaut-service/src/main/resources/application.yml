@@ -1,5 +1,0 @@
-micronaut:
-  application:
-    name: pocgraalvm-api-rest
-mongodb:
-  uri: "mongodb://${MONGO_USER:poc-user}:${MONGO_PASSWORD:6r44lvM#}@${MONGO_HOST:localhost}:${MONGO_PORT:27017}/${MONGO_DB:poc-db}?AuthMechanism=SCRAM-SHA-1&LoadMetadataTable=true"
