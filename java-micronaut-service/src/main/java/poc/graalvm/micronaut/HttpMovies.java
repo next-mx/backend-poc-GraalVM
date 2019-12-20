@@ -113,7 +113,7 @@ public class HttpMovies {
         return HttpResponse.ok(movieResponse);
     }
 
-    @Post("/createBackup")
+    @Post("/backup")
     public HttpResponse backup(){
 
         LOGGER.info("Fecha de envio de Backup {}", LocalDateTime.now());
@@ -126,7 +126,7 @@ public class HttpMovies {
         return HttpResponse.ok(movieResponse);
     }
 
-    @Get("/getBackup")
+    @Get("/backup")
     public HttpResponse getBackup(){
 
         List<Movie> movieList = new ArrayList<>();
