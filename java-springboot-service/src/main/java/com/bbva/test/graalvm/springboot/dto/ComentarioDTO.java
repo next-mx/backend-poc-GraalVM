@@ -3,7 +3,7 @@ package com.bbva.test.graalvm.springboot.dto;
 import com.bbva.test.graalvm.springboot.dto.movie.DateDTO;
 import com.bbva.test.graalvm.springboot.dto.movie.LastUpdateDTO;
 
-public class CommentsDTO {
+public class ComentarioDTO {
 	private String name;
 	private String email;
 	private String text;
