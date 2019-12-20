@@ -1,0 +1,7 @@
+micronaut:
+  application:
+    name: poc-graalvm-micronaut
+
+---
+mongodb:
+  uri: "mongodb://poc-user:6r44lvM#@localhost:27017/poc-db"
