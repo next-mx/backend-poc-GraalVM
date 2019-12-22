@@ -7,10 +7,10 @@ import org.bson.types.ObjectId;
 import javax.validation.constraints.NotBlank;
 
 @Introspected
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Comment {
 
     private ObjectId id;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String _id;
     @NotBlank
     private String name;
@@ -35,7 +35,9 @@ public class Comment {
 
     public void setId(ObjectId id) {
         this.id = id;
-        set_id(id);
+        if(id != null) {
+            set_id(id);
+        }
     }
 
     public String getName() {

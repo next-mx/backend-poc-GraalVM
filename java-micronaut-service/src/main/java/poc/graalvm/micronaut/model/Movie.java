@@ -1,8 +1,6 @@
 package poc.graalvm.micronaut.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.micronaut.core.annotation.Introspected;
 import org.bson.types.ObjectId;
 
@@ -10,11 +8,10 @@ import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Introspected
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class Movie {
 
     private ObjectId id;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String _id;
     @NotBlank
     private String title;
@@ -44,7 +41,9 @@ public class Movie {
 
     public void setId(ObjectId id) {
         this.id = id;
-        set_id(id);
+        if(id != null) {
+            set_id(id);
+        }
     }
 
     public ObjectId getId() {

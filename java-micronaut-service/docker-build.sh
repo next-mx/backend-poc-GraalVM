@@ -1,6 +1,6 @@
 #!/bin/sh
-docker build . -t java-micronaut-service
+docker build . -t poc-graalvm-micronaut
 echo
 echo
 echo "To run the docker container execute:"
-echo "    $ docker run -p 8080:8080 java-micronaut-service"
+echo "    $ docker run -p 8080:8080 poc-graalvm-micronaut"

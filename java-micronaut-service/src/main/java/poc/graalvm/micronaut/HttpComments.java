@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;
@@ -72,6 +73,7 @@ public class HttpComments {
 
     @Put("{movieId}/comments/{commentId}")
     public HttpResponse put(@NotBlank String movieId,@NotBlank String commentId, @Body Comment comment){
+        comment.setMovie_Id(movieId);
         UpdateResult updateResult = getCollection().replaceOne(
                 and(
                     eq("_id", new ObjectId(commentId)),
@@ -97,6 +99,7 @@ public class HttpComments {
     public HttpResponse patch(@NotBlank String movieId,@NotBlank String commentId, @Body Comment comment) throws JsonProcessingException {
 
         Document updateDocument = Document.parse(new ObjectMapper().writeValueAsString(comment));
+        updateDocument.append("movie_Id",movieId);
 
         LOGGER.debug("updateDocument {}",updateDocument);
 
@@ -128,13 +131,22 @@ public class HttpComments {
 
         LOGGER.debug("Objeto a borrar {}",movieId);
 
-        getCollection().deleteOne(and(
+        DeleteResult deleteResult = getCollection().deleteOne(and(
                 eq("_id", new ObjectId(commentId)),
                 eq("movie_Id", movieId)
         ));
 
-        Response<Movie> movieResponse = new Response<>("Comentario eliminado exitosamente");
-        return HttpResponse.ok(movieResponse);
+        HttpResponse response = null;
+
+        Response<Movie> movieResponse = new Response<>("");
+        if(deleteResult.getDeletedCount() > 0){
+            movieResponse.setMessage("Comentario eliminado exitosamente");
+            response = HttpResponse.ok(movieResponse);
+        } else {
+            response = HttpResponse.notModified();
+        }
+
+        return response;
     }
 
     private MongoCollection<Comment> getCollection() {

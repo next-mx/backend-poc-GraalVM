@@ -1,10 +1,14 @@
 package poc.graalvm.micronaut;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.MongoClient;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;
@@ -89,6 +93,7 @@ public class HttpMovies {
     @Patch("/{id}")
     public HttpResponse patch(@NotBlank @PathVariable String id, @Valid @Body Movie movie) throws JsonProcessingException {
 
+        ObjectMapper objectMapper = new ObjectMapper();
         Document updateDocument = Document.parse(new ObjectMapper().writeValueAsString(movie));
 
         LOGGER.debug("updateDocument {}",updateDocument);
@@ -107,10 +112,19 @@ public class HttpMovies {
 
         LOGGER.debug("Objeto a borrar {}",id);
 
-        getMoviesCollection().deleteOne(eq("_id", new ObjectId(id)));
+        DeleteResult deleteResult = getMoviesCollection().deleteOne(eq("_id", new ObjectId(id)));
 
-        Response<Movie> movieResponse = new Response<>("Pelicula eliminada exitosamente");
-        return HttpResponse.ok(movieResponse);
+        HttpResponse response = null;
+
+        Response<Movie> movieResponse = new Response<>("");
+        if(deleteResult.getDeletedCount() > 0){
+            movieResponse.setMessage("Pelicula eliminada exitosamente");
+            response = HttpResponse.ok(movieResponse);
+        } else {
+            response = HttpResponse.notModified();
+        }
+
+        return response;
     }
 
     @Post("/backup")
