@@ -4,10 +4,8 @@ package com.bbva.test.graalvm.springboot.controller;
 import com.bbva.test.graalvm.springboot.dto.MovieDTO;
 import com.bbva.test.graalvm.springboot.dto.RespJSON;
 import com.bbva.test.graalvm.springboot.dto.movie.ImdbDTO;
-import com.bbva.test.graalvm.springboot.dto.movie.LastUpdateDTO;
-import com.bbva.test.graalvm.springboot.dto.movie.NumberDoubleDTO;
-import com.bbva.test.graalvm.springboot.dto.movie.NumberIntDTO;
-import com.bbva.test.graalvm.springboot.dto.movie.NumberLongDTO;
+import com.bbva.test.graalvm.springboot.service.MovieServ;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collections;
 import java.util.List;
 
 
@@ -30,13 +27,17 @@ import java.util.List;
 @RequestMapping(path = "/pocgraalvm/api/v1")
 public class MovieCtrl {
 
+	@Autowired
+	private MovieServ movieServ;
+
 	/**
 	 * Creacion de pelicula
 	 *
-	 * @param movie
+	 * @param movieDTO objeto que representa una pelicucla
 	 */
 	@PostMapping(path = "/movies/", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<RespJSON<String>> newMovie(@RequestBody MovieDTO movie) {
+	public ResponseEntity<RespJSON<String>> newMovie(@RequestBody MovieDTO movieDTO) {
+		movieServ.newMovie(movieDTO);
 		RespJSON<String> resp = new RespJSON<>();
 		resp.setMessage("Pelicula agregada exitosamente");
 		return new ResponseEntity<>(resp, HttpStatus.OK);
@@ -49,22 +50,7 @@ public class MovieCtrl {
 	 */
 	@GetMapping(path = "/movies/{movieId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<MovieDTO> getMovieInfo(@PathVariable(name = "movieId") String movieId) {
-		MovieDTO movie = new MovieDTO();
-		movie.setTitle("Avengers");
-		movie.setYear(new NumberIntDTO("2019"));
-		movie.setCast(new String[]{"Thanos", "BlackPanther"});
-		movie.setRuntime(new NumberIntDTO("1"));
-		movie.setPoster("xxxx");
-		movie.setPlot("plot");
-		movie.setFullplot("full plot");
-		movie.setLastupdated(new LastUpdateDTO(new NumberLongDTO("12458796525")));
-		movie.setType("movie");
-		movie.setDirectors(new String[]{"Anthony y Joe Russo"});
-		movie.setImdb(new ImdbDTO(new NumberDoubleDTO("5.9"), new NumberIntDTO("1032"), new NumberIntDTO("1")));
-		movie.setCountries(new String[]{"USA"});
-		movie.setRated("NOT RATED");
-		movie.setGenres(new String[]{"Acccion", "Ciencia Ficcion"});
-
+		MovieDTO movie = this.movieServ.findMovieByID(movieId);
 		return new ResponseEntity<>(movie, HttpStatus.OK);
 	}
 
@@ -77,6 +63,7 @@ public class MovieCtrl {
 	 */
 	@PutMapping(path = "/movies/{movieId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<RespJSON<String>> modifiMovie(@PathVariable(name = "movieId") String movieId, @RequestBody MovieDTO movie) {
+		this.movieServ.updateMovie(movieId, movie);
 		RespJSON<String> resp = new RespJSON<>();
 		resp.setMessage("Pelicula agregada exitosamente");
 		return new ResponseEntity<>(resp, HttpStatus.OK);
@@ -91,6 +78,7 @@ public class MovieCtrl {
 	 */
 	@PatchMapping(path = "/movies/{movieId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<RespJSON<String>> editMovie(@PathVariable(name = "movieId") String movieId, @RequestBody ImdbDTO imbDto) {
+		this.movieServ.updateIMB(movieId, imbDto);
 		RespJSON<String> resp = new RespJSON<>();
 		resp.setMessage("Pelicula editada exitosamente");
 		return new ResponseEntity<>(resp, HttpStatus.OK);
@@ -103,6 +91,7 @@ public class MovieCtrl {
 	 */
 	@DeleteMapping(path = "/movies/{movieId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<RespJSON<String>> deleteMovie(@PathVariable(name = "movieId") String movieId) {
+		this.movieServ.deleteMovie(movieId);
 		RespJSON<String> resp = new RespJSON<>();
 		resp.setMessage("Pelicula eliminada exitosamente");
 		return new ResponseEntity<>(resp, HttpStatus.OK);
@@ -114,6 +103,7 @@ public class MovieCtrl {
 	 */
 	@PostMapping(path = "/movies/backup", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<RespJSON<String>> backupDB(@RequestParam(name = "task") String task) {
+		this.movieServ.makeBackup();
 		RespJSON<String> resp = new RespJSON<>();
 		resp.setMessage("Respaldo agendado exitosamente");
 		return new ResponseEntity<>(resp, HttpStatus.OK);
@@ -126,7 +116,7 @@ public class MovieCtrl {
 	public ResponseEntity<RespJSON<List<MovieDTO>>> getBackupFromFile(@RequestParam(name = "task") String task) {
 		RespJSON<List<MovieDTO>> resp = new RespJSON<>();
 		resp.setMessage("Respaldo consultado exitosamente");
-		resp.setResult(Collections.EMPTY_LIST);
+		resp.setResult(this.movieServ.getBackupFrom());
 		return new ResponseEntity<>(resp, HttpStatus.OK);
 	}
 

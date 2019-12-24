@@ -30,7 +30,7 @@ public class MovieServiceImplTest {
 	@Test
 	public void newMovie() {
 		MovieDTO movie = new MovieDTO();
-		movie.setTitle("Avengers");
+		movie.setTitle("Avengers 2");
 		movie.setYear(new NumberIntDTO("2019"));
 		movie.setCast(new String[]{"Thanos", "BlackPanther"});
 		movie.setRuntime(new NumberIntDTO("1"));
