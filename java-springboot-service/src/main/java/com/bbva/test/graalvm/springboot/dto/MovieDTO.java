@@ -2,13 +2,18 @@ package com.bbva.test.graalvm.springboot.dto;
 
 import com.bbva.test.graalvm.springboot.dto.movie.ImdbDTO;
 import com.bbva.test.graalvm.springboot.dto.movie.LastUpdateDTO;
-import com.bbva.test.graalvm.springboot.dto.movie.RuntimeDTO;
-import com.bbva.test.graalvm.springboot.dto.movie.YearDTO;
+import com.bbva.test.graalvm.springboot.dto.movie.NumberIntDTO;
+import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Arrays;
+
+@Document(collection = "movies")
 public class MovieDTO {
+	private ObjectId _id;
 	private String title;
-	private YearDTO year;
-	private RuntimeDTO runtime;
+	private NumberIntDTO year;
+	private NumberIntDTO runtime;
 	private String[] cast;
 	private String poster;
 	private String plot;
@@ -22,6 +27,14 @@ public class MovieDTO {
 	private String[] genres;
 
 
+	public ObjectId get_id() {
+		return _id;
+	}
+
+	public void set_id(ObjectId _id) {
+		this._id = _id;
+	}
+
 	public String getTitle() {
 		return title;
 	}
@@ -30,19 +43,19 @@ public class MovieDTO {
 		this.title = title;
 	}
 
-	public YearDTO getYear() {
+	public NumberIntDTO getYear() {
 		return year;
 	}
 
-	public void setYear(YearDTO year) {
+	public void setYear(NumberIntDTO year) {
 		this.year = year;
 	}
 
-	public RuntimeDTO getRuntime() {
+	public NumberIntDTO getRuntime() {
 		return runtime;
 	}
 
-	public void setRuntime(RuntimeDTO runtime) {
+	public void setRuntime(NumberIntDTO runtime) {
 		this.runtime = runtime;
 	}
 
@@ -132,5 +145,26 @@ public class MovieDTO {
 
 	public void setGenres(String[] genres) {
 		this.genres = genres;
+	}
+
+	@Override
+	public String toString() {
+		return "MovieDTO{" +
+				"_id=" + _id +
+				", title='" + title + '\'' +
+				", year=" + year +
+				", runtime=" + runtime +
+				", cast=" + Arrays.toString(cast) +
+				", poster='" + poster + '\'' +
+				", plot='" + plot + '\'' +
+				", fullplot='" + fullplot + '\'' +
+				", lastupdated=" + lastupdated +
+				", type='" + type + '\'' +
+				", directors=" + Arrays.toString(directors) +
+				", imdb=" + imdb +
+				", countries=" + Arrays.toString(countries) +
+				", rated='" + rated + '\'' +
+				", genres=" + Arrays.toString(genres) +
+				'}';
 	}
 }

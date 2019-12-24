@@ -1,37 +1,37 @@
 package com.bbva.test.graalvm.springboot.dto.movie;
 
 public class ImdbDTO {
-	private RatingDTO rating;
-	private VotesDTO votes;
-	private IdDTO id;
+	private NumberDoubleDTO rating;
+	private NumberIntDTO votes;
+	private NumberIntDTO id;
 
-	public ImdbDTO(RatingDTO rating, VotesDTO votes, IdDTO id) {
+	public ImdbDTO(NumberDoubleDTO rating, NumberIntDTO votes, NumberIntDTO id) {
 		this.rating = rating;
 		this.votes = votes;
 		this.id = id;
 	}
 
-	public RatingDTO getRating() {
+	public NumberDoubleDTO getRating() {
 		return rating;
 	}
 
-	public void setRating(RatingDTO rating) {
+	public void setRating(NumberDoubleDTO rating) {
 		this.rating = rating;
 	}
 
-	public VotesDTO getVotes() {
+	public NumberIntDTO getVotes() {
 		return votes;
 	}
 
-	public void setVotes(VotesDTO votes) {
+	public void setVotes(NumberIntDTO votes) {
 		this.votes = votes;
 	}
 
-	public IdDTO getId() {
+	public NumberIntDTO getId() {
 		return id;
 	}
 
-	public void setId(IdDTO id) {
+	public void setId(NumberIntDTO id) {
 		this.id = id;
 	}
 }

@@ -3,6 +3,7 @@ package com.bbva.test.graalvm.springboot.controller;
 
 import com.bbva.test.graalvm.springboot.dto.ComentarioDTO;
 import com.bbva.test.graalvm.springboot.dto.RespJSON;
+import com.bbva.test.graalvm.springboot.dto.comentario.ConsultaComentDTO;
 import com.bbva.test.graalvm.springboot.dto.comentario.TextoDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -33,9 +34,9 @@ public class ComentarioCtrl {
 	 * recuperar comentario
 	 */
 	@GetMapping(path = "/movies/{movieId}/comments/{commentId}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ComentarioDTO> getComment(@PathVariable(name = "movieId") String movieId,
-													@PathVariable(name = "commentId") String commentId) {
-		ComentarioDTO cm = new ComentarioDTO();
+	public ResponseEntity<ConsultaComentDTO> getComment(@PathVariable(name = "movieId") String movieId,
+														@PathVariable(name = "commentId") String commentId) {
+		ConsultaComentDTO cm = new ConsultaComentDTO();
 		return new ResponseEntity<>(cm, HttpStatus.OK);
 	}
 
@@ -55,7 +56,7 @@ public class ComentarioCtrl {
 	 */
 	@PatchMapping(path = "/movies/{movieId}/comments/{commentId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<RespJSON<String>> editarUnComentario(@PathVariable(name = "movieId") String movieId,
-															   @RequestBody ComentarioDTO comentarioId,
+															   @PathVariable(name = "commentId") String commentId,
 															   @RequestBody TextoDTO texto) {
 		RespJSON<String> resp = new RespJSON<>();
 		resp.setMessage("Comentario editado exitosamente");
