@@ -10,7 +10,8 @@ import java.util.Arrays;
 
 @Document(collection = "movies")
 public class MovieDTO {
-	private ObjectId _id;
+	//private ObjectId _id;
+	private String _id;
 	private String title;
 	private NumberIntDTO year;
 	private NumberIntDTO runtime;
@@ -27,11 +28,11 @@ public class MovieDTO {
 	private String[] genres;
 
 
-	public ObjectId get_id() {
+	public String get_id() {
 		return _id;
 	}
 
-	public void set_id(ObjectId _id) {
+	public void set_id(String _id) {
 		this._id = _id;
 	}
 

@@ -4,11 +4,13 @@ import com.bbva.test.graalvm.springboot.dao.MovieRepo;
 import com.bbva.test.graalvm.springboot.dto.MovieDTO;
 import com.bbva.test.graalvm.springboot.dto.movie.ImdbDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
+@Lazy
 @Repository
 public class MovieRepoImpl implements MovieRepo {
 	@Autowired

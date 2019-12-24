@@ -5,13 +5,14 @@ import com.bbva.test.graalvm.springboot.dao.MovieRepo;
 import com.bbva.test.graalvm.springboot.dto.movie.ImdbDTO;
 import com.bbva.test.graalvm.springboot.service.MovieServ;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
 
-
+@Lazy
 @Service
 public class MovieServImpl implements MovieServ {
 

@@ -5,7 +5,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 public class NumberIntDTO {
 	private String numberInt;
-
+	public NumberIntDTO(){}
 	public NumberIntDTO(String number) {
 		this.numberInt = number;
 	}
