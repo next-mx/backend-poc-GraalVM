@@ -3,10 +3,20 @@ package com.bbva.test.graalvm.springboot.dto;
 import com.bbva.test.graalvm.springboot.dto.movie.LastUpdateDTO;
 
 public class ComentarioDTO {
+	private String _id;
 	private String name;
 	private String email;
+	private String movie_id;
 	private String text;
 	private LastUpdateDTO date;
+
+	public String get_id() {
+		return _id;
+	}
+
+	public void set_id(String _id) {
+		this._id = _id;
+	}
 
 	public String getName() {
 		return name;
@@ -38,5 +48,25 @@ public class ComentarioDTO {
 
 	public void setDate(LastUpdateDTO date) {
 		this.date = date;
+	}
+
+	public String getMovie_id() {
+		return movie_id;
+	}
+
+	public void setMovie_id(String movie_id) {
+		this.movie_id = movie_id;
+	}
+
+	@Override
+	public String toString() {
+		return "ComentarioDTO{" +
+				"_id='" + _id + '\'' +
+				", name='" + name + '\'' +
+				", email='" + email + '\'' +
+				", movie_id='" + movie_id + '\'' +
+				", text='" + text + '\'' +
+				", date=" + date +
+				'}';
 	}
 }
