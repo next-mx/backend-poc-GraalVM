@@ -8,26 +8,31 @@ import com.bbva.test.graalvm.springboot.dto.movie.NumberDoubleDTO;
 import com.bbva.test.graalvm.springboot.dto.movie.NumberIntDTO;
 import com.bbva.test.graalvm.springboot.dto.movie.NumberLongDTO;
 import com.bbva.test.graalvm.springboot.service.MovieServ;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 
+@DisplayName("Operations with movies")
 @SpringBootTest
 public class MovieServiceImplTest {
 	@Autowired
 	private MovieServ movieServ;
 
 	@Test
+	@DisplayName("Find movie by ID...")
 	public void findMovieByID() {
-		MovieDTO movie = movieServ.findMovieByID("5e010c04e4436833dd7cbdcc");
+		MovieDTO movie = movieServ.findMovieByID("5e024cdb4a2f0d350104917c");
 		System.out.println("---------------------------------");
 		System.out.println(movie);
 		System.out.println("---------------------------------");
+		Assertions.assertNotNull(movie);
 	}
 
 
-	@Test
+	//@Test
 	public void newMovie() {
 		MovieDTO movie = new MovieDTO();
 		movie.setTitle("Avengers 2");
