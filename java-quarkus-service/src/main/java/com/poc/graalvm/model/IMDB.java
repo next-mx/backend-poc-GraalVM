@@ -1,4 +1,4 @@
-package com.poc.quarkus.obj;
+package com.poc.graalvm.model;
 
 public class IMDB {
 	private double rating;

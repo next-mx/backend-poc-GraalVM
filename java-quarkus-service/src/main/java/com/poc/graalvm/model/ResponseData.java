@@ -1,15 +1,15 @@
-package com.poc.quarkus.obj;
+package com.poc.graalvm.model;
 
-public class Response {
+public class ResponseData {
 	private String message;
 	private String result;
 	
 	
 	
-	public Response() {
+	public ResponseData() {
 		super();
 	}
-	public Response(String message, String result) {
+	public ResponseData(String message, String result) {
 		super();
 		this.message = message;
 		this.result = result;
