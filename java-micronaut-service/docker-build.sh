@@ -1,6 +1,6 @@
 #!/bin/sh
-docker build . -t pocgraalvm-api-rest
+docker build . -t poc-graalvm-micronaut
 echo
 echo
 echo "To run the docker container execute:"
-echo "    $ docker run -p 8080:8080 pocgraalvm-api-rest"
+echo "    $ docker run -p 8080:8080 poc-graalvm-micronaut"

@@ -1,7 +1,26 @@
 # ============ GRADLE ============= #
 .gradle
+build/
+
+
+# ============ MAVEN ============= #
+target/
 
 
 # =========== INTELLIJ ============ #
 .idea
 venv/
+
+
+# =========== ECLIPSE ============ #
+.project
+.settings
+.classpath
+.DS_Store
+
+
+# =========== MISCELLANEOUS ============ #
+*.csv
+out/
+Thumbs.db
+

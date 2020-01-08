@@ -1,10 +1,10 @@
 FROM oracle/graalvm-ce:19.2.0.1 as graalvm
-COPY . /home/app/pocgraalvm-api-rest
-WORKDIR /home/app/pocgraalvm-api-rest
+COPY . /home/app/poc-graalvm-micronaut
+WORKDIR /home/app/poc-graalvm-micronaut
 RUN gu install native-image
-RUN native-image --no-server -cp build/libs/pocgraalvm-api-rest-*-all.jar
+RUN native-image --no-server -cp build/libs/poc-graalvm-micronaut-*-all.jar
 
 FROM frolvlad/alpine-glibc
 EXPOSE 8080
-COPY --from=graalvm /home/app/pocgraalvm-api-rest .
-ENTRYPOINT ["./pocgraalvm-api-rest"]
+COPY --from=graalvm /home/app/poc-graalvm-micronaut .
+ENTRYPOINT ["./poc-graalvm-micronaut"]

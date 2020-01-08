@@ -374,7 +374,7 @@
 
 * **URI**
 
-    [/movies/?task=backup](http://localhost:8080/pocgraalvm/api/v1/movies/?task=backup)
+    [/movies/backup](http://localhost:8080/pocgraalvm/api/v1/movies/backup)
 
 
 * **PETICION**
@@ -404,7 +404,7 @@
 
 * **URI**
 
-    [/movies/?task=backup](http://localhost:8080/pocgraalvm/api/v1/movies/?task=backup)
+    [/movies/backup](http://localhost:8080/pocgraalvm/api/v1/movies/backup)
 
 
 * **PETICION**

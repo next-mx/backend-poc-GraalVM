@@ -2,18 +2,12 @@ plugins {
     id "com.github.johnrengelman.shadow" version "5.0.0"
     id "application"
     id "net.ltgt.apt-eclipse" version "0.21"
-    id 'io.spring.dependency-management' version '1.0.1.RELEASE'
 }
 
-dependencyManagement {
-    imports {
-        mavenBom 'org.apache.logging.log4j:log4j-bom:2.12.1'
-    }
-}
 
 
 version "0.1"
-group "pocgraalvm.api.rest"
+group "poc.graalvm.micronaut"
 
 repositories {
     mavenCentral()
@@ -46,13 +40,11 @@ dependencies {
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
     compile "org.mongodb:mongo-java-driver"
     compile "io.micronaut.configuration:micronaut-mongo-reactive"
-    compile 'org.apache.logging.log4j:log4j-api'
-    compile 'org.apache.logging.log4j:log4j-core'
 }
 
 test.classpath += configurations.developmentOnly
 
-mainClassName = "pocgraalvm.api.rest.Application"
+mainClassName = "poc.graalvm.micronaut.Application"
 // use JUnit 5 platform
 test {
     useJUnitPlatform()

@@ -1,5 +1,5 @@
 profile: service
-defaultPackage: pocgraalvm.api.rest
+defaultPackage: poc.graalvm.micronaut
 ---
 testFramework: junit
 sourceLanguage: java
