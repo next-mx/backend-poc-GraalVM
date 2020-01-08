@@ -1,28 +1,79 @@
-# Título de la PoC
->Título de la PoC (debe ser lo suficientemente conciso para poder identificarla)
+# Backend PoC GraalVM
+> Prueba de concepto de Graal Virtual Machine
 
 ## Información General
 >Sección de datos generales de la Prueba de Concepto
 
-#### [v1.0]
-> Versión del documento (si procede)
+#### Versión del documento
+> 1.0.0
+
+##### Fecha del documento
+> 16-12-2019
+
 
 #### Autores
-> Quién ha desarrollado y escrito este documento (el orden por cantidad de tiempo dedicado)
-* [NombreAutor1 ApellidoAutor1](mailto:nombre1.apellido1.next@bbva.com)
-* [NombreAutor2 ApellidoAutor2](mailto:nombre2.apellido2.next@bbva.com)
 
-#### TRIBU1 TRIBU2 DD-MM-YYYY
-> Tribu(s) de realización de la PoC y Fecha del documento
+| Nombre        | Planeta       | Tribu  |
+| ------------- |:-------------:| :-----:|
+| [Alejandro Jesús Torres Dimas](alejandrojesus.torres.dimas.next@bbva.com) | Software Crafter |  |
+| [Crisanto Jerónimo García](crisanto.jeronimo.next@gmail.com) | Software Crafter | Backend |
+| [Daniel Ramírez Herrera](daniel.ramirez3.next@bbva.com) | Software Crafter | DevSecOps |
+| [Edgar Alan Valdes Iglesias](edgaralan.valdes.iglesias.next@bbva.com) | Software Crafter | Backend |
+| [José Salvador Cortés Figueroa](josesalvador.cortes.next@bbva.com) | Software Crafter | Backend |
+| [Octavio Martínez José](octavio.martinez.jose.next@bbva.com) | Software Crafter |  |
 
-#### keyword1, keyword2, keyword3
-> Al menos tres tags que identifiquen las tecnologías relacionadas
+
+
+##### Tecnologías relacionadas
+`GraalVM` `Java` `Python` `Node` `React`  `Angular`  `Micronaut`  `Quarkus`  `Spring-boot`  `Docker`  `Native application`
+
 
 ## Introducción
->En esta sección se describirá un poco de contexto de la tecnología a evaluar con referencias a otras tecnologías (así como links a sus webs y documentación). Es tu puerta de entrada, merece la pena que sea acorde a tu trabajo.
+> [GraalVM](https://www.graalvm.org) es una nueva máquina virtual creada por [Oracle](https://www.oracle.com/index.html) para ejecutar con alto rendimiento(menor consumo de RAM y menor tiempo de arranque) aplicaciones escritas en JavaScript, Python, Ruby, R, lenguajes basados en la JVM como Java, Scala, Groovy, Kotlin, Clojure y lenguajes basados en LLVM como C y C++.
+ 
+> Elimina el aislamiento entre lenguajes de programación y permite la interoperabilidad en un runtime compartido en aplicaciones políglotas. Además brinda una utilería para generar aplicaciones nativas(binarios) que podrán ejecutarse sin tener que instalar el JRE.
+
+
 
 ### Objetivo
->Es la sección **más importante** y tiene que quedar claro el qué quiero hacer exactamente. Deberá haber venido definido por el documento previo de aprobación de la PoC, por lo que no podrá variar a lo largo de la PoC.
+> **Validar las principales características de esta tecnología:**
+1. Imágenes nativas
+2. Aplicaciones políglotas
+3. Alto rendimiento
+ 
+> **Usando los 3 lenguajes más importantes actualmente:**
+1. Java
+2. Javascript con Node
+3. Python(conscientes de que este leguaje aún está en fase experimental)
+
+> **Crearémos los siguientes componentes:** 
+* Microservicio Java con Quarkus(se creará aplicación nativa)
+* Microservicio Java con Micronaut(se creará aplicación nativa)
+* Microservicio Java con Spring-boot(se creará aplicación nativa)
+* Microservicio Políglota(python como pivote y secundarios javascript y java)
+* Microservicio Políglota(javascript-Node como pivote y secundarios python y java)
+* Aplicación front-end con React
+* Aplicación front-end con Angular
+ 
+ > **Se considerarán las funcionalidades requeridas frecuentemente:**
+ * Lectura-escritura de archivos de texto
+ * Operaciones CRUD
+ * Persistencia en Base de Datos
+ * Logs
+ * API REST
+ * Ejecución de procesos programados
+ * Operaciones aritméticas que incluyan cantidades numéricas grandes(BigDecimal, BigInteger)
+ 
+ > **Medirémos y compararémos los resultados dados por los compiladores, interpretes y runtimes con y sin GraalVM:**
+ 1. Comportamientos en tiempo de compilación y ejecución
+ 2. Tamaño del componente generado(.jar, .sh, .js, imagen docker)
+ 2. Consumo de RAM en tiempo de compilación y ejecución
+ 3. Consumo de CPU en tiempo de compilación y ejecución
+ 4. Tiempo de startup
+ 5. Tiempos de respuesta
+ 6. Estabilidad de la aplicación
+ 7. Compatibilidad de librerías y frameworks
+
 
 ### Estado del arte
 > Esta sección trata de contextualizar la tecnología usada/evaluada en esta PoC dentro de tecnologías similares en el mercado. Información de cuándo aparecieron, trends de uso, popularidad, desarrollo, versiones disponibles, se identificarán tecnologías similares que pueden pertenecer o no al radar de la compañía
@@ -66,6 +117,7 @@
 > 	* Modelo PoC (este mismo documento en Markdown)
 > 	* [code]
 > 	* [configuration files]
+
 ### Costes
 > En esta sección de resultados se deben especificar los costes de la PoC, tanto en infraestructura como en tiempo de realización.
 
@@ -89,3 +141,4 @@
 Información relevante que es deseable responder:
 ¿Es válida la tecnología para producción? ¿Bajo qué condiciones y parámetros?
 ¿Cómo se relaciona con otras tecnologías del radar?
+
