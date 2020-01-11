@@ -84,9 +84,6 @@
 > * Cuentas de APIs necesarias
 > * Datos de prueba (y dónde conseguirlos mediante link directo)
 
-### Subsección de ejemplo
-#### Sub^2-sección de ejemplo
-##### Sub^3-sección de ejemplo
 
 ## Métodos
 > En esta sección se describe la metodología de la PoC:
@@ -100,6 +97,8 @@
 
 ## Resultados
 
+#### Java Micronaut Service
+
 | Metrica        | GraalVM       | JVM OpenJDK | Imagen Nativa |
 | ------------- |:-------------:| :-----:| ------------- |
 | Tamaño del componente generado(MB) |  |   |   |
@@ -111,10 +110,9 @@
 | Compatibilidad de librerías y frameworks  |    |   |    |
 | Comportamientos en tiempo de compilación  |    |   |    |
 | Comportamientos en tiempo de ejecución  |    |   |      |
-|   |    |   |
 
 
-> Si se ha generado código durante la evaluación, se describirá en una sección cómo reproducir exactamente los resultados de la poc ya sea por pasos a seguir, como comandos a usar y archivos dentro del repositorio.
+> Comentarios generales/adicionales sobre los resultados de este componente particular
 
 ## Código generado
 > En esta sección deberán incluirse todos los links al código generado de la PoC.
