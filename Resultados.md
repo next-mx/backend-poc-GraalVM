@@ -44,15 +44,14 @@
 > **Usando los 3 lenguajes más importantes actualmente:**
 1. Java
 2. Javascript con Node
-3. Python(conscientes de que este leguaje aún está en fase experimental)
+3. Python(conscientes de que este lenguaje aún está en fase experimental)
 
-> **Crearémos los siguientes componentes:** 
+> **Se crearon los siguientes componentes:** 
 * Microservicio Java con Quarkus(se creará aplicación nativa)
 * Microservicio Java con Micronaut(se creará aplicación nativa)
 * Microservicio Java con Spring-boot(se creará aplicación nativa)
 * Microservicio Políglota(python como pivote y secundarios javascript y java)
 * Microservicio Políglota(javascript-Node como pivote y secundarios python y java)
-* Aplicación front-end con React
 * Aplicación front-end con Angular
  
  > **Se considerarán las funcionalidades requeridas frecuentemente:**
@@ -100,12 +99,20 @@
 > **A veces puede resultar confuso dónde poner cierto contenido. Por ejemplo: Si estoy montando una infraestructura cloud para probar una tecnología, en métodos deberán especificarse los detalles de esa infraestructura, o scripts de terraform. Sin embargo, si el objetivo de la PoC es `probar una infraestructura`, entonces dicho terraform deberá ir en Resultados**
 
 ## Resultados
-> En esta sección se describen (sin comentarios de valor, o juicios) los resultados obtenidos.
-> * Scripts de terraform
-> * Código evaluado
-> * Tiempos de ejecución
-> * Precisión de algoritmos
-> * Gráficos de resultados
+
+| Metrica        | GraalVM       | JVM OpenJDK | Imagen Nativa |
+| ------------- |:-------------:| :-----:| ------------- |
+| Tamaño del componente generado(MB) |  |   |   |
+| Consumo de RAM en tiempo de compilación(MB)  |    |   |   |
+| Consumo de RAM en tiempo de ejecución(MB)  |    |   |
+| Consumo de CPU en tiempo de compilación(MB)  |    |   |   |
+| Consumo de CPU en tiempo de ejecución(MB)  |    |   |    |
+| Tiempo de startup(Segundos)  |    |   |   |
+| Compatibilidad de librerías y frameworks  |    |   |    |
+| Comportamientos en tiempo de compilación  |    |   |    |
+| Comportamientos en tiempo de ejecución  |    |   |      |
+|   |    |   |
+
 
 > Si se ha generado código durante la evaluación, se describirá en una sección cómo reproducir exactamente los resultados de la poc ya sea por pasos a seguir, como comandos a usar y archivos dentro del repositorio.
 
