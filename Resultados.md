@@ -24,8 +24,24 @@
 
 
 
-##### Tecnologías relacionadas
-`GraalVM` `Java` `Python` `Node` `React`  `Angular`  `Micronaut`  `Quarkus`  `Spring-boot`  `Docker`  `Native application`
+#### Tecnologías
+| Nombre        | Versión       | Tipo  |
+| ------------- |:-------------:| :-----:|
+| `GraalVM` | 19.2.1 CE 64-Bit | Virtual Machine |
+| `Java` | OpenJDK 1.8.0_232 | Lenguaje |
+| `Python` | 3.7.3 | Lenguaje |
+| `Node` | 10.16.3 | Runtime |
+| `Micronaut` | 1.2.5 | Framework |
+| `Quarkus` | 0.26.1 | Framework |
+| `Spring-boot` | 2.2.0 | Framework |
+| React | 16.10.2 | Framework |
+| Angular | 1.7.8 | Framework |
+| `MongoDB` | 4.2.1 | Base de datos NoSQL |
+| `Docker` | 19.03.4 | Contenedores |
+| `MacOS` | 10.15 | Sistema Operativo |
+| `Linux` | Ubuntu 19.10 | Sistema Operativo |
+| Linux | Fedora 30 / CentOS 7 | Sistema Operativo |
+| Linux | Alpine 3.10.3 | Sistema Operativo  |
 
 
 ## Introducción
@@ -183,18 +199,6 @@
 > Comentarios generales/adicionales sobre los resultados de este componente particular
 
 
-
-## Código generado
-> En esta sección deberán incluirse todos los links al código generado de la PoC.
-
-> La estructura de archivos será la siguiente:
-> * [poc-título-de-la-poc]
-> 	* Modelo PoC (este mismo documento en Markdown)
-> 	* [code]
-> 	* [configuration files]
-
-### Costes
-> En esta sección de resultados se deben especificar los costes de la PoC, tanto en infraestructura como en tiempo de realización.
 
 ## Discusión
 > En esta sección se comentan los resultados uno a uno, se discuten las comparativas. Es aquí donde debe ir TODO juicio de valor de quien lo escribe, opiniones, etc. En esta sección se deberá revisar el triángulo: tiempo-alcance-incertidumbre con el objetivo de resolver las conclusiones de la última sección.
