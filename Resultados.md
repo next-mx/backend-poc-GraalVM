@@ -111,8 +111,78 @@
 | Comportamientos en tiempo de compilación  |    |   |    |
 | Comportamientos en tiempo de ejecución  |    |   |      |
 
+> Comentarios generales/adicionales sobre los resultados de este componente particular
+
+
+#### Java Quarkus Service
+
+| Metrica        | GraalVM       | JVM OpenJDK | Imagen Nativa |
+| ------------- |:-------------:| :-----:| ------------- |
+| Tamaño del componente generado(MB) |  |   |   |
+| Consumo de RAM en tiempo de compilación(MB)  |    |   |   |
+| Consumo de RAM en tiempo de ejecución(MB)  |    |   |
+| Consumo de CPU en tiempo de compilación(MB)  |    |   |   |
+| Consumo de CPU en tiempo de ejecución(MB)  |    |   |    |
+| Tiempo de startup(Segundos)  |    |   |   |
+| Compatibilidad de librerías y frameworks  |    |   |    |
+| Comportamientos en tiempo de compilación  |    |   |    |
+| Comportamientos en tiempo de ejecución  |    |   |      |
+
 
 > Comentarios generales/adicionales sobre los resultados de este componente particular
+
+
+#### Java Spring-boot Service
+
+| Metrica        | GraalVM       | JVM OpenJDK | Imagen Nativa |
+| ------------- |:-------------:| :-----:| ------------- |
+| Tamaño del componente generado(MB) |  |   |   |
+| Consumo de RAM en tiempo de compilación(MB)  |    |   |   |
+| Consumo de RAM en tiempo de ejecución(MB)  |    |   |
+| Consumo de CPU en tiempo de compilación(MB)  |    |   |   |
+| Consumo de CPU en tiempo de ejecución(MB)  |    |   |    |
+| Tiempo de startup(Segundos)  |    |   |   |
+| Compatibilidad de librerías y frameworks  |    |   |    |
+| Comportamientos en tiempo de compilación  |    |   |    |
+| Comportamientos en tiempo de ejecución  |    |   |      |
+
+> Comentarios generales/adicionales sobre los resultados de este componente particular
+
+
+#### Javascript Node Service
+
+| Metrica        | GraalVM       | NodeJS |
+| ------------- |:-------------:| :-----:|
+| Tamaño del componente generado(MB) |  |   |
+| Consumo de RAM en tiempo de compilación(MB)  |    |   |
+| Consumo de RAM en tiempo de ejecución(MB)  |    |   |
+| Consumo de CPU en tiempo de compilación(MB)  |    |   |
+| Consumo de CPU en tiempo de ejecución(MB)  |    |   |
+| Tiempo de startup(Segundos)  |    |   |
+| Compatibilidad de librerías y frameworks  |    |   |
+| Comportamientos en tiempo de compilación  |    |   |
+| Comportamientos en tiempo de ejecución  |    |   |
+
+> Comentarios generales/adicionales sobre los resultados de este componente particular
+
+
+#### Python Polyglot Service
+
+| Metrica        | GraalVM       | Python |
+| ------------- |:-------------:| :-----:|
+| Tamaño del componente generado(MB) |  |   |
+| Consumo de RAM en tiempo de compilación(MB)  |    |   |
+| Consumo de RAM en tiempo de ejecución(MB)  |    |   |
+| Consumo de CPU en tiempo de compilación(MB)  |    |   |
+| Consumo de CPU en tiempo de ejecución(MB)  |    |   |
+| Tiempo de startup(Segundos)  |    |   |
+| Compatibilidad de librerías y frameworks  |    |   | 
+| Comportamientos en tiempo de compilación  |    |   |
+| Comportamientos en tiempo de ejecución  |    |   |
+
+> Comentarios generales/adicionales sobre los resultados de este componente particular
+
+
 
 ## Código generado
 > En esta sección deberán incluirse todos los links al código generado de la PoC.
