@@ -33,9 +33,7 @@ use poc-db
     
 3. **Crear usuario `poc-user` con privilegios de lectura-escritura sobre la Base de Datos `poc-db`**
 ```js
-use poc-db 
 db.createUser({ user: "poc-user", pwd: "6r44lvM#", roles:[{ role: "readWrite", db:"poc-db"}]})
-exit 
 ```
 
 
