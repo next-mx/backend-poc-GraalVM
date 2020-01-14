@@ -101,7 +101,7 @@
 
 
 ## Métodos
-> Para replicar esta PoC es necesario seguir las siguientes instrucciones, la secuencia es importante:
+> Para replicar esta PoC es necesario seguir las siguientes instrucciones, la secuencia es importante.
 > **NOTA**: Las versiones están arriba en la sección **Tecnología** de este documento
 
 #### Instalación
