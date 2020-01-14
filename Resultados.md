@@ -161,15 +161,15 @@ sdk u java 8.0.232.j9-adpt  # Solo usa esta instrucción cuando requieras usar l
 
 | Metrica        | GraalVM       | JVM OpenJDK | Imagen Nativa |
 | ------------- |:-------------:| :-----:| ------------- |
-| Tamaño del componente generado(MB) |  |   |   |
-| Consumo de RAM en tiempo de compilación(MB)  |    |   |   |
-| Consumo de RAM en tiempo de ejecución(MB)  |    |   |
-| Consumo de CPU en tiempo de compilación(MB)  |    |   |   |
-| Consumo de CPU en tiempo de ejecución(MB)  |    |   |    |
-| Tiempo de startup(Segundos)  |    |   |   |
-| Compatibilidad de librerías y frameworks  |    |   |    |
-| Comportamientos en tiempo de compilación  |    |   |    |
-| Comportamientos en tiempo de ejecución  |    |   |      |
+| Tamaño del componente generado(MB) | 169 MB | 18.6 MB  |  61 MB |
+| Consumo de RAM en tiempo de compilación(MB)  | 4.3 GB   | 100 MB  | 5.8 GB  |
+| Consumo de RAM en tiempo de ejecución(MB)  |  160MB  |  20 MB | 400 MB |
+| Consumo de CPU en tiempo de compilación(MB)  |  3.72%  | 0.63%  | 50% |
+| Consumo de CPU en tiempo de ejecución(MB)  |  3%  |  0.50% |  3%  |
+| Tiempo de startup(Segundos)  |   |   |   |
+| Compatibilidad de librerías y frameworks  | 100%   | 90%  |  80%  |
+| Comportamientos en tiempo de compilación  |  Bueno  |  Bueno |  Bueno  |
+| Comportamientos en tiempo de ejecución  |  Muy Bueno | Bueno   |   Muy bueno   |
 
 > Comentarios generales/adicionales sobre los resultados de este componente particular
 
