@@ -113,8 +113,8 @@
 > [Sigue las instrucciones para instalarlo en https://sdkman.io/install](https://sdkman.io/install)
 
 * ##### GraalVM
-> GraalVM es la nueva máquina virtual que probaremos en esta PoC
->En una terminal ejecuta los siguientes comandos:
+> GraalVM es la nueva máquina virtual que probaremos en esta PoC. 
+> En una terminal ejecuta los siguientes comandos:
 ```bash
 sdk ls java
 sdk i java 19.2.1-grl
@@ -123,8 +123,8 @@ gu install native-image
 ```
 
 * ##### Open JDK
-> Open JDK es una versión de código abierto de la JVM de Oracle
->En una terminal ejecuta los siguientes comandos:
+> Open JDK es una versión de código abierto de la JVM de Oracle. 
+> En una terminal ejecuta los siguientes comandos:
 ```bash
 sdk ls java
 sdk i java 8.0.232.j9-adpt
@@ -132,11 +132,11 @@ sdk u java 8.0.232.j9-adpt
 ```
 
 * ##### NodeJS
-> NodeJS es un entorno de ejecución para javascript
+> NodeJS es un entorno de ejecución para javascript. 
 > [Descarga la versión node-v10.18.1.pkg en https://nodejs.org/dist/latest-v10.x/](https://nodejs.org/dist/latest-v10.x/), una vez descargado ejecuta el archivo .pkg y sigue las instrucciones en la pantalla que se te abrirá
 
 * ##### Docker
-> Docker es una herramienta que provee un camino para desplegar aplicaciones de forma segura y asilada en un contenedor en el cual se empaquetan todas sus dependencias y librerías.
+> Docker es una herramienta que provee un camino para desplegar aplicaciones de forma segura y asilada en un contenedor en el cual se empaquetan todas sus dependencias y librerías. 
 > [Sigue las instrucciones para instalarlo en https://docs.docker.com/install/](https://docs.docker.com/install/)
 
 
