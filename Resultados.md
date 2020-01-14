@@ -30,7 +30,7 @@
 | `GraalVM` | 19.2.1 CE 64-Bit | Virtual Machine |
 | `Java` | OpenJDK 1.8.0_232 | Lenguaje |
 | `Python` | 3.7.3 | Lenguaje |
-| `Node` | 10.16.3 | Runtime |
+| `NodeJS` | 10.16.3 | Runtime |
 | `Micronaut` | 1.2.5 | Framework |
 | `Quarkus` | 0.26.1 | Framework |
 | `Spring-boot` | 2.2.0 | Framework |
@@ -94,22 +94,47 @@
 > Esta sección trata de contextualizar la tecnología usada/evaluada en esta PoC dentro de tecnologías similares en el mercado. Información de cuándo aparecieron, trends de uso, popularidad, desarrollo, versiones disponibles, se identificarán tecnologías similares que pueden pertenecer o no al radar de la compañía
 
 ## Material
-> En esta sección tiene que describirse todo el material utilizado para cualquier parte de la PoC.
-> * Plataforma cloud
-> * PC donde se ha probado (características técnicas)
-> * Cuentas de APIs necesarias
-> * Datos de prueba (y dónde conseguirlos mediante link directo)
+> Las pruebas y mediciones se realizaron en una computadora Mackbook Pro con las siguientes características:
+> * CPU: 
+> * RAM:
+> * HD:
+
+> La definición del modelo y datos de prueba se encuentran en la carpeta [resources/db/](https://github.com/beeva/backend-poc-GraalVM/blob/master/resources/db/Collections.md) del repositorio
+
+> La definición de la API REST que expone cada microservicio está definido en la carpeta [resources/api/](https://github.com/beeva/backend-poc-GraalVM/tree/master/resources/api) del repositorio
 
 
 ## Métodos
-> En esta sección se describe la metodología de la PoC:
-> * Experimentos al menos una tecnología de las categorías Core o Adoptar con la que comparar (si no es posible, en esta sección se debe especificar por qué)
-> * Diseño de la planteados para probar la tecnología
-> * Se seleccionará metodología de evaluación si se va a comparar con otra tecnología diferente
-> * Procedimientos para montar la infraestructura necesaria
-> * Procedimientos para crear cuentas necesarias
+> Para replicar esta PoC es necesario seguir las siguientes instrucciones:
 
-> **A veces puede resultar confuso dónde poner cierto contenido. Por ejemplo: Si estoy montando una infraestructura cloud para probar una tecnología, en métodos deberán especificarse los detalles de esa infraestructura, o scripts de terraform. Sin embargo, si el objetivo de la PoC es `probar una infraestructura`, entonces dicho terraform deberá ir en Resultados**
+#### Instalación
+
+##### SDKman
+
+##### GraalVM
+
+##### Open JDK
+
+##### NodeJS
+
+##### Docker
+
+
+#### Ejecución
+
+##### MongoDB
+
+##### Java Micronaut Service
+
+##### Java Quarkus Service
+
+##### Java Spring-boot Service
+
+##### JavaScript Node Service
+
+##### Python Polyglot Service
+
+
 
 ## Resultados
 
