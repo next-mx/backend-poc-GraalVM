@@ -2,13 +2,12 @@
 > Prueba de concepto de Graal Virtual Machine
 
 ## Información General
->Sección de datos generales de la Prueba de Concepto
 
 #### Versión del documento
 > 1.0.0
 
 ##### Fecha del documento
-> 16-12-2019
+> 30-01-2020
 
 
 #### Autores
@@ -30,7 +29,7 @@
 | `GraalVM` | 19.2.1 CE 64-Bit | Virtual Machine |
 | `Java` | OpenJDK 1.8.0_232 | Lenguaje |
 | `Python` | 3.7.3 | Lenguaje |
-| `NodeJS` | 10.16.3 | Runtime |
+| `NodeJS` | 10.18.1 | Runtime |
 | `Micronaut` | 1.2.5 | Framework |
 | `Quarkus` | 0.26.1 | Framework |
 | `Spring-boot` | 2.2.0 | Framework |
@@ -38,7 +37,7 @@
 | Angular | 1.7.8 | Framework |
 | `MongoDB` | 4.2.1 | Base de datos NoSQL |
 | `Docker` | 19.03.4 | Contenedores |
-| `MacOS` | 10.15 | Sistema Operativo |
+| `MacOS` | Catalina 10.15.2 | Sistema Operativo |
 
 
 ## Introducción
@@ -128,7 +127,7 @@ gu install native-image
 ```bash
 sdk ls java
 sdk i java 8.0.232.j9-adpt
-sdk u java 8.0.232.j9-adpt
+sdk u java 8.0.232.j9-adpt  # Solo usa esta instrucción cuando requieras usar la JVM normal
 ```
 
 * ##### NodeJS
