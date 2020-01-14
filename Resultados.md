@@ -39,9 +39,6 @@
 | `MongoDB` | 4.2.1 | Base de datos NoSQL |
 | `Docker` | 19.03.4 | Contenedores |
 | `MacOS` | 10.15 | Sistema Operativo |
-| `Linux` | Ubuntu 19.10 | Sistema Operativo |
-| Linux | Fedora 30 / CentOS 7 | Sistema Operativo |
-| Linux | Alpine 3.10.3 | Sistema Operativo  |
 
 
 ## Introducción
@@ -109,30 +106,30 @@
 
 #### Instalación
 
-##### SDKman
+* ##### SDKman
 
-##### GraalVM
+* ##### GraalVM
 
-##### Open JDK
+* ##### Open JDK
 
-##### NodeJS
+* ##### NodeJS
 
-##### Docker
+* ##### Docker
 
 
 #### Ejecución
 
-##### MongoDB
+* ##### MongoDB
 
-##### Java Micronaut Service
+* ##### Java Micronaut Service
 
-##### Java Quarkus Service
+* ##### Java Quarkus Service
 
-##### Java Spring-boot Service
+* ##### Java Spring-boot Service
 
-##### JavaScript Node Service
+* ##### JavaScript Node Service
 
-##### Python Polyglot Service
+* ##### Python Polyglot Service
 
 
 
