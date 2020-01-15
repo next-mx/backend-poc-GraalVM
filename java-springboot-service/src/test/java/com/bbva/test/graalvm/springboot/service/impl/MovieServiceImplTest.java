@@ -14,22 +14,41 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Optional;
+
 
 @DisplayName("Operations with movies")
 @SpringBootTest
 public class MovieServiceImplTest {
 	@Autowired
 	private MovieServ movieServ;
+	private static  MovieDTO movieUpdate;
+
+
+	@Test
+	@DisplayName("Update movie all")
+	public void f2() {
+		movieUpdate.setPoster("action 2.22");
+		movieUpdate.setGenres(new String[]{"Accion 2"});
+		movieServ.updateMovie(movieUpdate.get_id(), movieUpdate);
+		System.out.println("---------------------------------");
+		System.out.println("Actulizando la movie con id : " + movieUpdate.get_id());
+		System.out.println("---------------------------------");
+	}
+
 
 	@Test
 	@DisplayName("Find movie by ID...")
-	public void findMovieByID() {
-		MovieDTO movie = movieServ.findMovieByID("5e024cdb4a2f0d350104917c");
+	public void f1() {
+		Optional<MovieDTO> movie = movieServ.findMovieByID("5e1e47b9beec2729cc06cb1e");
 		System.out.println("---------------------------------");
 		System.out.println(movie);
 		System.out.println("---------------------------------");
-		Assertions.assertNotNull(movie);
+		movieUpdate = movie.get();
+		Assertions.assertNotNull(movie.isPresent());
 	}
+
+
 
 
 	//@Test

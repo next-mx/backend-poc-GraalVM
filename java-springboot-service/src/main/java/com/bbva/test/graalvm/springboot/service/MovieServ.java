@@ -4,9 +4,10 @@ import com.bbva.test.graalvm.springboot.dto.MovieDTO;
 import com.bbva.test.graalvm.springboot.dto.movie.ImdbDTO;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface MovieServ {
-	MovieDTO findMovieByID(String movieID);
+	Optional<MovieDTO> findMovieByID(String movieID);
 
 	void newMovie(MovieDTO movie);
 

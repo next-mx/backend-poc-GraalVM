@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -50,8 +51,8 @@ public class MovieCtrl {
 	 */
 	@GetMapping(path = "/movies/{movieId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<MovieDTO> getMovieInfo(@PathVariable(name = "movieId") String movieId) {
-		MovieDTO movie = this.movieServ.findMovieByID(movieId);
-		return new ResponseEntity<>(movie, HttpStatus.OK);
+		Optional<MovieDTO> movie = this.movieServ.findMovieByID(movieId);
+		return new ResponseEntity<>(movie.get(), HttpStatus.OK);
 	}
 
 

@@ -1,7 +1,8 @@
 package com.bbva.test.graalvm.springboot.service.impl;
 
-import com.bbva.test.graalvm.springboot.dto.MovieDTO;
 import com.bbva.test.graalvm.springboot.dao.MovieRepo;
+import com.bbva.test.graalvm.springboot.dto.MovieDTO;
+import com.bbva.test.graalvm.springboot.dao.MovieCustomRepo;
 import com.bbva.test.graalvm.springboot.dto.movie.ImdbDTO;
 import com.bbva.test.graalvm.springboot.service.MovieServ;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,46 +12,49 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Lazy
 @Service
 public class MovieServImpl implements MovieServ {
 
 	@Autowired
+	private MovieCustomRepo movieCustomRepo;
+	@Autowired
 	private MovieRepo movieRepo;
 
 
 	@Transactional(readOnly = true)
 	@Override
-	public MovieDTO findMovieByID(String movieID) {
-		return movieRepo.findMovieByID(movieID);
+	public Optional<MovieDTO> findMovieByID(String movieID) {
+		return movieRepo.findById(movieID);
 	}
 
 	@Override
 	@Transactional
 	public void newMovie(MovieDTO movie) {
-		this.movieRepo.newMovie(movie);
+		this.movieRepo.insert(movie);
 	}
 
 	@Transactional
 	@Override
 	public void updateMovie(String movieID, MovieDTO movie) {
-		this.movieRepo.updateMovie(movieID, movie);
+		MovieDTO movieUpdate = this.movieRepo.save(movie);
 	}
 
 	@Override
 	public void updateIMB(String movieId, ImdbDTO imbDto) {
-		this.movieRepo.updateImdb(movieId, imbDto);
+		this.movieCustomRepo.updateImdb(movieId, imbDto);
 	}
 
 	@Override
 	public void deleteMovie(String movieId) {
-		this.movieRepo.deleteMovie(movieId);
+		this.movieRepo.deleteById(movieId);
 	}
 
 	@Override
 	public void makeBackup() {
-		throw  new UnsupportedOperationException("not implement yet");
+		throw new UnsupportedOperationException("not implement yet");
 
 	}
 

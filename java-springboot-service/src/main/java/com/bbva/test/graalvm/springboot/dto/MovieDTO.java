@@ -4,6 +4,7 @@ import com.bbva.test.graalvm.springboot.dto.movie.ImdbDTO;
 import com.bbva.test.graalvm.springboot.dto.movie.LastUpdateDTO;
 import com.bbva.test.graalvm.springboot.dto.movie.NumberIntDTO;
 import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Arrays;
@@ -11,6 +12,7 @@ import java.util.Arrays;
 @Document(collection = "movies")
 public class MovieDTO {
 	//private ObjectId _id;
+	@Id
 	private String _id;
 	private String title;
 	private NumberIntDTO year;

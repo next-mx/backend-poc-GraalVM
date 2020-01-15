@@ -1,6 +1,6 @@
 package com.bbva.test.graalvm.springboot.dao.impl;
 
-import com.bbva.test.graalvm.springboot.dao.ComentarioRepo;
+import com.bbva.test.graalvm.springboot.dao.ComentarioCustomRepo;
 import com.bbva.test.graalvm.springboot.dto.ComentarioDTO;
 import com.bbva.test.graalvm.springboot.dto.comentario.ConsultaComentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 @Lazy
 @Repository
-public class ComentarioRepoImpl implements ComentarioRepo {
+public class ComentarioCustomRepoImpl implements ComentarioCustomRepo {
 
 	@Autowired
 	private MongoOperations mongoOperations;
