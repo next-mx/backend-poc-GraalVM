@@ -91,17 +91,18 @@
 
 ## Material
 > Las pruebas y mediciones se realizaron en una computadora Mackbook Pro con las siguientes características:
-> * CPU: 
-> * RAM:
-> * HD:
+> * CPU: Intel i5 Dual Core 2.3 GHz
+> * RAM: 16 GB 2133 MHz LPDDR3
+> * HD: 250 GB Flash Storage
 
-> La definición del modelo y datos de prueba se encuentran en la carpeta [resources/db/](https://github.com/beeva/backend-poc-GraalVM/blob/master/resources/db/Collections.md) del repositorio
+> La definición del modelo y datos de prueba se encuentran en la carpeta [resources/db/](https://github.com/beeva/backend-poc-GraalVM/blob/develop/resources/db/Collections.md) del repositorio
 
-> La definición del API REST que expone cada microservicio está definido en la carpeta [resources/api/](https://github.com/beeva/backend-poc-GraalVM/tree/master/resources/api) del repositorio
+> La definición del API REST que expone cada microservicio está definido en la carpeta [resources/api/](https://github.com/beeva/backend-poc-GraalVM/tree/develop/resources/api) del repositorio
 
 
 ## Métodos
 > Para replicar esta PoC es necesario seguir las siguientes instrucciones, la secuencia es importante.
+> 
 > **NOTA**: Las versiones están arriba en la sección **Tecnología** de este documento
 
 #### Instalación
@@ -109,10 +110,12 @@
 * ##### SDKman
 > SDKMAN! es una herramienta para administrar versiones paralelas de multiples Software Development Kits sobre los sistemas operativos más populares basados en linux/unix.
 > Provee una Interface de Línea de Comandos(CLI) y un API para instalar, intercambiar, borrados y listados de candidatos.
+> 
 > [Sigue las instrucciones para instalarlo en https://sdkman.io/install](https://sdkman.io/install)
 
 * ##### GraalVM
 > GraalVM es la nueva máquina virtual que probaremos en esta PoC. 
+> 
 > En una terminal ejecuta los siguientes comandos:
 ```bash
 sdk ls java
@@ -123,6 +126,7 @@ gu install native-image
 
 * ##### Open JDK
 > Open JDK es una versión de código abierto de la JVM de Oracle. 
+> 
 > En una terminal ejecuta los siguientes comandos:
 ```bash
 sdk ls java
@@ -132,26 +136,47 @@ sdk u java 8.0.232.j9-adpt  # Solo usa esta instrucción cuando requieras usar l
 
 * ##### NodeJS
 > NodeJS es un entorno de ejecución para javascript. 
+> 
 > [Descarga la versión node-v10.18.1.pkg en https://nodejs.org/dist/latest-v10.x/](https://nodejs.org/dist/latest-v10.x/), una vez descargado ejecuta el archivo .pkg y sigue las instrucciones en la pantalla que se te abrirá
 
 * ##### Docker
 > Docker es una herramienta que provee un camino para desplegar aplicaciones de forma segura y asilada en un contenedor en el cual se empaquetan todas sus dependencias y librerías. 
+> 
 > [Sigue las instrucciones para instalarlo en https://docs.docker.com/install/](https://docs.docker.com/install/)
 
 
 #### Ejecución
 
 * ##### MongoDB
+> [MongoDB](https://www.mongodb.com) es un sistema de base de datos NoSQL orientado a documentos de código abierto
+> 
+> [Sigue las instrucciones para ejecutarlo en la carpeta resuorces/db](https://github.com/beeva/backend-poc-GraalVM/tree/develop/resources/db)
 
 * ##### Java Micronaut Service
+> [Micronaut](https://micronaut.io) Es un framework moderno para desarrollar microservicios full stack, basado en la JVM
+> diseñado para construir aplicaciones modulares faciles de testear.
+> 
+> [Sigue las instrucciones para ejecutarlo en la carpeta java-micronaut-service](https://github.com/beeva/backend-poc-GraalVM/tree/develop/java-micronaut-service)
 
 * ##### Java Quarkus Service
+> 
+> 
+> [Sigue las instrucciones para ejecutarlo en la carpeta java-quarkus-service](https://github.com/beeva/backend-poc-GraalVM/tree/develop/java-quarkus-service)
 
 * ##### Java Spring-boot Service
+> 
+> 
+> [Sigue las instrucciones para ejecutarlo en la carpeta java-springboot-service](https://github.com/beeva/backend-poc-GraalVM/tree/develop/java-springboot-service)
 
 * ##### JavaScript Node Service
+> 
+> 
+> [Sigue las instrucciones para ejecutarlo en la carpeta javascript-node-service](https://github.com/beeva/backend-poc-GraalVM/tree/develop/javascript-node-service)
 
 * ##### Python Polyglot Service
+> 
+> 
+> [Sigue las instrucciones para ejecutarlo en la carpeta python-polyglot-service](https://github.com/beeva/backend-poc-GraalVM/tree/develop/python-polyglot-service)
 
 
 
