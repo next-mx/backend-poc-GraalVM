@@ -108,13 +108,13 @@
 #### Instalación
 
 * ##### SDKman
-> SDKMAN! es una herramienta para administrar versiones paralelas de multiples Software Development Kits sobre los sistemas operativos más populares basados en linux/unix.
+> [SDKMAN!](https://sdkman.io) es una herramienta para administrar versiones paralelas de multiples Software Development Kits sobre los sistemas operativos más populares basados en linux/unix.
 > Provee una Interface de Línea de Comandos(CLI) y un API para instalar, intercambiar, borrados y listados de candidatos.
 > 
-> [Sigue las instrucciones para instalarlo en https://sdkman.io/install](https://sdkman.io/install)
+> Sigue las instrucciones para instalarlo en [https://sdkman.io/install](https://sdkman.io/install)
 
 * ##### GraalVM
-> GraalVM es la nueva máquina virtual que probaremos en esta PoC. 
+> [GraalVM](https://www.graalvm.org) es la nueva máquina virtual que probaremos en esta PoC. 
 > 
 > En una terminal ejecuta los siguientes comandos:
 ```bash
@@ -125,7 +125,7 @@ gu install native-image
 ```
 
 * ##### Open JDK
-> Open JDK es una versión de código abierto de la JVM de Oracle. 
+> [Open JDK](https://adoptopenjdk.net) es una versión de código abierto de la JVM de Oracle. 
 > 
 > En una terminal ejecuta los siguientes comandos:
 ```bash
@@ -135,14 +135,14 @@ sdk u java 8.0.232.j9-adpt  # Solo usa esta instrucción cuando requieras usar l
 ```
 
 * ##### NodeJS
-> NodeJS es un entorno de ejecución para javascript. 
+> [NodeJS](https://nodejs.org/es/) es un entorno de ejecución para javascript. 
 > 
-> [Descarga la versión node-v10.18.1.pkg en https://nodejs.org/dist/latest-v10.x/](https://nodejs.org/dist/latest-v10.x/), una vez descargado ejecuta el archivo .pkg y sigue las instrucciones en la pantalla que se te abrirá
+> Descarga la versión **node-v10.18.1.pkg** en [https://nodejs.org/dist/latest-v10.x/](https://nodejs.org/dist/latest-v10.x/), una vez descargado ejecuta el archivo .pkg y sigue las instrucciones en la pantalla que se te abrirá
 
 * ##### Docker
-> Docker es una herramienta que provee un camino para desplegar aplicaciones de forma segura y asilada en un contenedor en el cual se empaquetan todas sus dependencias y librerías. 
+> [Docker](https://www.docker.com) es una herramienta que provee un camino para desplegar aplicaciones de forma segura y asilada en un contenedor en el cual se empaquetan todas sus dependencias y librerías. 
 > 
-> [Sigue las instrucciones para instalarlo en https://docs.docker.com/install/](https://docs.docker.com/install/)
+> Sigue las instrucciones para instalarlo en [https://docs.docker.com/install/](https://docs.docker.com/install/)
 
 
 #### Ejecución
@@ -150,33 +150,33 @@ sdk u java 8.0.232.j9-adpt  # Solo usa esta instrucción cuando requieras usar l
 * ##### MongoDB
 > [MongoDB](https://www.mongodb.com) es un sistema de base de datos NoSQL orientado a documentos de código abierto
 > 
-> [Sigue las instrucciones para ejecutarlo en la carpeta resuorces/db](https://github.com/beeva/backend-poc-GraalVM/tree/develop/resources/db)
+> Sigue las instrucciones para ejecutarlo en la carpeta [resuorces/db](https://github.com/beeva/backend-poc-GraalVM/tree/develop/resources/db)
 
 * ##### Java Micronaut Service
 > [Micronaut](https://micronaut.io) Es un framework moderno para desarrollar microservicios full stack, basado en la JVM
 > diseñado para construir aplicaciones modulares faciles de testear.
 > 
-> [Sigue las instrucciones para ejecutarlo en la carpeta java-micronaut-service](https://github.com/beeva/backend-poc-GraalVM/tree/develop/java-micronaut-service)
+> Sigue las instrucciones para ejecutarlo en la carpeta [java-micronaut-service](https://github.com/beeva/backend-poc-GraalVM/tree/develop/java-micronaut-service)
 
 * ##### Java Quarkus Service
+> [Quarkus](https://quarkus.io) es un framework nativo de Java para Kubernetes diseñado para GraalVM y JVM, creado a partir de las mejores librerías y estándares Java del mercado
 > 
-> 
-> [Sigue las instrucciones para ejecutarlo en la carpeta java-quarkus-service](https://github.com/beeva/backend-poc-GraalVM/tree/develop/java-quarkus-service)
+> Sigue las instrucciones para ejecutarlo en la carpeta [java-quarkus-service](https://github.com/beeva/backend-poc-GraalVM/tree/develop/java-quarkus-service)
 
 * ##### Java Spring-boot Service
 > 
 > 
-> [Sigue las instrucciones para ejecutarlo en la carpeta java-springboot-service](https://github.com/beeva/backend-poc-GraalVM/tree/develop/java-springboot-service)
+> Sigue las instrucciones para ejecutarlo en la carpeta [java-springboot-service](https://github.com/beeva/backend-poc-GraalVM/tree/develop/java-springboot-service)
 
 * ##### JavaScript Node Service
 > 
 > 
-> [Sigue las instrucciones para ejecutarlo en la carpeta javascript-node-service](https://github.com/beeva/backend-poc-GraalVM/tree/develop/javascript-node-service)
+> Sigue las instrucciones para ejecutarlo en la carpeta [javascript-node-service](https://github.com/beeva/backend-poc-GraalVM/tree/develop/javascript-node-service)
 
 * ##### Python Polyglot Service
 > 
 > 
-> [Sigue las instrucciones para ejecutarlo en la carpeta python-polyglot-service](https://github.com/beeva/backend-poc-GraalVM/tree/develop/python-polyglot-service)
+> Sigue las instrucciones para ejecutarlo en la carpeta [python-polyglot-service](https://github.com/beeva/backend-poc-GraalVM/tree/develop/python-polyglot-service)
 
 
 
