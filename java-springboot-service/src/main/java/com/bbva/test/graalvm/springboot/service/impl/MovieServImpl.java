@@ -1,8 +1,8 @@
 package com.bbva.test.graalvm.springboot.service.impl;
 
+import com.bbva.test.graalvm.springboot.dao.MovieCustomRepo;
 import com.bbva.test.graalvm.springboot.dao.MovieRepo;
 import com.bbva.test.graalvm.springboot.dto.MovieDTO;
-import com.bbva.test.graalvm.springboot.dao.MovieCustomRepo;
 import com.bbva.test.graalvm.springboot.dto.movie.ImdbDTO;
 import com.bbva.test.graalvm.springboot.service.MovieServ;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +39,7 @@ public class MovieServImpl implements MovieServ {
 	@Transactional
 	@Override
 	public void updateMovie(String movieID, MovieDTO movie) {
-		MovieDTO movieUpdate = this.movieRepo.save(movie);
+		this.movieRepo.save(movie);
 	}
 
 	@Override
@@ -55,7 +55,6 @@ public class MovieServImpl implements MovieServ {
 	@Override
 	public void makeBackup() {
 		throw new UnsupportedOperationException("not implement yet");
-
 	}
 
 	@Override

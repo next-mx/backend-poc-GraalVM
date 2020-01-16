@@ -1,8 +1,10 @@
 package com.bbva.test.graalvm.springboot.dto;
 
 import com.bbva.test.graalvm.springboot.dto.movie.LastUpdateDTO;
+import org.springframework.data.annotation.Id;
 
 public class ComentarioDTO {
+	@Id
 	private String _id;
 	private String name;
 	private String email;

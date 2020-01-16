@@ -1,10 +1,15 @@
 package com.bbva.test.graalvm.springboot.dao.impl;
 
 import com.bbva.test.graalvm.springboot.dao.MovieCustomRepo;
+import com.bbva.test.graalvm.springboot.dto.MovieDTO;
 import com.bbva.test.graalvm.springboot.dto.movie.ImdbDTO;
+import com.mongodb.client.result.UpdateResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 @Lazy
@@ -15,7 +20,12 @@ public class MovieCustomCustomRepoImpl implements MovieCustomRepo {
 
 	@Override
 	public void updateImdb(String movieId, ImdbDTO imbDto) {
-		throw new UnsupportedOperationException("Not implement yet 2");
+		Query select = Query.query(Criteria.where("_id").is(movieId));
+		Update update = new Update();
+		update.set("imdb.rating.numberDouble", imbDto.getRating().getNumberDouble());
+		update.set("imdb.votes.numberInt", imbDto.getVotes().getNumberInt());
+		update.set("imdb.id.numberInt", imbDto.getId().getNumberInt());
+		MovieDTO updateObject = mongoOperations.findAndModify(select, update, MovieDTO.class);
 	}
 
 }

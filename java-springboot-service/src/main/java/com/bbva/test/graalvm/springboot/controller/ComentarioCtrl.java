@@ -3,7 +3,6 @@ package com.bbva.test.graalvm.springboot.controller;
 
 import com.bbva.test.graalvm.springboot.dto.ComentarioDTO;
 import com.bbva.test.graalvm.springboot.dto.RespJSON;
-import com.bbva.test.graalvm.springboot.dto.comentario.ConsultaComentDTO;
 import com.bbva.test.graalvm.springboot.dto.comentario.TextoDTO;
 import com.bbva.test.graalvm.springboot.service.ComentarioServ;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,10 +41,10 @@ public class ComentarioCtrl {
 	 * recuperar comentario
 	 */
 	@GetMapping(path = "/movies/{movieId}/comments/{commentId}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ConsultaComentDTO> getComment(@PathVariable(name = "movieId") String movieId,
+	public ResponseEntity<ComentarioDTO> getComment(@PathVariable(name = "movieId") String movieId,
 														@PathVariable(name = "commentId") String commentId) {
 
-		ConsultaComentDTO cm = this.comentarioServ.findCommentByMovIdCommId(movieId, commentId);
+		ComentarioDTO cm = this.comentarioServ.findCommentByMovIdCommId(movieId, commentId);
 		return new ResponseEntity<>(cm, HttpStatus.OK);
 	}
 

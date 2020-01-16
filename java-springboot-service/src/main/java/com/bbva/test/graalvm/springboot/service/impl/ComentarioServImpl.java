@@ -3,15 +3,16 @@ package com.bbva.test.graalvm.springboot.service.impl;
 import com.bbva.test.graalvm.springboot.dao.ComentarioCustomRepo;
 import com.bbva.test.graalvm.springboot.dao.ComentarioRepo;
 import com.bbva.test.graalvm.springboot.dto.ComentarioDTO;
-import com.bbva.test.graalvm.springboot.dto.comentario.ConsultaComentDTO;
 import com.bbva.test.graalvm.springboot.service.ComentarioServ;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Lazy
 @Service
-public class ComentarioSerImpl implements ComentarioServ {
+public class ComentarioServImpl implements ComentarioServ {
 
 	@Autowired
 	private ComentarioCustomRepo comentarioCustomRepo;
@@ -25,15 +26,16 @@ public class ComentarioSerImpl implements ComentarioServ {
 	}
 
 	@Override
-	public ConsultaComentDTO findCommentByMovIdCommId(String movieId, String commentId) {
-		return this.comentarioCustomRepo.findComment(movieId, commentId);
+	public ComentarioDTO findCommentByMovIdCommId(String movieId, String commentId) {
+		Optional<ComentarioDTO> commentOp = this.comentarioRepo.findById(commentId);
+		return commentOp.isPresent() ? commentOp.get() : new ComentarioDTO();
+		//return this.comentarioCustomRepo.findCommentByMovIdCommId(movieId, commentId);
 	}
 
 	@Override
 	public void modifyComment(String movieId, ComentarioDTO comentario) {
 		comentario.set_id(movieId);
 		this.comentarioRepo.save(comentario);
-		//this.comentarioCustomRepo.modifyComment(movieId, comentario);
 	}
 
 	@Override
@@ -43,7 +45,7 @@ public class ComentarioSerImpl implements ComentarioServ {
 
 	@Override
 	public void deleteComment(String movieId, String comentarioId) {
-		//this.comentarioRepo.deleteById(movieId);
-		this.comentarioCustomRepo.deleteComment(movieId, comentarioId);
+		this.comentarioRepo.deleteById(comentarioId);
+		//this.comentarioCustomRepo.deleteComment(movieId, comentarioId);
 	}
 }

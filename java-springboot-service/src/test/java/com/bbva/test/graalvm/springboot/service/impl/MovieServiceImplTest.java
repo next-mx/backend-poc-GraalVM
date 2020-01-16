@@ -22,7 +22,8 @@ import java.util.Optional;
 public class MovieServiceImplTest {
 	@Autowired
 	private MovieServ movieServ;
-	private static  MovieDTO movieUpdate;
+	private static MovieDTO movieUpdate;
+	private static final String ID_TEMPORAL = "5e1e47b9beec2729cc06cb1e";
 
 
 	@Test
@@ -40,7 +41,7 @@ public class MovieServiceImplTest {
 	@Test
 	@DisplayName("Find movie by ID...")
 	public void f1() {
-		Optional<MovieDTO> movie = movieServ.findMovieByID("5e1e47b9beec2729cc06cb1e");
+		Optional<MovieDTO> movie = movieServ.findMovieByID(ID_TEMPORAL);
 		System.out.println("---------------------------------");
 		System.out.println(movie);
 		System.out.println("---------------------------------");
@@ -49,6 +50,11 @@ public class MovieServiceImplTest {
 	}
 
 
+	@Test
+	public void updateImb() {
+		ImdbDTO imbdb = new ImdbDTO(new NumberDoubleDTO("5.2"), new NumberIntDTO("1000"), new NumberIntDTO("2"));
+		this.movieServ.updateIMB(ID_TEMPORAL,imbdb);
+	}
 
 
 	//@Test
