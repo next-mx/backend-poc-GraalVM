@@ -164,17 +164,17 @@ sdk u java 8.0.232.j9-adpt  # Solo usa esta instrucción cuando requieras usar l
 > Sigue las instrucciones para ejecutarlo en la carpeta [java-quarkus-service](https://github.com/beeva/backend-poc-GraalVM/tree/develop/java-quarkus-service)
 
 * ##### Java Spring-boot Service
-> 
-> 
+> [Spring-boot](https://spring.io/projects/spring-boot) es un proyecto de **Spring Framework** que facilita la configuración y desarrollo de aplicaciones
+>
 > Sigue las instrucciones para ejecutarlo en la carpeta [java-springboot-service](https://github.com/beeva/backend-poc-GraalVM/tree/develop/java-springboot-service)
 
 * ##### JavaScript Node Service
-> 
+> [NodeJS](https://nodejs.org/es/) es un entorno de ejecución para javascript. 
 > 
 > Sigue las instrucciones para ejecutarlo en la carpeta [javascript-node-service](https://github.com/beeva/backend-poc-GraalVM/tree/develop/javascript-node-service)
 
 * ##### Python Polyglot Service
-> 
+> [Python](https://www.python.org/) es un lenguaje de programación interpretado, multiproposito y multiparadigma ya que soporta orientación a objetos, imperativa y funcional
 > 
 > Sigue las instrucciones para ejecutarlo en la carpeta [python-polyglot-service](https://github.com/beeva/backend-poc-GraalVM/tree/develop/python-polyglot-service)
 
