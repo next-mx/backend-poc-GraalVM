@@ -87,20 +87,20 @@
 
 
 ### Estado del arte
-> GraalVM es distribuido como 
+> GraalVM es distribuido como versiones:
 >- Enterprise Edition(Oracle Java)
 >- Community Edition(OpenJDK)
 >
-> para los sistemas operativos
+> para plataformas x86 64 bits con sistemas operativos:
 >- Linux
 >- macOS
 >- Windows
 >
-> El 09-05-2019 fue liberada la versión 19.0.0 como primer versión productiva soportando Java 8 y
-> fue hasta la versión 19.3.0 que añadieron soporte para Java 11.
+> El 09-05-2019 fue liberada la versión 19.0.0 como primer versión productiva con soporte para Java 8 y
+> fue hasta la versión 19.3.0 que añadieron compatibilidad con Java 11.
 >
-> En el útlimo año ha tomado mucha relevancia alcanzando así bastante popularidad, varios artículos se han escrito
-> en diferentes blogs y se ha presentado en los útlimos eventos que tienen que ver con desarrollo de software tales
+> En el útlimo año se vuelto bastante popular, varios artículos se han escrito en diferentes blogs y 
+> se han hecho presentaciones en los útlimos pequeñosy grandes eventos que tienen que ver con desarrollo de software tales
 > como el Oracle Code One.
 >
 > Oracle ha impulsado mucho esta tecnología tanto que ha creado el [Intership Program](https://www.graalvm.org/community/internship/)
