@@ -9,10 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.List;
@@ -44,13 +52,28 @@ public class BackupTask {
 		obtainPath();
 		List<MovieDTO> allMovies = this.movieRepo.findAll();
 		int indice = 0;
-		File movieFileBackup = new File(this.nameFile);
-		for (MovieDTO movie : allMovies) {
-			try (PrintWriter pw = new PrintWriter(movieFileBackup)) {
-				pw.println(obtainCadena(movie, indice, allMovies.size()));
-			} catch (FileNotFoundException e) {
+
+		//PrintWriter printWriter = new PrintWriter(new FileWriter(file, true));
+		//printWriter.println(texto);
+		//printWriter.close();
+
+		try {
+			//try (PrintWriter printWriter = new PrintWriter(new FileWriter(this.nameFile, true), true)) {
+
+			//BufferedWriter bw = new BufferedWriter(fileWriter);
+			//FileWriter fileWriter = new FileWriter(this.nameFile);
+			Writer fileWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(this.nameFile)));
+			for (MovieDTO movie : allMovies) {
+				String cad = obtainCadena(movie, indice, allMovies.size());
+				System.out.println(cad);
+				fileWriter.write(cad);
+				fileWriter.write("\n");
+				indice++;
 			}
-			indice++;
+			fileWriter.flush();
+			fileWriter.close();
+		} catch (Exception e) {
+
 		}
 	}
 

@@ -103,7 +103,7 @@ public class MovieCtrl {
 	 * hacer backup
 	 */
 	@PostMapping(path = "/movies/backup", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<RespJSON<String>> backupDB(@RequestParam(name = "task") String task) {
+	public ResponseEntity<RespJSON<String>> backupDB() {
 		this.movieServ.makeBackup();
 		RespJSON<String> resp = new RespJSON<>();
 		resp.setMessage("Respaldo agendado exitosamente");

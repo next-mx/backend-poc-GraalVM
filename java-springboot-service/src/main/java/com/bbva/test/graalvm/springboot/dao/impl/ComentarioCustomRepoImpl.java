@@ -10,6 +10,8 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Lazy
 @Repository
 public class ComentarioCustomRepoImpl implements ComentarioCustomRepo {
@@ -31,7 +33,9 @@ public class ComentarioCustomRepoImpl implements ComentarioCustomRepo {
 
 	@Override
 	public int totalCommnetByMovie(String idMovie) {
-		return 3;
+		Query selec = Query.query(Criteria.where("movie_id").is(idMovie));
+		int tam = this.mongoOperations.find(selec, ComentarioDTO.class).size();
+		return tam == 0 ? 1 : tam;
 	}
 
 }
