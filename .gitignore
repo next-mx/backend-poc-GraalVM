@@ -24,3 +24,7 @@ venv/
 out/
 Thumbs.db
 
+
+# =========== OTHERS ============ #
+poc-graalvm-micronaut
+

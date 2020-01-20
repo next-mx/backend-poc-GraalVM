@@ -140,7 +140,6 @@
 ```bash
 sdk ls java
 sdk i java 19.2.1-grl
-sdk u java 19.2.1-grl
 gu install native-image
 ```
 
@@ -151,7 +150,6 @@ gu install native-image
 ```bash
 sdk ls java
 sdk i java 8.0.232.j9-adpt
-sdk u java 8.0.232.j9-adpt  # Solo usa esta instrucción cuando requieras usar la JVM normal
 ```
 
 * ##### NodeJS

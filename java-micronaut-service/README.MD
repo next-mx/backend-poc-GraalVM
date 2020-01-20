@@ -1,18 +1,35 @@
-# Resultados
-| | Micronaut | Micronaut imagen en docker | Micronaut imagen en MacOs | 
-|------------|:---------------:|:-----:|:-----:| 
-| Tiempo de compilación | 5s | 3m 27s | 2m 20s | 
-| Tamaño del componente generado |18.6 MB |169 MB |61 MB | 
-| Consumo de RAM en tiempo de compilación |100 MB |4.3 GB |5.8 GB | 
-| Consumo de RAM en tiempo de ejecución | 20 MB|160MB |400 MB | 
-| Consumo de CPU en tiempo de compilación | 0.63%|3.72% |50% | 
-| Consumo de CPU en tiempo de ejecución | 0.50%| 3%|3% | 
-| Tiempo de respuesta | 12ms |10ms |6ms | | Tiempo de startup |2s |121ms |180ms |
+# Java Micronaut Service
 
-## Estabilidad de la aplicación 
-En las tres pruebas la aplicación se comporto estable y muy rápida.
+## Instrucciones
+```bash
+cd java-micronaut-service  
+```
 
-## Compatibilidad con librerías y frameworks 
-Micronaut ya cuenta con mecanismos que resuelven la mayoría de los paradigmas de programación por lo que si buscas algun paradigma es muy probable que ya este resuelto.
 
-La desventaja de las imagenes nativas es que si la librería no tiene aun compatibilidad con micronaut se tiene que realizar una configuración espcial para las clases que usan reflección.
+#### OpenJDK
+```bash
+sdk u java 8.0.232.j9-adpt
+./gradlew clean assemble          # compilación
+./gradlew clean run               # ejecución
+```
+
+#### GraalVM
+```bash
+sdk u java 19.2.1-grl
+./gradlew clean assemble          # compilación
+./gradlew clean run               # ejecución
+```
+
+#### Imagen Nativa
+```bash
+sdk u java 19.2.1-grl
+./gradlew clean assemble          # compilación
+native-image --no-server -cp build/libs/java-micronaut-service-0.1-all.jar  # generación de imagen nativa
+./poc-graalvm-micronaut           # ejecución
+```
+
+#### Imagen Nativa con Docker
+```bash
+docker build . -t poc-graalvm-micronaut
+docker run -p 8080:8080 poc-graalvm-micronaut
+```
