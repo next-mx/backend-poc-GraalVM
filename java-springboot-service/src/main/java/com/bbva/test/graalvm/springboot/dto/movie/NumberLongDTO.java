@@ -7,6 +7,10 @@ import java.util.Objects;
 public class NumberLongDTO {
 	private String numberLong;
 
+	public NumberLongDTO() {
+
+	}
+
 	public NumberLongDTO(String numberLong) {
 		this.numberLong = numberLong;
 	}

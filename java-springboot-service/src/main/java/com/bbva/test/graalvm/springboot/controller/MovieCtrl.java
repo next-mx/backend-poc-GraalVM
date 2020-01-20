@@ -52,7 +52,7 @@ public class MovieCtrl {
 	@GetMapping(path = "/movies/{movieId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<MovieDTO> getMovieInfo(@PathVariable(name = "movieId") String movieId) {
 		Optional<MovieDTO> movie = this.movieServ.findMovieByID(movieId);
-		return new ResponseEntity<>(movie.get(), HttpStatus.OK);
+		return new ResponseEntity<>(movie.isPresent() ? movie.get() : new MovieDTO(), HttpStatus.OK);
 	}
 
 

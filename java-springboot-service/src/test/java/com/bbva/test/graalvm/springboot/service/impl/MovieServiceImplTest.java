@@ -54,6 +54,7 @@ public class MovieServiceImplTest {
 	public void updateImb() {
 		ImdbDTO imbdb = new ImdbDTO(new NumberDoubleDTO("5.2"), new NumberIntDTO("1000"), new NumberIntDTO("2"));
 		this.movieServ.updateIMB(ID_TEMPORAL,imbdb);
+		System.out.println(getClass().getResource("/"));
 	}
 
 

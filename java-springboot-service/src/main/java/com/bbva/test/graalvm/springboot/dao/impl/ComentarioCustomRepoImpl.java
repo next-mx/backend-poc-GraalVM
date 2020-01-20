@@ -22,7 +22,16 @@ public class ComentarioCustomRepoImpl implements ComentarioCustomRepo {
 		Query select = Query.query(Criteria.where("_id").is(commentId));
 		Update update = new Update();
 		update.set("text", text);
-		ComentarioDTO updateObject = this.mongoOperations.findAndModify(select, update, ComentarioDTO.class);
+		this.mongoOperations.findAndModify(select, update, ComentarioDTO.class);
+		/**
+		 * if you want to get tha new object
+		 * ComentarioDTO updateObject = this.mongoOperations.findAndModify(select, update, ComentarioDTO.class);
+		 */
+	}
+
+	@Override
+	public int totalCommnetByMovie(String idMovie) {
+		return 3;
 	}
 
 }

@@ -5,6 +5,10 @@ public class ImdbDTO {
 	private NumberIntDTO votes;
 	private NumberIntDTO id;
 
+
+	public ImdbDTO() {
+	}
+
 	public ImdbDTO(NumberDoubleDTO rating, NumberIntDTO votes, NumberIntDTO id) {
 		this.rating = rating;
 		this.votes = votes;

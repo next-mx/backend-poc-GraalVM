@@ -1,5 +1,6 @@
 package com.bbva.test.graalvm.springboot.service.impl;
 
+import com.bbva.test.graalvm.springboot.component.BackupTask;
 import com.bbva.test.graalvm.springboot.dao.MovieCustomRepo;
 import com.bbva.test.graalvm.springboot.dao.MovieRepo;
 import com.bbva.test.graalvm.springboot.dto.MovieDTO;
@@ -22,6 +23,8 @@ public class MovieServImpl implements MovieServ {
 	private MovieCustomRepo movieCustomRepo;
 	@Autowired
 	private MovieRepo movieRepo;
+	@Autowired
+	private BackupTask backupTask;
 
 
 	@Transactional(readOnly = true)
@@ -54,7 +57,7 @@ public class MovieServImpl implements MovieServ {
 
 	@Override
 	public void makeBackup() {
-		throw new UnsupportedOperationException("not implement yet");
+		backupTask.makeBackup(true);
 	}
 
 	@Override
