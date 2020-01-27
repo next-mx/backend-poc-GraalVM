@@ -7,11 +7,11 @@
 #
 # Then, build the image with:
 #
-# docker build -f src/main/docker/Dockerfile.native -t quarkus/rest-json .
+# docker build -f src/main/docker/Dockerfile.native -t java-quarkus-service:1.0.0 .
 #
 # Then run the container using:
 #
-# docker run -i --rm -p 8080:8080 quarkus/rest-json
+# docker run -i --rm -p 8080:8080 java-quarkus-service:1.0.0
 #
 ###
 FROM registry.access.redhat.com/ubi8/ubi-minimal
