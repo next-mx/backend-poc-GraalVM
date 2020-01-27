@@ -6,14 +6,22 @@ import com.bbva.test.graalvm.springboot.dao.MovieRepo;
 import com.bbva.test.graalvm.springboot.dto.MovieDTO;
 import com.bbva.test.graalvm.springboot.dto.movie.ImdbDTO;
 import com.bbva.test.graalvm.springboot.service.MovieServ;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Lazy
 @Service
@@ -25,6 +33,7 @@ public class MovieServImpl implements MovieServ {
 	private MovieRepo movieRepo;
 	@Autowired
 	private BackupTask backupTask;
+	private String nameFile;
 
 
 	@Transactional(readOnly = true)
@@ -62,6 +71,28 @@ public class MovieServImpl implements MovieServ {
 
 	@Override
 	public List<MovieDTO> getBackupFrom() {
-		return Collections.emptyList();
+		List<MovieDTO> lista = new ArrayList<>();
+		obtainPath();
+		ObjectMapper objectMapper = new ObjectMapper();
+		try (Stream<String> stream = Files.lines(Paths.get(this.nameFile))) {
+			stream.forEach(item -> {
+				try {
+					MovieDTO movie = objectMapper.readValue(item.substring(item.indexOf(',') + 1, item.length()), MovieDTO.class);
+					lista.add(movie);
+				} catch (JsonProcessingException e) {
+					e.printStackTrace();
+				}
+			});
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return lista;
+	}
+
+	private void obtainPath() {
+		if (StringUtils.isBlank(this.nameFile)) {
+			String aqui = new File(".").getAbsolutePath();
+			this.nameFile = aqui.substring(0, aqui.lastIndexOf('.')).concat("movies_catalog.csv");
+		}
 	}
 }

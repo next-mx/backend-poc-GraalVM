@@ -3,16 +3,17 @@ package com.bbva.test.graalvm.springboot.component;
 import com.bbva.test.graalvm.springboot.dao.ComentarioCustomRepo;
 import com.bbva.test.graalvm.springboot.dao.MovieRepo;
 import com.bbva.test.graalvm.springboot.dto.MovieDTO;
-import com.bbva.test.graalvm.springboot.service.MovieServ;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.List;
@@ -31,8 +32,8 @@ public class BackupTask {
 	private void makeBackup() {
 		try {
 			if (ban) {
-				makeBackupToFile();
 				ban = false;
+				makeBackupToFile();
 			}
 		} catch (InterruptedException e) {
 			ban = false;
@@ -44,13 +45,19 @@ public class BackupTask {
 		obtainPath();
 		List<MovieDTO> allMovies = this.movieRepo.findAll();
 		int indice = 0;
-		File movieFileBackup = new File(this.nameFile);
-		for (MovieDTO movie : allMovies) {
-			try (PrintWriter pw = new PrintWriter(movieFileBackup)) {
-				pw.println(obtainCadena(movie, indice, allMovies.size()));
-			} catch (FileNotFoundException e) {
+		try {
+			Writer fileWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(this.nameFile)));
+			for (MovieDTO movie : allMovies) {
+				String cad = obtainCadena(movie, indice, allMovies.size());
+				System.out.println(cad);
+				fileWriter.write(cad);
+				fileWriter.write("\n");
+				indice++;
 			}
-			indice++;
+			fileWriter.flush();
+			fileWriter.close();
+		} catch (Exception e) {
+
 		}
 	}
 
