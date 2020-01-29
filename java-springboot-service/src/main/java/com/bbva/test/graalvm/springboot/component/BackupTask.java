@@ -35,30 +35,25 @@ public class BackupTask {
 				ban = false;
 				makeBackupToFile();
 			}
-		} catch (InterruptedException e) {
+		} catch (IOException | InterruptedException e) {
 			ban = false;
 		}
 	}
 
-	private void makeBackupToFile() throws InterruptedException {
+	private void makeBackupToFile() throws InterruptedException, IOException {
 		Thread.sleep(5000);
 		obtainPath();
 		List<MovieDTO> allMovies = this.movieRepo.findAll();
 		int indice = 0;
-		try {
-			Writer fileWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(this.nameFile)));
-			for (MovieDTO movie : allMovies) {
-				String cad = obtainCadena(movie, indice, allMovies.size());
-				System.out.println(cad);
-				fileWriter.write(cad);
-				fileWriter.write("\n");
-				indice++;
-			}
-			fileWriter.flush();
-			fileWriter.close();
-		} catch (Exception e) {
-
+		Writer fileWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(this.nameFile)));
+		for (MovieDTO movie : allMovies) {
+			String cad = obtainCadena(movie, indice, allMovies.size());
+			fileWriter.write(cad);
+			fileWriter.write("\n");
+			indice++;
 		}
+		fileWriter.flush();
+		fileWriter.close();
 	}
 
 	private String obtainCadena(MovieDTO movie, int indice, int totalMovies) {

@@ -25,10 +25,6 @@ public class MovieCustomCustomRepoImpl implements MovieCustomRepo {
 		update.set("imdb.votes.numberInt", imbDto.getVotes().getNumberInt());
 		update.set("imdb.id.numberInt", imbDto.getId().getNumberInt());
 		mongoOperations.findAndModify(select, update, MovieDTO.class);
-		/**
-		 if you want to get the new object modify
-		 MovieDTO updateObject = mongoOperations.findAndModify(select, update, MovieDTO.class);
-		 */
 	}
 
 }

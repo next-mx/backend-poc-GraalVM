@@ -80,11 +80,9 @@ public class MovieServImpl implements MovieServ {
 					MovieDTO movie = objectMapper.readValue(item.substring(item.indexOf(',') + 1, item.length()), MovieDTO.class);
 					lista.add(movie);
 				} catch (JsonProcessingException e) {
-					e.printStackTrace();
 				}
 			});
 		} catch (IOException e) {
-			e.printStackTrace();
 		}
 		return lista;
 	}
