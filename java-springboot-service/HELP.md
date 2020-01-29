@@ -21,15 +21,8 @@ java -jar build/libs/java-springboot-service-1.0.0.jar  #./gradlew clean bootRun
 ```
 
 #### Imagen Nativa
-```bash
-sdk u java 19.2.1-grl
-./gradlew clean assemble          
-native-image --no-server -cp build/libs/java-micronaut-service-0.1-all.jar  # generación de imagen nativa
-./poc-graalvm-micronaut           
-```
+No soportado, pero ya existe un [proyecto experimental para implementar esta funcionalidad](https://github.com/spring-projects-experimental/spring-graal-native).         
+
 
 #### Imagen Nativa con Docker
-```bash
-docker build . -t java-springboot-service:1.0.0
-docker run -p 8080:8080 java-springboot-service:1.0.0
-```
+No soportado, pero ya existe un [proyecto experimental para implementar esta funcionalidad](https://github.com/spring-projects-experimental/spring-graal-native).         
