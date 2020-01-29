@@ -29,9 +29,6 @@ public class ComentarioServImpl implements ComentarioServ {
 	public ComentarioDTO findCommentByMovIdCommId(String movieId, String commentId) {
 		Optional<ComentarioDTO> commentOp = this.comentarioRepo.findById(commentId);
 		return commentOp.isPresent() ? commentOp.get() : new ComentarioDTO();
-		/**
-		 * return this.comentarioCustomRepo.findCommentByMovIdCommId(movieId, commentId);
-		 */
 	}
 
 	@Override
@@ -48,8 +45,5 @@ public class ComentarioServImpl implements ComentarioServ {
 	@Override
 	public void deleteComment(String movieId, String comentarioId) {
 		this.comentarioRepo.deleteById(comentarioId);
-		/**
-		 * this.comentarioCustomRepo.deleteComment(movieId, comentarioId);
-		 * */
 	}
 }

@@ -57,10 +57,10 @@ public class BackupTask {
 	}
 
 	private String obtainCadena(MovieDTO movie, int indice, int totalMovies) {
-		ObjectMapper Obj = new ObjectMapper();
+		ObjectMapper objectMapper = new ObjectMapper();
 		String json = "" + getobjectIdFile(indice, this.comentarioCustomRepo.totalCommnetByMovie(movie.get_id()), totalMovies);
 		try {
-			json += ",".concat(Obj.writeValueAsString(movie));
+			json += ",".concat(objectMapper.writeValueAsString(movie));
 		} catch (IOException e) {
 
 		}

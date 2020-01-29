@@ -10,8 +10,6 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Lazy
 @Repository
 public class ComentarioCustomRepoImpl implements ComentarioCustomRepo {
@@ -25,10 +23,6 @@ public class ComentarioCustomRepoImpl implements ComentarioCustomRepo {
 		Update update = new Update();
 		update.set("text", text);
 		this.mongoOperations.findAndModify(select, update, ComentarioDTO.class);
-		/**
-		 * if you want to get tha new object
-		 * ComentarioDTO updateObject = this.mongoOperations.findAndModify(select, update, ComentarioDTO.class);
-		 */
 	}
 
 	@Override
