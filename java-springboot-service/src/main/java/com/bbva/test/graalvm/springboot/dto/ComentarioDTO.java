@@ -2,7 +2,9 @@ package com.bbva.test.graalvm.springboot.dto;
 
 import com.bbva.test.graalvm.springboot.dto.movie.LastUpdateDTO;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document(collection = "comments")
 public class ComentarioDTO {
 	@Id
 	private String _id;
