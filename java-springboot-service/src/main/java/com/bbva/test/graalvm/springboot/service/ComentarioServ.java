@@ -7,7 +7,7 @@ public interface ComentarioServ {
 
 	ComentarioDTO findCommentByMovIdCommId(String movieId, String commentId);
 
-	void modifyComment(String movieId, ComentarioDTO comentario);
+	void modifyComment(String commentID, ComentarioDTO comentario);
 
 	void editTextComment(String movieId, String commentId, String text);
 

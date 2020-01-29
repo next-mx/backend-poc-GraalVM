@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
 @RequestMapping(path = "/pocgraalvm/api/v1")
 public class ComentarioCtrl {
 
@@ -42,7 +44,7 @@ public class ComentarioCtrl {
 	 */
 	@GetMapping(path = "/movies/{movieId}/comments/{commentId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ComentarioDTO> getComment(@PathVariable(name = "movieId") String movieId,
-														@PathVariable(name = "commentId") String commentId) {
+													@PathVariable(name = "commentId") String commentId) {
 
 		ComentarioDTO cm = this.comentarioServ.findCommentByMovIdCommId(movieId, commentId);
 		return new ResponseEntity<>(cm, HttpStatus.OK);
@@ -53,8 +55,10 @@ public class ComentarioCtrl {
 	 */
 	@PutMapping(path = "/movies/{movieId}/comments/{commentId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<RespJSON<String>> modificarComentario(@PathVariable(name = "movieId") String movieId,
+																@PathVariable(name = "commentId") String commentId,
 																@RequestBody ComentarioDTO comentario) {
-		this.comentarioServ.modifyComment(movieId, comentario);
+		comentario.setMovie_id(movieId);
+		this.comentarioServ.modifyComment(commentId, comentario);
 		RespJSON<String> resp = new RespJSON<>();
 		resp.setMessage("Comentario modificado exitosamente");
 		return new ResponseEntity<>(resp, HttpStatus.OK);

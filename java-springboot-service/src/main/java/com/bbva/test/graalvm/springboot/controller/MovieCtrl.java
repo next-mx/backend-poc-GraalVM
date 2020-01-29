@@ -66,7 +66,7 @@ public class MovieCtrl {
 	public ResponseEntity<RespJSON<String>> modifiMovie(@PathVariable(name = "movieId") String movieId, @RequestBody MovieDTO movie) {
 		this.movieServ.updateMovie(movieId, movie);
 		RespJSON<String> resp = new RespJSON<>();
-		resp.setMessage("Pelicula agregada exitosamente");
+		resp.setMessage("Pelicula modificada exitosamente");
 		return new ResponseEntity<>(resp, HttpStatus.OK);
 	}
 

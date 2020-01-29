@@ -35,8 +35,8 @@ public class ComentarioServImpl implements ComentarioServ {
 	}
 
 	@Override
-	public void modifyComment(String movieId, ComentarioDTO comentario) {
-		comentario.set_id(movieId);
+	public void modifyComment(String commentID, ComentarioDTO comentario) {
+		comentario.set_id(commentID);
 		this.comentarioRepo.save(comentario);
 	}
 
