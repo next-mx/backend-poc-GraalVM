@@ -1,21 +1,28 @@
-# Getting Started
+# Java Spring-boot Service
 
-### Reference Documentation
-For further reference, please consider the following sections:
+## Instrucciones
+```bash
+cd java-springboot-service  
+```
 
-* [Official Gradle documentation](https://docs.gradle.org)
-* [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.2.2.RELEASE/gradle-plugin/reference/html/)
-* [Spring Web](https://docs.spring.io/spring-boot/docs/2.2.2.RELEASE/reference/htmlsingle/#boot-features-developing-web-applications)
 
-### Guides
-The following guides illustrate how to use some features concretely:
+#### OpenJDK
+```bash
+sdk u java 8.0.242.hs-adpt
+./gradlew clean assemble         
+java -jar build/libs/java-springboot-service-1.0.0.jar  #./gradlew clean bootRun 
+```
 
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/bookmarks/)
+#### GraalVM
+```bash
+sdk u java 19.2.1-grl
+./gradlew clean assemble 
+java -jar build/libs/java-springboot-service-1.0.0.jar  #./gradlew clean bootRun 
+```
 
-### Additional Links
-These additional references should also help you:
+#### Imagen Nativa
+No soportado, pero ya existe un [proyecto experimental para implementar esta funcionalidad](https://github.com/spring-projects-experimental/spring-graal-native).         
 
-* [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)
 
+#### Imagen Nativa con Docker
+No soportado, pero ya existe un [proyecto experimental para implementar esta funcionalidad](https://github.com/spring-projects-experimental/spring-graal-native).         
