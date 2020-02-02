@@ -3,7 +3,9 @@ const BodyParser = require("body-parser");
 const MongoClient = require("mongodb").MongoClient;
 const ObjectId = require("mongodb").ObjectID;
 var ObjectID = require('mongodb').ObjectID;
-var url = "mongodb://localhost:27017/";
+//var url = "mongodb://localhost:27017/";
+var url = "mongodb://poc-user:6r44lvM#@localhost:27017/";
+
 const DATABASE_NAME = "test";
 
 var app = Express();
