@@ -2,10 +2,19 @@
   "name": "pocGralVmNode",
   "version": "1.0.0",
   "description": "",
-  "main": "application.js",
+  "main": "moviesapp.js",
+  "dependencies": {
+    "request": "*",
+    "express": "^4.17.1",
+    "body-parser": "1.19.0",
+    "mongodb": "*"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node application"
   },
-  "author": "Alejandro torres"  
+  "author": "Alejandro torres",
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
 }
