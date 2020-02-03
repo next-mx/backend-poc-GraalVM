@@ -15,13 +15,13 @@ public class MovieDTO {
 	@Id
 	private String _id;
 	private String title;
-	private NumberIntDTO year;
-	private NumberIntDTO runtime;
+	private Integer year;
+	private Integer runtime;
 	private String[] cast;
 	private String poster;
 	private String plot;
 	private String fullplot;
-	private LastUpdateDTO lastupdated;
+	private Long lastupdated;
 	private String type;
 	private String[] directors;
 	private ImdbDTO imdb;
@@ -46,19 +46,19 @@ public class MovieDTO {
 		this.title = title;
 	}
 
-	public NumberIntDTO getYear() {
+	public Integer getYear() {
 		return year;
 	}
 
-	public void setYear(NumberIntDTO year) {
+	public void setYear(Integer year) {
 		this.year = year;
 	}
 
-	public NumberIntDTO getRuntime() {
+	public Integer getRuntime() {
 		return runtime;
 	}
 
-	public void setRuntime(NumberIntDTO runtime) {
+	public void setRuntime(Integer runtime) {
 		this.runtime = runtime;
 	}
 
@@ -94,11 +94,11 @@ public class MovieDTO {
 		this.fullplot = fullplot;
 	}
 
-	public LastUpdateDTO getLastupdated() {
+	public Long getLastupdated() {
 		return lastupdated;
 	}
 
-	public void setLastupdated(LastUpdateDTO lastupdated) {
+	public void setLastupdated(Long lastupdated) {
 		this.lastupdated = lastupdated;
 	}
 

@@ -42,6 +42,12 @@ public class MovieServImpl implements MovieServ {
 		return movieRepo.findById(movieID);
 	}
 
+	@Transactional(readOnly = true)
+	@Override
+	public List<MovieDTO> findMovies() {
+		return movieRepo.findAll();
+	}
+
 	@Override
 	@Transactional
 	public void newMovie(MovieDTO movie) {

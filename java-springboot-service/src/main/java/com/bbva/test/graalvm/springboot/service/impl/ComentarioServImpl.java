@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Lazy
@@ -23,6 +24,11 @@ public class ComentarioServImpl implements ComentarioServ {
 	@Override
 	public void newComment(ComentarioDTO comentario) {
 		this.comentarioRepo.insert(comentario);
+	}
+
+	@Override
+	public List<ComentarioDTO> findCommentsByMovId(String movieId) {
+		return comentarioRepo.findByMovieId(movieId);
 	}
 
 	@Override

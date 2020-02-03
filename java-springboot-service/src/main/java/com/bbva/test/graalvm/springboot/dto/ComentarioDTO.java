@@ -3,6 +3,7 @@ package com.bbva.test.graalvm.springboot.dto;
 import com.bbva.test.graalvm.springboot.dto.movie.LastUpdateDTO;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 @Document(collection = "comments")
 public class ComentarioDTO {
@@ -10,9 +11,10 @@ public class ComentarioDTO {
 	private String _id;
 	private String name;
 	private String email;
-	private String movie_id;
+	@Field(name = "movie_id")
+	private String movieId;
 	private String text;
-	private LastUpdateDTO date;
+	private Long date;
 
 	public String get_id() {
 		return _id;
@@ -46,20 +48,20 @@ public class ComentarioDTO {
 		this.text = text;
 	}
 
-	public LastUpdateDTO getDate() {
+	public Long getDate() {
 		return date;
 	}
 
-	public void setDate(LastUpdateDTO date) {
+	public void setDate(Long date) {
 		this.date = date;
 	}
 
-	public String getMovie_id() {
-		return movie_id;
+	public String getMovieId() {
+		return movieId;
 	}
 
-	public void setMovie_id(String movie_id) {
-		this.movie_id = movie_id;
+	public void setMovieId(String movieId) {
+		this.movieId = movieId;
 	}
 
 	@Override
@@ -68,7 +70,7 @@ public class ComentarioDTO {
 				"_id='" + _id + '\'' +
 				", name='" + name + '\'' +
 				", email='" + email + '\'' +
-				", movie_id='" + movie_id + '\'' +
+				", movie_id='" + movieId + '\'' +
 				", text='" + text + '\'' +
 				", date=" + date +
 				'}';
