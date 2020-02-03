@@ -8,7 +8,7 @@ cd java-micronaut-service
 
 #### OpenJDK
 ```bash
-sdk u java 8.0.232.j9-adpt
+sdk u java 8.0.242.hs-adpt
 ./gradlew clean assemble         
 java -jar build/libs/poc-graalvm-micronaut-0.1-all.jar  #./gradlew clean run
 ```

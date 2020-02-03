@@ -1,29 +1,30 @@
 package poc.graalvm.micronaut;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.MongoClient;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.*;
+
+import static com.mongodb.client.model.Updates.combine;
+import static com.mongodb.client.model.Updates.set;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
-import org.bson.Document;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
+import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import poc.graalvm.micronaut.http.Response;
 import poc.graalvm.micronaut.model.Comment;
+import poc.graalvm.micronaut.model.Imdb;
 import poc.graalvm.micronaut.model.Movie;
 import poc.graalvm.micronaut.service.TimerBakcupMovies;
 
@@ -31,7 +32,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
 
-import java.time.LocalDateTime;
 import java.util.*;
 
 import static com.mongodb.client.model.Filters.eq;
@@ -43,7 +43,7 @@ public class HttpMovies {
     private static CodecRegistry pojoCodecRegistry = fromRegistries(MongoClient.getDefaultCodecRegistry(),
             fromProviders(PojoCodecProvider.builder().automatic(true).build()));
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(HttpMovies.class);
+    private static final Logger log = LoggerFactory.getLogger(HttpMovies.class);
 
     private final MongoClient mongoClient;
 
@@ -53,18 +53,31 @@ public class HttpMovies {
 
     @Post
     public HttpResponse post(@Valid @Body Movie movie) {
-
+        log.info("Registrando película {}", movie);
         getMoviesCollection().insertOne(movie);
 
         return HttpResponse.created(new Response<>("Pelicula agregada exitosamente"));
     }
 
+    @Get("/")
+    public HttpResponse getAll(){
+        log.info("Consultando listado de películas");
+        List<Movie> movies = new ArrayList<>();
+        MongoCursor<Movie> moviesCursor = getMoviesCollection().find().iterator();
+
+        while (moviesCursor.hasNext()) {
+            movies.add(moviesCursor.next());
+        }
+
+        Response<Movie> movieReturned = new Response<>("Pelicula consultada exitosamente");
+        movieReturned.setResult(movies);
+        return HttpResponse.ok(movieReturned);
+    }
+
     @Get("/{id}")
     public HttpResponse get(@NotBlank @PathVariable String id){
-
-        LOGGER.debug("id {}",id);
+        log.info("Consultando película ID {}", id);
         Movie movie = getMoviesCollection().find(eq("_id", new ObjectId(id))).first();
-        LOGGER.debug("movie {}",movie);
 
         Response<Movie> movieReturned = new Response<>("Pelicula consultada exitosamente");
         movieReturned.setResult(Arrays.asList(movie));
@@ -73,6 +86,7 @@ public class HttpMovies {
 
     @Put("/{id}")
     public HttpResponse put(@NotBlank @PathVariable String id, @Valid @Body Movie movie){
+        log.info("Modificando película ID: {} con los datos: {}", id, movie);
         UpdateResult updateResult = getMoviesCollection().replaceOne(eq("_id", new ObjectId(id)), movie);
         long updated = updateResult.getModifiedCount();
 
@@ -91,17 +105,15 @@ public class HttpMovies {
     }
 
     @Patch("/{id}")
-    public HttpResponse patch(@NotBlank @PathVariable String id, @Valid @Body Movie movie) throws JsonProcessingException {
+    public HttpResponse patch(@NotBlank @PathVariable String id, @Valid @Body Imdb imdb) throws JsonProcessingException {
+        log.info("Actualizando película ID: {}, con los datos: {}", id, imdb);
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        Document updateDocument = Document.parse(new ObjectMapper().writeValueAsString(movie));
+        Bson query = combine(
+                set("imdb.rating", imdb.getRating()),
+                set("imdb.votes", imdb.getVotes()),
+                set("imdb.id", imdb.getId()));
 
-        LOGGER.debug("updateDocument {}",updateDocument);
-
-        Document setDocument = new Document();
-        setDocument.append("$set",updateDocument);
-
-        getMoviesCollection().updateOne(eq("_id", new ObjectId(id)), setDocument);
+        UpdateResult result = getMoviesCollection().updateOne(eq("_id", new ObjectId(id)), query);
 
         Response<Movie> movieResponse = new Response<>("Pelicula editada exitosamente");
         return HttpResponse.ok(movieResponse);
@@ -109,9 +121,7 @@ public class HttpMovies {
 
     @Delete("/{id}")
     public HttpResponse delete(@NotBlank @PathVariable String id){
-
-        LOGGER.debug("Objeto a borrar {}",id);
-
+        log.info("Eliminando película ID: {}", id);
         DeleteResult deleteResult = getMoviesCollection().deleteOne(eq("_id", new ObjectId(id)));
 
         HttpResponse response = null;
@@ -129,9 +139,7 @@ public class HttpMovies {
 
     @Post("/backup")
     public HttpResponse backup(){
-
-        LOGGER.info("Fecha de envio de Backup {}", LocalDateTime.now());
-
+        log.info("Agendando backup de películas");
         TimerBakcupMovies timerBakcupMovies = new TimerBakcupMovies(getMoviesCollection(), getCommentsCollection());
         Timer timerBackup = new Timer();
         timerBackup.schedule(timerBakcupMovies, 5000);
@@ -142,7 +150,7 @@ public class HttpMovies {
 
     @Get("/backup")
     public HttpResponse getBackup(){
-
+        log.info("Consultando backup de películas");
         List<Movie> movieList = new ArrayList<>();
         FindIterable<Movie> findIterable = getMoviesCollection().find();
         findIterable.iterator().forEachRemaining(movieList::add);

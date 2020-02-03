@@ -22,7 +22,10 @@ import poc.graalvm.micronaut.model.Movie;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
@@ -36,7 +39,7 @@ public class HttpComments {
     private static CodecRegistry pojoCodecRegistry = fromRegistries(MongoClient.getDefaultCodecRegistry(),
             fromProviders(PojoCodecProvider.builder().automatic(true).build()));
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(HttpComments.class);
+    private static final Logger log = LoggerFactory.getLogger(HttpComments.class);
 
     private final MongoClient mongoClient;
 
@@ -46,7 +49,7 @@ public class HttpComments {
 
     @Post("{movieId}/comments")
     public HttpResponse post(@NotBlank String movieId, @Valid @Body Comment comment) {
-
+        log.info("Agregando comentario: {} a la película: {}", comment, movieId);
         comment.setMovie_Id(movieId);
         comment.setDate(System.currentTimeMillis());
         getCollection().insertOne(comment);
@@ -54,17 +57,33 @@ public class HttpComments {
         return HttpResponse.created(new Response<Movie>("Comentario agregado exitosamente"));
     }
 
+
+    @Get("{movieId}/comments/")
+    public HttpResponse getAll(@NotBlank String movieId){
+        log.info("Consultando comentarios de la película: {}", movieId);
+        List<Comment> comments = new ArrayList<>();
+        Iterator<Comment> commentIterator = getCollection().find(
+                and(eq("movie_Id", movieId))
+        ).iterator();
+
+        while (commentIterator.hasNext()) {
+            comments.add(commentIterator.next());
+        }
+
+        Response<Comment> movieReturned = new Response<>("Pelicula consultada exitosamente");
+        movieReturned.setResult(comments);
+        return HttpResponse.ok(movieReturned);
+    }
+
    @Get("{movieId}/comments/{commentId}")
    public HttpResponse get(@NotBlank String movieId,@NotBlank String commentId){
-
-       LOGGER.debug("movieId {} , commentId {} ",movieId,commentId);
+       log.info("Consultando comentario ID: {} de la película: {}", commentId, movieId);
        Comment comment = getCollection().find(
                and(
                     eq("_id", new ObjectId(commentId)),
                        eq("movie_Id", movieId)
                )
        ).first();
-       LOGGER.debug("comment {}",comment);
 
        Response<Comment> movieReturned = new Response<>("Pelicula consultada exitosamente");
        movieReturned.setResult(Arrays.asList(comment));
@@ -73,6 +92,7 @@ public class HttpComments {
 
     @Put("{movieId}/comments/{commentId}")
     public HttpResponse put(@NotBlank String movieId,@NotBlank String commentId, @Body Comment comment){
+        log.info("Modificando comentario ID: {} de la película: {}", commentId, movieId);
         comment.setMovie_Id(movieId);
         UpdateResult updateResult = getCollection().replaceOne(
                 and(
@@ -82,7 +102,6 @@ public class HttpComments {
         long updated = updateResult.getModifiedCount();
 
         HttpResponse response = null;
-
         Response<Movie> movieResponse = new Response<>("");
 
         if(updated == 1){
@@ -97,11 +116,9 @@ public class HttpComments {
 
     @Patch("{movieId}/comments/{commentId}")
     public HttpResponse patch(@NotBlank String movieId,@NotBlank String commentId, @Body Comment comment) throws JsonProcessingException {
-
+        log.info("Actualizando comentario ID: {} de la película: {}", commentId, movieId);
         Document updateDocument = Document.parse(new ObjectMapper().writeValueAsString(comment));
         updateDocument.append("movie_Id",movieId);
-
-        LOGGER.debug("updateDocument {}",updateDocument);
 
         Document setDocument = new Document();
         setDocument.append("$set",updateDocument);
@@ -110,8 +127,6 @@ public class HttpComments {
                 eq("_id", new ObjectId(commentId)),
                 eq("movie_Id", movieId)
         ), setDocument);
-
-        LOGGER.debug("updateResult {}",updateResult);
 
         HttpResponse response = null;
         Response<Movie> movieResponse = new Response<>("");
@@ -128,9 +143,7 @@ public class HttpComments {
 
     @Delete("{movieId}/comments/{commentId}")
     public HttpResponse delete(@NotBlank String movieId,@NotBlank String commentId){
-
-        LOGGER.debug("Objeto a borrar {}",movieId);
-
+        log.info("Eliminando comentario ID: {} de la película: {}", commentId, movieId);
         DeleteResult deleteResult = getCollection().deleteOne(and(
                 eq("_id", new ObjectId(commentId)),
                 eq("movie_Id", movieId)

@@ -13,12 +13,12 @@ public class Movie {
     private ObjectId id;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String _id;
-    @NotBlank
+  //  @NotBlank
     private String title;
     private Integer year;
     private Integer runtime;
     private List<String> cast;
-    @NotBlank
+   // @NotBlank
     private String poster;
     private String plot;
     private String fullplot;

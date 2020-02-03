@@ -9,7 +9,7 @@ cd java-quarkus-service
 
 #### OpenJDK
 ```bash
-sdk u java 8.0.232.j9-adpt
+sdk u java 8.0.242.hs-adpt
 ./mvnw clean package             
 java -jar target/poc-graalvm-quarkus-1.0-SNAPSHOT-runner.jar              
 ```
