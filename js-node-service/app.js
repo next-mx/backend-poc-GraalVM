@@ -3,10 +3,9 @@ const BodyParser = require("body-parser");
 const MongoClient = require("mongodb").MongoClient;
 const ObjectId = require("mongodb").ObjectID;
 var ObjectID = require('mongodb').ObjectID;
-//var url = "mongodb://localhost:27017/";
-var url = "mongodb://poc-user:6r44lvM#@localhost:27017/";
+var url = "mongodb://poc-user:6r44lvM#@127.0.0.1:27017/poc-db";
 
-const DATABASE_NAME = "test";
+const SERVER_PORT = 8080;
 
 var app = Express();
 var database,collection;
@@ -14,18 +13,14 @@ var database,collection;
 app.use(BodyParser.json());
 app.use(BodyParser.urlencoded({ extended: true }));
 
-app.listen(8080, () => {
+app.listen(SERVER_PORT, () => {
     MongoClient.connect(url,{ useNewUrlParser: true }, function(err, client) {
 	  if (err) throw err;
-	  database = client.db(DATABASE_NAME);
-	  //collection = database.collection("MOVIES");
-	  console.log("Connected to `" + DATABASE_NAME + "`!");
+	  database = client.db();
+	  console.log("Servidor escuchando en el puerto: " + SERVER_PORT);
  });
 });
 
-app.get('/', function(req, res) {
-    res.json({ message: 'Hooolaa :)'});
-});
 
 // GET MOVIE [/movies/{movieId}](http://localhost:8080/pocgraalvm/api/v1/movies/{movieId})
 app.get('/pocgraalvm/api/v1/movies/:movieId', (request, response) => {
@@ -92,7 +87,6 @@ app.patch('/pocgraalvm/api/v1/movies/:movieId', (req, response) => {
  	var myquery = { _id:{$eq:o_id} };
  	var newvalues = {$set: req.body};
  	database.collection("MOVIES").updateOne(myquery, newvalues,  (error, obj) => {
- 	//console.log(obj.result);
 	if(error) {
 	    return response.status(500).send(error);
 	}
@@ -101,12 +95,9 @@ app.patch('/pocgraalvm/api/v1/movies/:movieId', (req, response) => {
 });
 
 
+
+
 /******************COMMENTS*************/
-
-
-
-
-
 
 //Ejemplo: POST COMMENT http://localhost:8080/pocgraalvm/api/v1/movies/{movieId}/comments/
 app.post('/pocgraalvm/api/v1/movies/:movieId/comments', (req, response) => {

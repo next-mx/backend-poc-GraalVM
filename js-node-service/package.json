@@ -1,5 +1,5 @@
 {
-  "name": "pocGralVmNode",
+  "name": "js-node-service",
   "version": "1.0.0",
   "description": "",
   "main": "moviesapp.js",
@@ -11,7 +11,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node moviesapp"
+    "start": "node app"
   },
   "author": "Alejandro torres",
   "devDependencies": {
