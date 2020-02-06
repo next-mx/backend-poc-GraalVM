@@ -20,12 +20,12 @@ import java.util.TimerTask;
 
 import static com.mongodb.client.model.Filters.eq;
 
-public class TimerBakcupMovies extends TimerTask {
+public class TimerBackupMovies extends TimerTask {
 
     private MongoCollection<Movie> movieMongoCollection;
     private MongoCollection<Comment> commentMongoCollection;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(HttpComments.class);
+    private static final Logger log = LoggerFactory.getLogger(TimerBackupMovies.class);
 
     public TimerBakcupMovies(MongoCollection<Movie> movieMongoCollection, MongoCollection<Comment> commentMongoCollection){
         this.movieMongoCollection = movieMongoCollection;
@@ -40,7 +40,7 @@ public class TimerBakcupMovies extends TimerTask {
 
             long time = System.currentTimeMillis();
 
-            LOGGER.info("Inicia Backup {}", LocalDateTime.now());
+            log.info("Inicia Backup {}", LocalDateTime.now());
 
             /**
              * Inicializacion de variables
@@ -58,21 +58,21 @@ public class TimerBakcupMovies extends TimerTask {
                 movieIt = movieMongoCursor.next();
 
                 id = BigDecimal.valueOf(System.currentTimeMillis()+i);
-                LOGGER.debug("Fecha + iteracion {}",id);
+                log.debug("Fecha + iteracion {}",id);
 
                 commentsCount = this.commentMongoCollection.countDocuments(eq("movie_Id", movieIt.getId().toHexString()));
                 commentsCount = commentsCount == 0 ? 1 : commentsCount;
 
-                LOGGER.debug("commentsCount {}",commentsCount);
+                log.debug("commentsCount {}",commentsCount);
 
                 id = id.multiply(BigDecimal.valueOf(commentsCount));
 
-                LOGGER.debug("Mulitplicado por comentarios {}",id);
-                LOGGER.debug("countMovies {}",countMovies);
+                log.debug("Mulitplicado por comentarios {}",id);
+                log.debug("countMovies {}",countMovies);
 
                 id = id.divide(BigDecimal.valueOf(countMovies), MathContext.DECIMAL128);
 
-                LOGGER.debug("Dividido por conteo de Movies {}",id);
+                log.debug("Dividido por conteo de Movies {}",id);
 
                 document.append("id",id);
                 document.append("pelicula",movieIt.toString());
@@ -80,10 +80,10 @@ public class TimerBakcupMovies extends TimerTask {
                 writer.newLine();
             }
 
-            LOGGER.info("Termina Backup {}", LocalDateTime.now());
-            LOGGER.info("Tiempo total de respaldo {}",System.currentTimeMillis()-time);
+            log.info("Termina Backup {}", LocalDateTime.now());
+            log.info("Tiempo total de respaldo {}",System.currentTimeMillis()-time);
         } catch (IOException e) {
-            LOGGER.error(e.getMessage(),e);
+            log.error(e.getMessage(),e);
         }
     }
 }

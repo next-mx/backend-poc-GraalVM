@@ -2,9 +2,10 @@ package com.poc.graalvm.service;
 
 import com.poc.graalvm.config.Constants;
 import com.poc.graalvm.error.InvalidMongoIdException;
+import com.poc.graalvm.model.IMDB;
 import com.poc.graalvm.repository.MovieRepository;
 import com.poc.graalvm.model.Movie;
-import com.sun.xml.bind.v2.runtime.reflect.opt.Const;
+import com.poc.graalvm.model.ResponseDTO;
 import org.bson.types.ObjectId;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -22,20 +23,51 @@ public class MovieService {
     public Response add(Movie movie){
         movieRepository.saveMovie(movie);
         if(movie.getId() != null)
-            return Response.created(URI.create(Constants.MOVIES_PATH + "/"  + movie.getId().toString())).build();
+            return Response
+                    .created(URI.create(Constants.MOVIES_PATH + "/"  + movie.getId().toString()))
+                    .entity(new ResponseDTO<String>("Película agregada exitosamente", null))
+                    .build();
         return Response.serverError().build();
     }
 
-    public List<Movie> findAll(){
-        return movieRepository.getAllMovies();
+    public Response findAll(){
+        return Response.ok(new ResponseDTO<List<Movie>>(
+                "Película consultada exitosamente",
+                 movieRepository.getAllMovies()))
+                .build();
     }
 
     public Response findById(String id){
         if(!ObjectId.isValid(id))
             throw new InvalidMongoIdException();
         ObjectId idDB = new ObjectId(id);
-        return Response.ok(movieRepository.findById(idDB)).build();
+        return Response.ok(new ResponseDTO<Movie>(
+                "Película consultada exitosamente",
+                 movieRepository.findById(idDB)))
+                .build();
     }
+
+
+    public Response modifyById(String id, Movie movie){
+        if(!ObjectId.isValid(id))
+            throw new InvalidMongoIdException();
+        movie.setId(new ObjectId(id));
+        movieRepository.modifyMovie(movie);
+        return Response.noContent()
+                .entity(new ResponseDTO<String>("Película modificada exitosamente", null))
+                .build();
+    }
+
+
+    public Response updateById(String id, IMDB imdb){
+        if(!ObjectId.isValid(id))
+            throw new InvalidMongoIdException();
+        movieRepository.updateMovie(id, imdb);
+        return Response.noContent()
+                .entity(new ResponseDTO<String>("Película editada exitosamente", null))
+                .build();
+    }
+
 
     public Response deleteById(String id){
         if(!ObjectId.isValid(id))
@@ -43,21 +75,8 @@ public class MovieService {
         Movie movie = new Movie();
         movie.setId(new ObjectId(id));
         movieRepository.deleteMovie(movie);
-        return Response.noContent().build();
+        return Response.noContent()
+                .entity(new ResponseDTO<String>("Película eliminada exitosamente", null))
+                .build();
     }
-
-    public Response update(Movie movie){
-        if(movie.getId() == null)
-            throw new InvalidMongoIdException();
-        return updateById(movie.getId().toString(), movie);
-    }
-
-    public Response updateById(String id,Movie movie){
-        if(!ObjectId.isValid(id))
-            throw new InvalidMongoIdException();
-        movie.setId(new ObjectId(id));
-        movieRepository.updateMovie(movie);
-        return Response.noContent().build();
-    }
-
 }

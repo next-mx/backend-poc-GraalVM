@@ -11,7 +11,7 @@ cd java-quarkus-service
 ```bash
 sdk u java 8.0.242.hs-adpt
 ./mvnw clean package             
-java -jar target/poc-graalvm-quarkus-1.0-SNAPSHOT-runner.jar              
+java -jar target/poc-graalvm-quarkus-1.0-SNAPSHOT-runner.jar    # ./mvnw compile quarkus:dev              
 ```
 
 #### GraalVM

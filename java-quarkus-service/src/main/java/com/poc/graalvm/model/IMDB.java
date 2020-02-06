@@ -22,5 +22,14 @@ public class IMDB {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
+
+	@Override
+	public String toString() {
+		return "IMDB{" +
+				"rating=" + rating +
+				", votes=" + votes +
+				", id=" + id +
+				'}';
+	}
 }

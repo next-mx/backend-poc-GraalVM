@@ -4,9 +4,11 @@ import com.poc.graalvm.model.Comment;
 import io.quarkus.mongodb.panache.PanacheMongoRepository;
 import io.quarkus.mongodb.panache.runtime.MongoOperations;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class CommentRepository implements PanacheMongoRepository<Comment> {
@@ -15,14 +17,14 @@ public class CommentRepository implements PanacheMongoRepository<Comment> {
         persist(comment);
     }
 
-    public List<Comment> getAllComments(){
-        return findAll().list();
+    public List<Comment> getAllComments(String movieId){
+        return findAll().stream()
+                .filter(comment -> comment.getMovie_id().equals(movieId))
+                .collect(Collectors.toList());
     }
 
-    public List<Comment> findByIdMovie(String id){
-        Document document = new Document();
-        document.append("movie_id",id);
-        return (List<Comment>) MongoOperations.find(Comment.class,document).list();
+    public Comment findByIdMovie(String id){
+        return findById(new ObjectId(id));
     }
 
     public void deleteComment(Comment comment){

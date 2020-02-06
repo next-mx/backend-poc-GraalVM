@@ -14,54 +14,63 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.poc.graalvm.config.Constants;
+import com.poc.graalvm.model.IMDB;
 import com.poc.graalvm.service.MovieService;
 import com.poc.graalvm.model.Movie;
-import com.poc.graalvm.model.ResponseData;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 @Path(Constants.MOVIES_PATH)
 public class QuarkusResourceMovie {
-
+    private static final Logger log = LoggerFactory.getLogger(QuarkusResourceMovie.class);
     @Inject
     MovieService movieService;
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public Response addMovie(Movie movie) {
+        log.info("Registrando película: {}", movie);
         return movieService.add(movie);
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/")
-    public Response GetMovies() {
-        return Response.ok(movieService.findAll()).build();
+    public Response getMovies() {
+        log.info("Consultando listado de películas");
+        return movieService.findAll();
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/{id}")
-    public Response GetMovie(@PathParam("id") String id) {
-        return movieService.findById(id);
+    @Path("/{movieID}")
+    public Response getMovie(@PathParam("movieID") String movieID) {
+        log.info("Consultando película ID: {}", movieID);
+        return movieService.findById(movieID);
     }
     
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/{id}")
-    public Response updateMovie(@PathParam("id") String id, Movie movie) {
-        return movieService.updateById(id,movie);
+    @Path("/{movieID}")
+    public Response modifyMovie(@PathParam("movieID") String movieID, Movie movie) {
+        log.info("Modificando película ID: {} con datos: {}", movieID, movie);
+        return movieService.modifyById(movieID, movie);
     }
     
-    @PATCH
+    @PATCH()
     @Produces(MediaType.APPLICATION_JSON)
-    public Response modifyMovie(Movie movie) {
-        return movieService.update(movie);
+    @Path("/{movieID}")
+    public Response updateMovie(@PathParam("movieID") String movieID, IMDB imdb) {
+        log.info("Actualizando película ID: {} con datos: {}", movieID, imdb);
+        return movieService.updateById(movieID, imdb);
     }
     
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/{id}")
-    public Response deleteMovie(@PathParam("id") String id) {
-        return movieService.deleteById(id);
+    @Path("/{movieID}")
+    public Response deleteMovie(@PathParam("movieID") String movieID) {
+        log.info("Eliminado película ID: {}", movieID);
+        return movieService.deleteById(movieID);
     }
 }

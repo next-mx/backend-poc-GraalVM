@@ -1,6 +1,6 @@
 package com.poc.graalvm.error;
 
-import com.poc.graalvm.model.ResponseData;
+import com.poc.graalvm.model.ResponseDTO;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
@@ -11,6 +11,6 @@ public class InvalidMongoIdHandler implements ExceptionMapper<InvalidMongoIdExce
 
     @Override
     public Response toResponse(InvalidMongoIdException e) {
-        return Response.status(Response.Status.BAD_REQUEST).entity(new ResponseData("Mensaje API",e.getMessage())).build();
+        return Response.status(Response.Status.BAD_REQUEST).entity(new ResponseDTO(e.getMessage(), null)).build();
     }
 }

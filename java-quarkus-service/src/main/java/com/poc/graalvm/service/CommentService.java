@@ -4,7 +4,7 @@ import com.poc.graalvm.config.Constants;
 import com.poc.graalvm.error.InvalidMongoIdException;
 import com.poc.graalvm.model.Comment;
 import com.poc.graalvm.model.Movie;
-import com.poc.graalvm.model.ResponseData;
+import com.poc.graalvm.model.ResponseDTO;
 import com.poc.graalvm.repository.CommentRepository;
 import com.poc.graalvm.repository.MovieRepository;
 import org.bson.types.ObjectId;
@@ -23,43 +23,59 @@ public class CommentService {
     @Inject
     CommentRepository commentRepository;
 
-    public Response add(Comment comment){
+    public Response add(String movieId, Comment comment){
+        comment.setMovie_id(movieId);
         if(!ObjectId.isValid(comment.getMovie_id()))
             throw new InvalidMongoIdException();
         ObjectId idDB = new ObjectId(comment.getMovie_id());
         Movie movie = movieRepository.findById(idDB);
         if(movie == null)
-            return Response.status(Response.Status.BAD_REQUEST).entity(new ResponseData("Mensaje API","No se encontro la pelicula para agregar un comentario")).build();
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity(new ResponseDTO<String>("No se encontro la pelicula para agregar un comentario", null))
+                    .build();
         commentRepository.saveComment(comment);
         if(comment.getId() != null)
-            return Response.created(URI.create(Constants.MOVIES_PATH + "/"  + comment.getId().toString())).build();
-        return Response.serverError().build();
+            return Response.created(URI.create(Constants.MOVIES_PATH + "/"  + comment.getId().toString()))
+                    .entity(new ResponseDTO<String>("Comentario agregado exitosamente", null))
+                    .build();
+        return Response.serverError()
+                .build();
     }
 
-    public List<Comment> findAll(){
-        return commentRepository.getAllComments();
+    public Response findAll(String movieId){
+        return Response.ok()
+                .entity(new ResponseDTO<List<Comment>>("Comentario consultado exitosamente", commentRepository.getAllComments(movieId)))
+                .build();
     }
 
-    public Response findByIdMovie(String id){
+    public Response findById(String id){
         if(!ObjectId.isValid(id))
             throw new InvalidMongoIdException();
-        return Response.ok(commentRepository.findByIdMovie(id)).build();
+        return Response.ok()
+                .entity(new ResponseDTO<Comment>("Comentario consultado exitosamente", commentRepository.findByIdMovie(id)))
+                .build();
     }
 
-    public Response deleteById(String id){
+
+    public Response modifyById(String id, Comment comment){
         if(!ObjectId.isValid(id))
             throw new InvalidMongoIdException();
-        Comment comment = new Comment();
-        comment.setId(new ObjectId(id));
-        commentRepository.deleteComment(comment);
-        return Response.noContent().build();
+        ObjectId idDB = new ObjectId(id);
+        Comment updateComment = commentRepository.findById(idDB);
+        if(updateComment == null)
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity(new ResponseDTO<String>("No se encontró el comentario a modificar", null))
+                    .build();
+        updateComment.setName(comment.getName());
+        updateComment.setEmail(comment.getEmail());
+        updateComment.setText(comment.getText());
+        updateComment.setDate(comment.getDate());
+        commentRepository.updateComment(updateComment);
+        return Response.noContent()
+                .entity(new ResponseDTO<String>("Comentario modificado exitosamente", null))
+                .build();
     }
 
-    public Response update(Comment comment){
-        if(comment.getId() == null)
-            throw new InvalidMongoIdException();
-        return updateById(comment.getId().toString(), comment);
-    }
 
     public Response updateById(String id,Comment comment){
         if(!ObjectId.isValid(id))
@@ -67,13 +83,25 @@ public class CommentService {
         ObjectId idDB = new ObjectId(id);
         Comment updateComment = commentRepository.findById(idDB);
         if(updateComment == null)
-            return Response.status(Response.Status.BAD_REQUEST).entity(new ResponseData("Mensaje API","No se encontro el comentario a modificar")).build();
-        updateComment.setName(comment.getName());
-        updateComment.setEmail(comment.getEmail());
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity(new ResponseDTO<String>("No se encontro el comentario a modificar", null))
+                    .build();
         updateComment.setText(comment.getText());
-        updateComment.setDate(comment.getDate());
         commentRepository.updateComment(updateComment);
-        return Response.noContent().build();
+        return Response.noContent()
+                .entity(new ResponseDTO<String>("Comentario editado exitosamente", null))
+                .build();
     }
 
+
+    public Response deleteById(String id){
+        if(!ObjectId.isValid(id))
+            throw new InvalidMongoIdException();
+        Comment comment = new Comment();
+        comment.setId(new ObjectId(id));
+        commentRepository.deleteComment(comment);
+        return Response.noContent()
+                .entity(new ResponseDTO<String>("Comentario eliminado exitosamente", null))
+                .build();
+    }
 }

@@ -11,14 +11,11 @@ import javax.validation.constraints.NotNull;
 public class Comment {
 	private ObjectId id;
 
-	@NotNull
 	private String name;
-	@NotNull
 	private String email;
 	private String movie_id;
 	@NotNull
 	private String text;
-	@NotNull
 	private long date;
 
 	public ObjectId getId() {
@@ -67,5 +64,17 @@ public class Comment {
 
 	public void setDate(long date) {
 		this.date = date;
+	}
+
+	@Override
+	public String toString() {
+		return "Comment{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", email='" + email + '\'' +
+				", movie_id='" + movie_id + '\'' +
+				", text='" + text + '\'' +
+				", date=" + date +
+				'}';
 	}
 }

@@ -147,4 +147,26 @@ public class Movie {
 	public void setGenres(List<String> genres) {
 		this.genres = genres;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Movie{" +
+				"id=" + id +
+				", title='" + title + '\'' +
+				", year=" + year +
+				", runtime=" + runtime +
+				", cast=" + cast +
+				", poster='" + poster + '\'' +
+				", plot='" + plot + '\'' +
+				", fullplot='" + fullplot + '\'' +
+				", lastupdated=" + lastupdated +
+				", type='" + type + '\'' +
+				", directors=" + directors +
+				", imdb=" + imdb +
+				", countries=" + countries +
+				", rated='" + rated + '\'' +
+				", genres=" + genres +
+				'}';
+	}
 }
