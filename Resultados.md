@@ -155,7 +155,7 @@ sdk i java 8.0.232.j9-adpt
 * ##### NodeJS
 > [NodeJS](https://nodejs.org/es/) es un entorno de ejecución para javascript. 
 > 
-> Descarga la versión **node-v10.18.1.pkg** en [https://nodejs.org/dist/latest-v10.x/](https://nodejs.org/dist/latest-v10.x/), una vez descargado ejecuta el archivo .pkg y sigue las instrucciones en la pantalla que se te abrirá
+> Descarga la versión **node-v10.18.1.pkg** en [https://nodejs.org/dist/latest-v10.x/](https://nodejs.org/dist/latest-v10.x/), una vez descargado ejecuta el archivo .pkg y sigue las instrucciones en la pantalla que se te mostrará
 
 * ##### Docker
 > [Docker](https://www.docker.com) es una herramienta que provee un camino para desplegar aplicaciones de forma segura y asilada en un contenedor en el cual se empaquetan todas sus dependencias y librerías. 

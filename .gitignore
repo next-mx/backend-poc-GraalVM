@@ -24,8 +24,5 @@ venv/
 *.csv
 out/
 Thumbs.db
-
-
-# =========== OTHERS ============ #
 poc-graalvm-micronaut
-
+node_modules/
