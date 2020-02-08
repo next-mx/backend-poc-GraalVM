@@ -73,4 +73,21 @@ public class QuarkusResourceMovie {
         log.info("Eliminado película ID: {}", movieID);
         return movieService.deleteById(movieID);
     }
+
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/backup")
+    public Response scheduleBackup() {
+        log.info("Agendando backup de catálogo de películas");
+        return movieService.scheduleBackup();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/backup")
+    public Response getBackup() {
+        log.info("Consultando backup de catálogo de películas");
+        return movieService.getBackup();
+    }
 }

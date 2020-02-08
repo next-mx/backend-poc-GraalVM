@@ -13,12 +13,15 @@ import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 import java.net.URI;
 import java.util.List;
+import java.util.Timer;
 
 @ApplicationScoped
 public class MovieService {
 
     @Inject
     MovieRepository movieRepository;
+    @Inject
+    TimerBackupMovies timerBackupMovies;
 
     public Response add(Movie movie){
         movieRepository.saveMovie(movie);
@@ -77,6 +80,22 @@ public class MovieService {
         movieRepository.deleteMovie(movie);
         return Response.noContent()
                 .entity(new ResponseDTO<String>("Película eliminada exitosamente", null))
+                .build();
+    }
+
+
+    public Response scheduleBackup() {
+        Timer timerBackup = new Timer();
+        timerBackup.schedule(timerBackupMovies, 5000);
+        return Response.created(URI.create(Constants.MOVIES_PATH + "/backup"))
+                .entity(new ResponseDTO<String>("Respaldo agendado exitosamente", null))
+                .build();
+    }
+
+
+    public Response getBackup() {
+        return Response.ok()
+                .entity(new ResponseDTO<String>("Respaldo consultado exitosamente", null))
                 .build();
     }
 }
