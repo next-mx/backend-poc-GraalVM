@@ -1,6 +1,7 @@
 package poc.graalvm.micronaut;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.MongoClient;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
@@ -22,32 +23,39 @@ import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import poc.graalvm.micronaut.http.Response;
+import poc.graalvm.micronaut.http.ResponseDTO;
 import poc.graalvm.micronaut.model.Comment;
 import poc.graalvm.micronaut.model.Imdb;
 import poc.graalvm.micronaut.model.Movie;
-import poc.graalvm.micronaut.service.TimerBakcupMovies;
+import poc.graalvm.micronaut.service.BackupMoviesTask;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Stream;
 
 import static com.mongodb.client.model.Filters.eq;
 
 @Controller("/pocgraalvm/api/v1/movies")
 @Produces(MediaType.APPLICATION_JSON)
 public class HttpMovies {
+    private BackupMoviesTask backupMoviesTask;
+    private final MongoClient mongoClient;
+
 
     private static CodecRegistry pojoCodecRegistry = fromRegistries(MongoClient.getDefaultCodecRegistry(),
             fromProviders(PojoCodecProvider.builder().automatic(true).build()));
 
     private static final Logger log = LoggerFactory.getLogger(HttpMovies.class);
 
-    private final MongoClient mongoClient;
 
-    public HttpMovies(MongoClient mongoClient) {
+    public HttpMovies(BackupMoviesTask backupMoviesTask, MongoClient mongoClient) {
+        this.backupMoviesTask = backupMoviesTask;
         this.mongoClient = mongoClient;
     }
 
@@ -56,7 +64,7 @@ public class HttpMovies {
         log.info("Registrando película {}", movie);
         getMoviesCollection().insertOne(movie);
 
-        return HttpResponse.created(new Response<>("Pelicula agregada exitosamente"));
+        return HttpResponse.created(new ResponseDTO<>("Pelicula agregada exitosamente", null));
     }
 
     @Get("/")
@@ -69,8 +77,7 @@ public class HttpMovies {
             movies.add(moviesCursor.next());
         }
 
-        Response<Movie> movieReturned = new Response<>("Pelicula consultada exitosamente");
-        movieReturned.setResult(movies);
+        ResponseDTO<List<Movie>> movieReturned = new ResponseDTO<List<Movie>>("Pelicula consultada exitosamente", movies);
         return HttpResponse.ok(movieReturned);
     }
 
@@ -79,8 +86,7 @@ public class HttpMovies {
         log.info("Consultando película ID {}", id);
         Movie movie = getMoviesCollection().find(eq("_id", new ObjectId(id))).first();
 
-        Response<Movie> movieReturned = new Response<>("Pelicula consultada exitosamente");
-        movieReturned.setResult(Arrays.asList(movie));
+        ResponseDTO<Movie> movieReturned = new ResponseDTO<>("Pelicula consultada exitosamente", movie);
         return HttpResponse.ok(movieReturned);
     }
 
@@ -92,11 +98,10 @@ public class HttpMovies {
 
         HttpResponse response = null;
 
-        Response<Movie> movieResponse = new Response<>("");
+        ResponseDTO<Movie> movieResponseDTO = new ResponseDTO<>("Pelicula modificada exitosamente", null);
 
         if(updated == 1){
-            movieResponse.setMessage("Pelicula modificada exitosamente");
-            response = HttpResponse.ok(movieResponse);
+            response = HttpResponse.ok(movieResponseDTO);
         } else {
             response = HttpResponse.notModified();
         }
@@ -115,8 +120,8 @@ public class HttpMovies {
 
         UpdateResult result = getMoviesCollection().updateOne(eq("_id", new ObjectId(id)), query);
 
-        Response<Movie> movieResponse = new Response<>("Pelicula editada exitosamente");
-        return HttpResponse.ok(movieResponse);
+        ResponseDTO<Movie> movieResponseDTO = new ResponseDTO<>("Pelicula editada exitosamente", null);
+        return HttpResponse.ok(movieResponseDTO);
     }
 
     @Delete("/{id}")
@@ -126,10 +131,9 @@ public class HttpMovies {
 
         HttpResponse response = null;
 
-        Response<Movie> movieResponse = new Response<>("");
+        ResponseDTO<Movie> movieResponseDTO = new ResponseDTO<>("Pelicula eliminada exitosamente", null);
         if(deleteResult.getDeletedCount() > 0){
-            movieResponse.setMessage("Pelicula eliminada exitosamente");
-            response = HttpResponse.ok(movieResponse);
+            response = HttpResponse.ok(movieResponseDTO);
         } else {
             response = HttpResponse.notModified();
         }
@@ -140,23 +144,33 @@ public class HttpMovies {
     @Post("/backup")
     public HttpResponse backup(){
         log.info("Agendando backup de películas");
-        TimerBakcupMovies timerBakcupMovies = new TimerBakcupMovies(getMoviesCollection(), getCommentsCollection());
-        Timer timerBackup = new Timer();
-        timerBackup.schedule(timerBakcupMovies, 5000);
+        backupMoviesTask.makeBackup(true, getMoviesCollection(), getCommentsCollection());
 
-        Response<Movie> movieResponse = new Response<>("Respaldo agendado exitosamente");
-        return HttpResponse.ok(movieResponse);
+        ResponseDTO<Movie> movieResponseDTO = new ResponseDTO<>("Respaldo agendado exitosamente", null);
+        return HttpResponse.ok(movieResponseDTO);
     }
 
     @Get("/backup")
     public HttpResponse getBackup(){
         log.info("Consultando backup de películas");
-        List<Movie> movieList = new ArrayList<>();
-        FindIterable<Movie> findIterable = getMoviesCollection().find();
-        findIterable.iterator().forEachRemaining(movieList::add);
-        Response<Movie> movieResponse = new Response<>("Respaldo consultado exitosamente");
-        movieResponse.setResult(movieList);
-        return HttpResponse.ok(movieResponse);
+        List<Movie> movies = new ArrayList<>();
+        ObjectMapper objectMapper = new ObjectMapper();
+        try (Stream<String> stream = Files.lines(Paths.get(BackupMoviesTask.FILE_NAME))) {
+            stream.forEach(item -> {
+                try {
+                    Movie movie = objectMapper.readValue(item.substring(item.indexOf(',') + 1), Movie.class);
+                    movies.add(movie);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+            ResponseDTO<List<Movie>> movieResponseDTO = new ResponseDTO<>("Respaldo no encontrado", null);
+            return HttpResponse.notFound(movieResponseDTO);
+        }
+        ResponseDTO<List<Movie>> movieResponseDTO = new ResponseDTO<>("Respaldo consultado exitosamente", movies);
+        return HttpResponse.ok(movieResponseDTO);
     }
 
     private MongoCollection<Movie> getMoviesCollection() {

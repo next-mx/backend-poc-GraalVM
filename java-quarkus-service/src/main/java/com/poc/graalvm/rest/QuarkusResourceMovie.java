@@ -14,7 +14,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.poc.graalvm.config.Constants;
-import com.poc.graalvm.model.IMDB;
+import com.poc.graalvm.model.Imdb;
 import com.poc.graalvm.service.MovieService;
 import com.poc.graalvm.model.Movie;
 import org.slf4j.Logger;
@@ -61,7 +61,7 @@ public class QuarkusResourceMovie {
     @PATCH()
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{movieID}")
-    public Response updateMovie(@PathParam("movieID") String movieID, IMDB imdb) {
+    public Response updateMovie(@PathParam("movieID") String movieID, Imdb imdb) {
         log.info("Actualizando película ID: {} con datos: {}", movieID, imdb);
         return movieService.updateById(movieID, imdb);
     }

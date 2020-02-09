@@ -1,6 +1,6 @@
 package com.poc.graalvm.model;
 
-public class IMDB {
+public class Imdb {
 	private double rating;
 	private int votes;
 	private int id;

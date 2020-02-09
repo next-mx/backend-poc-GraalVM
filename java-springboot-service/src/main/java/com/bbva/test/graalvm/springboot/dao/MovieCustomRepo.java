@@ -1,8 +1,8 @@
 package com.bbva.test.graalvm.springboot.dao;
 
-import com.bbva.test.graalvm.springboot.dto.movie.ImdbDTO;
+import com.bbva.test.graalvm.springboot.model.movie.Imdb;
 
 public interface MovieCustomRepo {
-	void updateImdb(String movieId, ImdbDTO imbDto);
+	void updateImdb(String movieId, Imdb imbDto);
 
 }

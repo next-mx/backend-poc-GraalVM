@@ -1,34 +1,31 @@
-package com.bbva.test.graalvm.springboot.dto;
+package com.bbva.test.graalvm.springboot.model;
 
-import com.bbva.test.graalvm.springboot.dto.movie.ImdbDTO;
-import com.bbva.test.graalvm.springboot.dto.movie.LastUpdateDTO;
-import com.bbva.test.graalvm.springboot.dto.movie.NumberIntDTO;
+import com.bbva.test.graalvm.springboot.model.movie.Imdb;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
-@Document(collection = "movies")
-public class MovieDTO {
-	//private ObjectId _id;
+@Document(collection = "Movies")
+public class Movie {
 	@Id
 	private String _id;
 	private String title;
 	private Integer year;
 	private Integer runtime;
-	private String[] cast;
+	private List<String> cast;
 	private String poster;
 	private String plot;
 	private String fullplot;
 	private Long lastupdated;
 	private String type;
-	private String[] directors;
-	private ImdbDTO imdb;
-	private String[] countries;
+	private List<String> directors;
+	private Imdb imdb;
+	private List<String> countries;
 	private String rated;
-	private String[] genres;
-
+	private List<String> genres;
 
 	public String get_id() {
 		return _id;
@@ -62,11 +59,11 @@ public class MovieDTO {
 		this.runtime = runtime;
 	}
 
-	public String[] getCast() {
+	public List<String> getCast() {
 		return cast;
 	}
 
-	public void setCast(String[] cast) {
+	public void setCast(List<String> cast) {
 		this.cast = cast;
 	}
 
@@ -110,27 +107,27 @@ public class MovieDTO {
 		this.type = type;
 	}
 
-	public String[] getDirectors() {
+	public List<String> getDirectors() {
 		return directors;
 	}
 
-	public void setDirectors(String[] directors) {
+	public void setDirectors(List<String> directors) {
 		this.directors = directors;
 	}
 
-	public ImdbDTO getImdb() {
+	public Imdb getImdb() {
 		return imdb;
 	}
 
-	public void setImdb(ImdbDTO imdb) {
+	public void setImdb(Imdb imdb) {
 		this.imdb = imdb;
 	}
 
-	public String[] getCountries() {
+	public List<String> getCountries() {
 		return countries;
 	}
 
-	public void setCountries(String[] countries) {
+	public void setCountries(List<String> countries) {
 		this.countries = countries;
 	}
 
@@ -142,32 +139,32 @@ public class MovieDTO {
 		this.rated = rated;
 	}
 
-	public String[] getGenres() {
+	public List<String>getGenres() {
 		return genres;
 	}
 
-	public void setGenres(String[] genres) {
+	public void setGenres(List<String> genres) {
 		this.genres = genres;
 	}
 
 	@Override
 	public String toString() {
 		return "MovieDTO{" +
-				"_id=" + _id +
+				", _id='" + _id + '\'' +
 				", title='" + title + '\'' +
 				", year=" + year +
 				", runtime=" + runtime +
-				", cast=" + Arrays.toString(cast) +
+				", cast=" + cast +
 				", poster='" + poster + '\'' +
 				", plot='" + plot + '\'' +
 				", fullplot='" + fullplot + '\'' +
 				", lastupdated=" + lastupdated +
 				", type='" + type + '\'' +
-				", directors=" + Arrays.toString(directors) +
+				", directors=" + directors +
 				", imdb=" + imdb +
-				", countries=" + Arrays.toString(countries) +
+				", countries=" + countries +
 				", rated='" + rated + '\'' +
-				", genres=" + Arrays.toString(genres) +
+				", genres=" + genres +
 				'}';
 	}
 }

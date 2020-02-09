@@ -1,32 +1,32 @@
 package com.poc.graalvm.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.quarkus.mongodb.panache.MongoEntity;
 import org.bson.types.ObjectId;
 
-import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Objects;
 
-@MongoEntity(collection="movies")
+@MongoEntity(collection="Movies")
 public class Movie {
-
+	@JsonIgnore
 	private ObjectId id;
-	@NotNull
+	private String _id;
 	private String title;
-	@NotNull
-	private int year;
-	@NotNull
-	private int runtime;
+	private Integer year;
+	private Integer runtime;
 	private List<String> cast;
 	private String poster;
 	private String plot;
 	private String fullplot;
-	private long lastupdated;
+	private Long lastupdated;
 	private String type;
 	private List<String> directors;
-	private IMDB imdb;
+	private Imdb imdb;
 	private List<String> countries;
 	private String rated;
 	private List<String> genres;
+
 
 	public ObjectId getId() {
 		return id;
@@ -34,6 +34,14 @@ public class Movie {
 
 	public void setId(ObjectId id) {
 		this.id = id;
+	}
+
+	public String get_id() {
+		return Objects.isNull(this.id) ? _id : this.id.toString();
+	}
+
+	public void set_id(String _id) {
+		this._id = _id;
 	}
 
 	public String getTitle() {
@@ -44,19 +52,19 @@ public class Movie {
 		this.title = title;
 	}
 
-	public int getYear() {
+	public Integer getYear() {
 		return year;
 	}
 
-	public void setYear(int year) {
+	public void setYear(Integer year) {
 		this.year = year;
 	}
 
-	public int getRuntime() {
+	public Integer getRuntime() {
 		return runtime;
 	}
 
-	public void setRuntime(int runtime) {
+	public void setRuntime(Integer runtime) {
 		this.runtime = runtime;
 	}
 
@@ -92,11 +100,11 @@ public class Movie {
 		this.fullplot = fullplot;
 	}
 
-	public long getLastupdated() {
+	public Long getLastupdated() {
 		return lastupdated;
 	}
 
-	public void setLastupdated(long lastupdated) {
+	public void setLastupdated(Long lastupdated) {
 		this.lastupdated = lastupdated;
 	}
 
@@ -116,11 +124,11 @@ public class Movie {
 		this.directors = directors;
 	}
 
-	public IMDB getImdb() {
+	public Imdb getImdb() {
 		return imdb;
 	}
 
-	public void setImdb(IMDB imdb) {
+	public void setImdb(Imdb imdb) {
 		this.imdb = imdb;
 	}
 
@@ -140,7 +148,7 @@ public class Movie {
 		this.rated = rated;
 	}
 
-	public List<String> getGenres() {
+	public List<String>getGenres() {
 		return genres;
 	}
 
@@ -148,11 +156,11 @@ public class Movie {
 		this.genres = genres;
 	}
 
-
 	@Override
 	public String toString() {
-		return "Movie{" +
-				"id=" + id +
+		return "MovieDTO{" +
+				"id=" + id + '\'' +
+				", _id='" + _id + '\'' +
 				", title='" + title + '\'' +
 				", year=" + year +
 				", runtime=" + runtime +

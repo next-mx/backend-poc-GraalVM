@@ -40,6 +40,7 @@ public class QuarkusResourceComment {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{commentId}")
     public Response getComment(@PathParam("movieId") String movieId, @PathParam("commentId") String commentId) {
+        log.info("Consultando comentario ID: {} de la película {}", commentId, movieId);
         return commentService.findById(commentId);
     }
     
@@ -47,6 +48,7 @@ public class QuarkusResourceComment {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{commentId}")
     public Response modifyComment(@PathParam("movieId") String movieId, @PathParam("commentId") String commentId, @Valid Comment comment) {
+        log.info("Modificando comentario ID: {} de la película {}", commentId, movieId);
         return commentService.modifyById(commentId, comment);
     }
     
@@ -54,6 +56,7 @@ public class QuarkusResourceComment {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{commentId}")
     public Response updateComment(@PathParam("movieId") String movieId, @PathParam("commentId") String commentId, @Valid Comment comment) {
+        log.info("Actualizando comentario ID: {} de la película {}", commentId, movieId);
         return commentService.updateById(commentId, comment);
     }
     
@@ -61,6 +64,7 @@ public class QuarkusResourceComment {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{commentId}")
     public Response deleteComment(@PathParam("movieId") String movieId, @PathParam("commentId") String commentId) {
+        log.info("Eliminando comentario ID: {} de la película {}", commentId, movieId);
         return commentService.deleteById(commentId);
     }
 }

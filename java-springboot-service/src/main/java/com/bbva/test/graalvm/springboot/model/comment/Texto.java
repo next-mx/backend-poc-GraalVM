@@ -1,6 +1,6 @@
-package com.bbva.test.graalvm.springboot.dto.comentario;
+package com.bbva.test.graalvm.springboot.model.comment;
 
-public class TextoDTO {
+public class Texto {
 	private String text;
 
 	public String getText() {

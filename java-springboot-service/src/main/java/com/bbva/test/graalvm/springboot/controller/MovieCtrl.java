@@ -1,9 +1,9 @@
 package com.bbva.test.graalvm.springboot.controller;
 
 
-import com.bbva.test.graalvm.springboot.dto.MovieDTO;
-import com.bbva.test.graalvm.springboot.dto.RespJSON;
-import com.bbva.test.graalvm.springboot.dto.movie.ImdbDTO;
+import com.bbva.test.graalvm.springboot.model.Movie;
+import com.bbva.test.graalvm.springboot.model.ResponseDTO;
+import com.bbva.test.graalvm.springboot.model.movie.Imdb;
 import com.bbva.test.graalvm.springboot.service.MovieServ;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -37,15 +36,14 @@ public class MovieCtrl {
 	/**
 	 * Creacion de pelicula
 	 *
-	 * @param movieDTO objeto que representa una pelicucla
+	 * @param movie objeto que representa una pelicucla
 	 */
 	@PostMapping(path = "/movies/", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<RespJSON<String>> newMovie(@RequestBody MovieDTO movieDTO) {
-		log.info("Registrando nueva película: {}", movieDTO);
-		movieServ.newMovie(movieDTO);
-		RespJSON<String> resp = new RespJSON<>();
-		resp.setMessage("Pelicula agregada exitosamente");
-		return new ResponseEntity<>(resp, HttpStatus.OK);
+	public ResponseEntity<ResponseDTO<Movie>> newMovie(@RequestBody Movie movie) {
+		log.info("Registrando nueva película: {}", movie);
+		movieServ.newMovie(movie);
+		ResponseDTO<Movie> responseDTO = new ResponseDTO<>("Pelicula agregada exitosamente", null);
+		return new ResponseEntity<>(responseDTO, HttpStatus.CREATED);
 	}
 
 
@@ -54,10 +52,11 @@ public class MovieCtrl {
 	 *
 	 */
 	@GetMapping(path = "/movies/", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<MovieDTO>> getMoviesInfo() {
+	public ResponseEntity<ResponseDTO<List<Movie>>> getMoviesInfo() {
 		log.info("Consultando listado de películas");
-		List<MovieDTO> movies = this.movieServ.findMovies();
-		return new ResponseEntity<>(movies, HttpStatus.OK);
+		List<Movie> movies = this.movieServ.findMovies();
+		ResponseDTO<List<Movie>> responseDTO = new ResponseDTO<>("Pelicula consultada exitosamente", movies);
+		return new ResponseEntity<>(responseDTO, HttpStatus.OK);
 	}
 
 
@@ -67,17 +66,16 @@ public class MovieCtrl {
 	 * @param movieId
 	 */
 	@GetMapping(path = "/movies/{movieId}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<MovieDTO> getMovieInfo(@PathVariable(name = "movieId") String movieId) {
+	public ResponseEntity<ResponseDTO<Movie>> getMovieInfo(@PathVariable(name = "movieId") String movieId) {
 		log.info("Consultando película con ID: {}", movieId);
-		Optional<MovieDTO> movie = this.movieServ.findMovieByID(movieId);
-
+		Optional<Movie> movie = this.movieServ.findMovieByID(movieId);
 		return movie.isPresent() ?
 				ResponseEntity
 					.status(HttpStatus.OK)
-					.body(movie.get()) :
+					.body(new ResponseDTO<>("Pelicula agregada exitosamente", movie.get())) :
 				ResponseEntity
 					.status(HttpStatus.NOT_FOUND)
-					.body(new MovieDTO());
+					.body(new ResponseDTO<>("Pelicula No encontrada", null));
 
 	}
 
@@ -89,12 +87,11 @@ public class MovieCtrl {
 	 * @param movie
 	 */
 	@PutMapping(path = "/movies/{movieId}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<RespJSON<String>> modifiMovie(@PathVariable(name = "movieId") String movieId, @RequestBody MovieDTO movie) {
+	public ResponseEntity<ResponseDTO<Movie>> modifiMovie(@PathVariable(name = "movieId") String movieId, @RequestBody Movie movie) {
 		log.info("Modificando la película: {} con los nuevos datos: {}", movieId, movie);
 		this.movieServ.updateMovie(movieId, movie);
-		RespJSON<String> resp = new RespJSON<>();
-		resp.setMessage("Pelicula modificada exitosamente");
-		return new ResponseEntity<>(resp, HttpStatus.OK);
+		ResponseDTO<Movie> responseDTO = new ResponseDTO<>("Pelicula modificada exitosamente", null);
+		return new ResponseEntity<>(responseDTO, HttpStatus.OK);
 	}
 
 
@@ -105,12 +102,11 @@ public class MovieCtrl {
 	 * @param movieId
 	 */
 	@PatchMapping(path = "/movies/{movieId}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<RespJSON<String>> editMovie(@PathVariable(name = "movieId") String movieId, @RequestBody ImdbDTO imbDto) {
+	public ResponseEntity<ResponseDTO<Movie>> editMovie(@PathVariable(name = "movieId") String movieId, @RequestBody Imdb imbDto) {
 		log.info("Actualizando película con ID: {}, los datos: {}", movieId, imbDto);
 		this.movieServ.updateIMB(movieId, imbDto);
-		RespJSON<String> resp = new RespJSON<>();
-		resp.setMessage("Pelicula editada exitosamente");
-		return new ResponseEntity<>(resp, HttpStatus.OK);
+		ResponseDTO<Movie> responseDTO = new ResponseDTO<>("Pelicula editada exitosamente", null);
+		return new ResponseEntity<>(responseDTO, HttpStatus.OK);
 	}
 
 	/**
@@ -119,12 +115,11 @@ public class MovieCtrl {
 	 * @param movieId
 	 */
 	@DeleteMapping(path = "/movies/{movieId}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<RespJSON<String>> deleteMovie(@PathVariable(name = "movieId") String movieId) {
+	public ResponseEntity<ResponseDTO<Movie>> deleteMovie(@PathVariable(name = "movieId") String movieId) {
 		log.info("Eliminando película con ID: {}", movieId);
 		this.movieServ.deleteMovie(movieId);
-		RespJSON<String> resp = new RespJSON<>();
-		resp.setMessage("Pelicula eliminada exitosamente");
-		return new ResponseEntity<>(resp, HttpStatus.OK);
+		ResponseDTO<Movie> responseDTO = new ResponseDTO<>("Pelicula eliminada exitosamente", null);
+		return new ResponseEntity<>(responseDTO, HttpStatus.OK);
 	}
 
 
@@ -132,24 +127,21 @@ public class MovieCtrl {
 	 * hacer backup
 	 */
 	@PostMapping(path = "/movies/backup", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<RespJSON<String>> backupDB() {
+	public ResponseEntity<ResponseDTO<Movie>> backupDB() {
 		log.info("Registrando backup del inventario de Películas");
 		this.movieServ.makeBackup();
-		RespJSON<String> resp = new RespJSON<>();
-		resp.setMessage("Respaldo agendado exitosamente");
-		return new ResponseEntity<>(resp, HttpStatus.OK);
+		ResponseDTO<Movie> responseDTO = new ResponseDTO<>("Respaldo agendado exitosamente", null);
+		return new ResponseEntity<>(responseDTO, HttpStatus.CREATED);
 	}
 
 	/**
 	 * recuperar backup de archivo
 	 */
 	@GetMapping(path = "/movies/backup", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<RespJSON<List<MovieDTO>>> getBackupFromFile() {
+	public ResponseEntity<ResponseDTO<List<Movie>>> getBackupFromFile() {
 		log.info("Consultando backup de peliculas");
-		RespJSON<List<MovieDTO>> resp = new RespJSON<>();
-		resp.setMessage("Respaldo consultado exitosamente");
-		resp.setResult(this.movieServ.getBackupFrom());
-		return new ResponseEntity<>(resp, HttpStatus.OK);
+		ResponseDTO<List<Movie>> responseDTO = new ResponseDTO<>("Respaldo consultado exitosamente", this.movieServ.getBackupFrom());
+		return new ResponseEntity<>(responseDTO, HttpStatus.OK);
 	}
 
 

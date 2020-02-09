@@ -1,20 +1,22 @@
 package com.poc.graalvm.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.quarkus.mongodb.panache.MongoEntity;
 import org.bson.types.ObjectId;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
-@MongoEntity(collection="comments")
+@MongoEntity(collection="Comments")
 public class Comment {
+	@JsonIgnore
 	private ObjectId id;
-
+	private String _id;
 	private String name;
 	private String email;
 	private String movie_id;
-	@NotNull
 	private String text;
 	private long date;
 
@@ -24,6 +26,14 @@ public class Comment {
 
 	public void setId(ObjectId id) {
 		this.id = id;
+	}
+
+	public String get_id() {
+		return Objects.isNull(this.id) ? _id : this.id.toString();
+	}
+
+	public void set_id(String _id) {
+		this._id = _id;
 	}
 
 	public String getName() {
@@ -69,7 +79,8 @@ public class Comment {
 	@Override
 	public String toString() {
 		return "Comment{" +
-				"id=" + id +
+				"id=" + id + '\'' +
+				", _id='" + _id + '\'' +
 				", name='" + name + '\'' +
 				", email='" + email + '\'' +
 				", movie_id='" + movie_id + '\'' +

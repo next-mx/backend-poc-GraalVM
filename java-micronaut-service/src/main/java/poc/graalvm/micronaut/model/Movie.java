@@ -1,28 +1,24 @@
 package poc.graalvm.micronaut.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.micronaut.core.annotation.Introspected;
 import org.bson.types.ObjectId;
-
-import javax.validation.constraints.NotBlank;
 import java.util.List;
+import java.util.Objects;
 
 @Introspected
 public class Movie {
-
+    @JsonIgnore
     private ObjectId id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String _id;
-  //  @NotBlank
     private String title;
     private Integer year;
     private Integer runtime;
     private List<String> cast;
-   // @NotBlank
     private String poster;
     private String plot;
     private String fullplot;
-    private Long lastUpdated;
+    private Long lastupdated;
     private String type;
     private List<String> directors;
     private Imdb imdb;
@@ -30,24 +26,21 @@ public class Movie {
     private String rated;
     private List<String> genres;
 
-    private void set_id(ObjectId id){
-        _id = id.toHexString();
-    }
-
-    public String get_id() {
-        return _id;
-    }
-
-
-    public void setId(ObjectId id) {
-        this.id = id;
-        if(id != null) {
-            set_id(id);
-        }
-    }
 
     public ObjectId getId() {
         return id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
+
+    public String get_id() {
+        return Objects.isNull(this.id) ? _id : this.id.toString();
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
     }
 
     public String getTitle() {
@@ -106,12 +99,12 @@ public class Movie {
         this.fullplot = fullplot;
     }
 
-    public Long getLastUpdated() {
-        return lastUpdated;
+    public Long getLastupdated() {
+        return lastupdated;
     }
 
-    public void setLastUpdated(Long lastUpdated) {
-        this.lastUpdated = lastUpdated;
+    public void setLastupdated(Long lastupdated) {
+        this.lastupdated = lastupdated;
     }
 
     public String getType() {
@@ -154,7 +147,7 @@ public class Movie {
         this.rated = rated;
     }
 
-    public List<String> getGenres() {
+    public List<String>getGenres() {
         return genres;
     }
 
@@ -164,8 +157,9 @@ public class Movie {
 
     @Override
     public String toString() {
-        return "Movie{" +
-                "_id=" + id +
+        return "MovieDTO{" +
+                "id=" + id + '\'' +
+                ", _id='" + _id + '\'' +
                 ", title='" + title + '\'' +
                 ", year=" + year +
                 ", runtime=" + runtime +
@@ -173,7 +167,7 @@ public class Movie {
                 ", poster='" + poster + '\'' +
                 ", plot='" + plot + '\'' +
                 ", fullplot='" + fullplot + '\'' +
-                ", lastUpdated=" + lastUpdated +
+                ", lastupdated=" + lastupdated +
                 ", type='" + type + '\'' +
                 ", directors=" + directors +
                 ", imdb=" + imdb +

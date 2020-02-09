@@ -1,12 +1,8 @@
 package com.bbva.test.graalvm.springboot.service.impl;
 
 
-import com.bbva.test.graalvm.springboot.dto.MovieDTO;
-import com.bbva.test.graalvm.springboot.dto.movie.ImdbDTO;
-import com.bbva.test.graalvm.springboot.dto.movie.LastUpdateDTO;
-import com.bbva.test.graalvm.springboot.dto.movie.NumberDoubleDTO;
-import com.bbva.test.graalvm.springboot.dto.movie.NumberIntDTO;
-import com.bbva.test.graalvm.springboot.dto.movie.NumberLongDTO;
+import com.bbva.test.graalvm.springboot.model.Movie;
+import com.bbva.test.graalvm.springboot.model.movie.Imdb;
 import com.bbva.test.graalvm.springboot.service.MovieServ;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -22,7 +18,7 @@ import java.util.Optional;
 public class MovieServiceImplTest {
 	@Autowired
 	private MovieServ movieServ;
-	private static MovieDTO movieUpdate;
+	private static Movie movieUpdate;
 	private static final String ID_TEMPORAL = "5e1e47b9beec2729cc06cb1e";
 
 
@@ -41,7 +37,7 @@ public class MovieServiceImplTest {
 	@Test
 	@DisplayName("Find movie by ID...")
 	public void f1() {
-		Optional<MovieDTO> movie = movieServ.findMovieByID(ID_TEMPORAL);
+		Optional<Movie> movie = movieServ.findMovieByID(ID_TEMPORAL);
 		System.out.println("---------------------------------");
 		System.out.println(movie);
 		System.out.println("---------------------------------");
@@ -52,7 +48,7 @@ public class MovieServiceImplTest {
 
 	@Test
 	public void updateImb() {
-		ImdbDTO imbdb = new ImdbDTO(new NumberDoubleDTO("5.2"), new NumberIntDTO("1000"), new NumberIntDTO("2"));
+		Imdb imbdb = new Imdb(new NumberDouble("5.2"), new NumberInt("1000"), new NumberInt("2"));
 		this.movieServ.updateIMB(ID_TEMPORAL,imbdb);
 		System.out.println(getClass().getResource("/"));
 	}
@@ -60,18 +56,18 @@ public class MovieServiceImplTest {
 
 	//@Test
 	public void newMovie() {
-		MovieDTO movie = new MovieDTO();
+		Movie movie = new Movie();
 		movie.setTitle("Avengers 2");
-		movie.setYear(new NumberIntDTO("2019"));
+		movie.setYear(new NumberInt("2019"));
 		movie.setCast(new String[]{"Thanos", "BlackPanther"});
-		movie.setRuntime(new NumberIntDTO("1"));
+		movie.setRuntime(new NumberInt("1"));
 		movie.setPoster("xxxx");
 		movie.setPlot("plot");
 		movie.setFullplot("full plot");
-		movie.setLastupdated(new LastUpdateDTO(new NumberLongDTO("12458796525")));
+		movie.setLastupdated(new LastUpdate(new NumberLongDTO("12458796525")));
 		movie.setType("movie");
 		movie.setDirectors(new String[]{"Anthony y Joe Russo"});
-		movie.setImdb(new ImdbDTO(new NumberDoubleDTO("5.9"), new NumberIntDTO("1032"), new NumberIntDTO("1")));
+		movie.setImdb(new Imdb(new NumberDouble("5.9"), new NumberInt("1032"), new NumberInt("1")));
 		movie.setCountries(new String[]{"USA"});
 		movie.setRated("NOT RATED");
 		movie.setGenres(new String[]{"Acccion", "Ciencia Ficcion"});

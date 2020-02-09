@@ -1,15 +1,15 @@
-package com.bbva.test.graalvm.springboot.dto.movie;
+package com.bbva.test.graalvm.springboot.model.movie;
 
-public class ImdbDTO {
+public class Imdb {
 	private Double rating;
 	private Integer votes;
 	private Integer id;
 
 
-	public ImdbDTO() {
+	public Imdb() {
 	}
 
-	public ImdbDTO(Double rating, Integer votes, Integer id) {
+	public Imdb(Double rating, Integer votes, Integer id) {
 		this.rating = rating;
 		this.votes = votes;
 		this.id = id;

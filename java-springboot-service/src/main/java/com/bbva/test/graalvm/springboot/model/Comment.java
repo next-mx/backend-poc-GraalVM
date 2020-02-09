@@ -1,12 +1,11 @@
-package com.bbva.test.graalvm.springboot.dto;
+package com.bbva.test.graalvm.springboot.model;
 
-import com.bbva.test.graalvm.springboot.dto.movie.LastUpdateDTO;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-@Document(collection = "comments")
-public class ComentarioDTO {
+@Document(collection = "Comments")
+public class Comment {
 	@Id
 	private String _id;
 	private String name;
@@ -14,7 +13,8 @@ public class ComentarioDTO {
 	@Field(name = "movie_id")
 	private String movieId;
 	private String text;
-	private Long date;
+	private long date;
+
 
 	public String get_id() {
 		return _id;
@@ -40,22 +40,6 @@ public class ComentarioDTO {
 		this.email = email;
 	}
 
-	public String getText() {
-		return text;
-	}
-
-	public void setText(String text) {
-		this.text = text;
-	}
-
-	public Long getDate() {
-		return date;
-	}
-
-	public void setDate(Long date) {
-		this.date = date;
-	}
-
 	public String getMovieId() {
 		return movieId;
 	}
@@ -64,10 +48,26 @@ public class ComentarioDTO {
 		this.movieId = movieId;
 	}
 
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public long getDate() {
+		return date;
+	}
+
+	public void setDate(long date) {
+		this.date = date;
+	}
+
 	@Override
 	public String toString() {
-		return "ComentarioDTO{" +
-				"_id='" + _id + '\'' +
+		return "Comment{" +
+				", _id='" + _id + '\'' +
 				", name='" + name + '\'' +
 				", email='" + email + '\'' +
 				", movie_id='" + movieId + '\'' +

@@ -1,33 +1,20 @@
 package poc.graalvm.micronaut.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.micronaut.core.annotation.Introspected;
 import org.bson.types.ObjectId;
-
-import javax.validation.constraints.NotBlank;
+import java.util.Objects;
 
 @Introspected
 public class Comment {
-
+    @JsonIgnore
     private ObjectId id;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String _id;
-    @NotBlank
     private String name;
     private String email;
-    private String movie_Id;
-    @NotBlank
+    private String movie_id;
     private String text;
-    private Long date;
-    private String message;
-
-    private void set_id(ObjectId id){
-        _id = id.toHexString();
-    }
-
-    public String get_id() {
-        return _id;
-    }
+    private long date;
 
     public ObjectId getId() {
         return id;
@@ -35,9 +22,14 @@ public class Comment {
 
     public void setId(ObjectId id) {
         this.id = id;
-        if(id != null) {
-            set_id(id);
-        }
+    }
+
+    public String get_id() {
+        return Objects.isNull(this.id) ? _id : this.id.toString();
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
     }
 
     public String getName() {
@@ -56,12 +48,12 @@ public class Comment {
         this.email = email;
     }
 
-    public String getMovie_Id() {
-        return movie_Id;
+    public String getMovie_id() {
+        return movie_id;
     }
 
-    public void setMovie_Id(String movie_Id) {
-        this.movie_Id = movie_Id;
+    public void setMovie_id(String movie_id) {
+        this.movie_id = movie_id;
     }
 
     public String getText() {
@@ -72,31 +64,24 @@ public class Comment {
         this.text = text;
     }
 
-    public Long getDate() {
+    public long getDate() {
         return date;
     }
 
-    public void setDate(Long date) {
+    public void setDate(long date) {
         this.date = date;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 
     @Override
     public String toString() {
         return "Comment{" +
-                "name='" + name + '\'' +
+                "id=" + id + '\'' +
+                ", _id='" + _id + '\'' +
+                ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", movieId='" + movie_Id + '\'' +
+                ", movie_id='" + movie_id + '\'' +
                 ", text='" + text + '\'' +
                 ", date=" + date +
-                ", message='" + message + '\'' +
                 '}';
     }
 }

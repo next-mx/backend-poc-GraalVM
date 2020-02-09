@@ -31,12 +31,12 @@ public class CommentService {
         Movie movie = movieRepository.findById(idDB);
         if(movie == null)
             return Response.status(Response.Status.BAD_REQUEST)
-                    .entity(new ResponseDTO<String>("No se encontro la pelicula para agregar un comentario", null))
+                    .entity(new ResponseDTO<>("No se encontro la pelicula para agregar un comentario", null))
                     .build();
         commentRepository.saveComment(comment);
         if(comment.getId() != null)
             return Response.created(URI.create(Constants.MOVIES_PATH + "/"  + comment.getId().toString()))
-                    .entity(new ResponseDTO<String>("Comentario agregado exitosamente", null))
+                    .entity(new ResponseDTO<>("Comentario agregado exitosamente", null))
                     .build();
         return Response.serverError()
                 .build();
@@ -44,7 +44,7 @@ public class CommentService {
 
     public Response findAll(String movieId){
         return Response.ok()
-                .entity(new ResponseDTO<List<Comment>>("Comentario consultado exitosamente", commentRepository.getAllComments(movieId)))
+                .entity(new ResponseDTO<>("Comentario consultado exitosamente", commentRepository.getAllComments(movieId)))
                 .build();
     }
 
@@ -52,7 +52,7 @@ public class CommentService {
         if(!ObjectId.isValid(id))
             throw new InvalidMongoIdException();
         return Response.ok()
-                .entity(new ResponseDTO<Comment>("Comentario consultado exitosamente", commentRepository.findByIdMovie(id)))
+                .entity(new ResponseDTO<>("Comentario consultado exitosamente", commentRepository.findByIdMovie(id)))
                 .build();
     }
 
@@ -64,15 +64,15 @@ public class CommentService {
         Comment updateComment = commentRepository.findById(idDB);
         if(updateComment == null)
             return Response.status(Response.Status.BAD_REQUEST)
-                    .entity(new ResponseDTO<String>("No se encontró el comentario a modificar", null))
+                    .entity(new ResponseDTO<>("No se encontró el comentario a modificar", null))
                     .build();
         updateComment.setName(comment.getName());
         updateComment.setEmail(comment.getEmail());
         updateComment.setText(comment.getText());
         updateComment.setDate(comment.getDate());
         commentRepository.updateComment(updateComment);
-        return Response.noContent()
-                .entity(new ResponseDTO<String>("Comentario modificado exitosamente", null))
+        return Response.ok()
+                .entity(new ResponseDTO<>("Comentario modificado exitosamente", null))
                 .build();
     }
 
@@ -84,12 +84,12 @@ public class CommentService {
         Comment updateComment = commentRepository.findById(idDB);
         if(updateComment == null)
             return Response.status(Response.Status.BAD_REQUEST)
-                    .entity(new ResponseDTO<String>("No se encontro el comentario a modificar", null))
+                    .entity(new ResponseDTO<>("No se encontro el comentario a modificar", null))
                     .build();
         updateComment.setText(comment.getText());
         commentRepository.updateComment(updateComment);
-        return Response.noContent()
-                .entity(new ResponseDTO<String>("Comentario editado exitosamente", null))
+        return Response.ok()
+                .entity(new ResponseDTO<>("Comentario editado exitosamente", null))
                 .build();
     }
 
@@ -100,8 +100,8 @@ public class CommentService {
         Comment comment = new Comment();
         comment.setId(new ObjectId(id));
         commentRepository.deleteComment(comment);
-        return Response.noContent()
-                .entity(new ResponseDTO<String>("Comentario eliminado exitosamente", null))
+        return Response.ok()
+                .entity(new ResponseDTO<>("Comentario eliminado exitosamente", null))
                 .build();
     }
 }

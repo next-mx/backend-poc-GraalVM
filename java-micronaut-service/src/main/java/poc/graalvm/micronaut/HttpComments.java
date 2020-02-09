@@ -15,7 +15,7 @@ import org.bson.codecs.pojo.PojoCodecProvider;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import poc.graalvm.micronaut.http.Response;
+import poc.graalvm.micronaut.http.ResponseDTO;
 import poc.graalvm.micronaut.model.Comment;
 import poc.graalvm.micronaut.model.Movie;
 
@@ -50,11 +50,11 @@ public class HttpComments {
     @Post("{movieId}/comments")
     public HttpResponse post(@NotBlank String movieId, @Valid @Body Comment comment) {
         log.info("Agregando comentario: {} a la película: {}", comment, movieId);
-        comment.setMovie_Id(movieId);
+        comment.setMovie_id(movieId);
         comment.setDate(System.currentTimeMillis());
         getCollection().insertOne(comment);
 
-        return HttpResponse.created(new Response<Movie>("Comentario agregado exitosamente"));
+        return HttpResponse.created(new ResponseDTO<Movie>("Comentario agregado exitosamente", null));
     }
 
 
@@ -70,8 +70,7 @@ public class HttpComments {
             comments.add(commentIterator.next());
         }
 
-        Response<Comment> movieReturned = new Response<>("Pelicula consultada exitosamente");
-        movieReturned.setResult(comments);
+        ResponseDTO<List<Comment>> movieReturned = new ResponseDTO<List<Comment>>("Pelicula consultada exitosamente", comments);
         return HttpResponse.ok(movieReturned);
     }
 
@@ -85,15 +84,14 @@ public class HttpComments {
                )
        ).first();
 
-       Response<Comment> movieReturned = new Response<>("Pelicula consultada exitosamente");
-       movieReturned.setResult(Arrays.asList(comment));
+       ResponseDTO<Comment> movieReturned = new ResponseDTO<>("Pelicula consultada exitosamente", comment);
        return HttpResponse.ok(movieReturned);
    }
 
     @Put("{movieId}/comments/{commentId}")
     public HttpResponse put(@NotBlank String movieId,@NotBlank String commentId, @Body Comment comment){
         log.info("Modificando comentario ID: {} de la película: {}", commentId, movieId);
-        comment.setMovie_Id(movieId);
+        comment.setMovie_id(movieId);
         UpdateResult updateResult = getCollection().replaceOne(
                 and(
                     eq("_id", new ObjectId(commentId)),
@@ -102,11 +100,10 @@ public class HttpComments {
         long updated = updateResult.getModifiedCount();
 
         HttpResponse response = null;
-        Response<Movie> movieResponse = new Response<>("");
+        ResponseDTO<Movie> movieResponseDTO = new ResponseDTO<>("Comentario modificado exitosamente", null);
 
         if(updated == 1){
-            movieResponse.setMessage("Comentario modificado exitosamente");
-            response = HttpResponse.ok(movieResponse);
+            response = HttpResponse.ok(movieResponseDTO);
         } else {
             response = HttpResponse.notModified();
         }
@@ -129,11 +126,10 @@ public class HttpComments {
         ), setDocument);
 
         HttpResponse response = null;
-        Response<Movie> movieResponse = new Response<>("");
+        ResponseDTO<Movie> movieResponseDTO = new ResponseDTO<>("Comentario editado exitosamente", null);
 
         if(updateResult.getModifiedCount() == 1L){
-            movieResponse.setMessage("Comentario editado exitosamente");
-            response = HttpResponse.ok(movieResponse);
+            response = HttpResponse.ok(movieResponseDTO);
         } else {
             response = HttpResponse.notModified();
         }
@@ -151,10 +147,9 @@ public class HttpComments {
 
         HttpResponse response = null;
 
-        Response<Movie> movieResponse = new Response<>("");
+        ResponseDTO<Movie> movieResponseDTO = new ResponseDTO<>("Comentario eliminado exitosamente", null);
         if(deleteResult.getDeletedCount() > 0){
-            movieResponse.setMessage("Comentario eliminado exitosamente");
-            response = HttpResponse.ok(movieResponse);
+            response = HttpResponse.ok(movieResponseDTO);
         } else {
             response = HttpResponse.notModified();
         }

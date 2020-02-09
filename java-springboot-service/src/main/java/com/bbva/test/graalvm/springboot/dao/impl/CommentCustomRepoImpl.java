@@ -1,7 +1,7 @@
 package com.bbva.test.graalvm.springboot.dao.impl;
 
-import com.bbva.test.graalvm.springboot.dao.ComentarioCustomRepo;
-import com.bbva.test.graalvm.springboot.dto.ComentarioDTO;
+import com.bbva.test.graalvm.springboot.dao.CommentCustomRepo;
+import com.bbva.test.graalvm.springboot.model.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 
 @Lazy
 @Repository
-public class ComentarioCustomRepoImpl implements ComentarioCustomRepo {
+public class CommentCustomRepoImpl implements CommentCustomRepo {
 
 	@Autowired
 	private MongoOperations mongoOperations;
@@ -22,14 +22,7 @@ public class ComentarioCustomRepoImpl implements ComentarioCustomRepo {
 		Query select = Query.query(Criteria.where("_id").is(commentId));
 		Update update = new Update();
 		update.set("text", text);
-		this.mongoOperations.findAndModify(select, update, ComentarioDTO.class);
-	}
-
-	@Override
-	public int totalCommnetByMovie(String idMovie) {
-		Query selec = Query.query(Criteria.where("movie_id").is(idMovie));
-		int tam = this.mongoOperations.find(selec, ComentarioDTO.class).size();
-		return tam == 0 ? 1 : tam;
+		this.mongoOperations.findAndModify(select, update, Comment.class);
 	}
 
 }

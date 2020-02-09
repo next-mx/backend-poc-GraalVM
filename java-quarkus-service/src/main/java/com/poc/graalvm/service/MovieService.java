@@ -1,8 +1,9 @@
 package com.poc.graalvm.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.poc.graalvm.config.Constants;
 import com.poc.graalvm.error.InvalidMongoIdException;
-import com.poc.graalvm.model.IMDB;
+import com.poc.graalvm.model.Imdb;
 import com.poc.graalvm.repository.MovieRepository;
 import com.poc.graalvm.model.Movie;
 import com.poc.graalvm.model.ResponseDTO;
@@ -11,30 +12,34 @@ import org.bson.types.ObjectId;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;
+import java.io.IOException;
 import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
+import java.util.stream.Stream;
 
 @ApplicationScoped
 public class MovieService {
 
     @Inject
-    MovieRepository movieRepository;
+    private MovieRepository movieRepository;
     @Inject
-    TimerBackupMovies timerBackupMovies;
+    private BackupMoviesTask backupMoviesTask;
 
     public Response add(Movie movie){
         movieRepository.saveMovie(movie);
         if(movie.getId() != null)
             return Response
                     .created(URI.create(Constants.MOVIES_PATH + "/"  + movie.getId().toString()))
-                    .entity(new ResponseDTO<String>("Película agregada exitosamente", null))
+                    .entity(new ResponseDTO<>("Película agregada exitosamente", null))
                     .build();
         return Response.serverError().build();
     }
 
     public Response findAll(){
-        return Response.ok(new ResponseDTO<List<Movie>>(
+        return Response.ok(new ResponseDTO<>(
                 "Película consultada exitosamente",
                  movieRepository.getAllMovies()))
                 .build();
@@ -44,7 +49,7 @@ public class MovieService {
         if(!ObjectId.isValid(id))
             throw new InvalidMongoIdException();
         ObjectId idDB = new ObjectId(id);
-        return Response.ok(new ResponseDTO<Movie>(
+        return Response.ok(new ResponseDTO<>(
                 "Película consultada exitosamente",
                  movieRepository.findById(idDB)))
                 .build();
@@ -56,18 +61,18 @@ public class MovieService {
             throw new InvalidMongoIdException();
         movie.setId(new ObjectId(id));
         movieRepository.modifyMovie(movie);
-        return Response.noContent()
-                .entity(new ResponseDTO<String>("Película modificada exitosamente", null))
+        return Response.ok()
+                .entity(new ResponseDTO<>("Película modificada exitosamente", null))
                 .build();
     }
 
 
-    public Response updateById(String id, IMDB imdb){
+    public Response updateById(String id, Imdb imdb){
         if(!ObjectId.isValid(id))
             throw new InvalidMongoIdException();
         movieRepository.updateMovie(id, imdb);
-        return Response.noContent()
-                .entity(new ResponseDTO<String>("Película editada exitosamente", null))
+        return Response.ok()
+                .entity(new ResponseDTO<>("Película editada exitosamente", null))
                 .build();
     }
 
@@ -78,24 +83,40 @@ public class MovieService {
         Movie movie = new Movie();
         movie.setId(new ObjectId(id));
         movieRepository.deleteMovie(movie);
-        return Response.noContent()
-                .entity(new ResponseDTO<String>("Película eliminada exitosamente", null))
+        return Response.ok()
+                .entity(new ResponseDTO<>("Película eliminada exitosamente", null))
                 .build();
     }
 
 
     public Response scheduleBackup() {
-        Timer timerBackup = new Timer();
-        timerBackup.schedule(timerBackupMovies, 5000);
+        backupMoviesTask.makeBackup(true);
         return Response.created(URI.create(Constants.MOVIES_PATH + "/backup"))
-                .entity(new ResponseDTO<String>("Respaldo agendado exitosamente", null))
+                .entity(new ResponseDTO<>("Respaldo agendado exitosamente", null))
                 .build();
     }
 
 
     public Response getBackup() {
+        List<Movie> movies = new ArrayList<>();
+        ObjectMapper objectMapper = new ObjectMapper();
+        try (Stream<String> stream = Files.lines(Paths.get(BackupMoviesTask.FILE_NAME))) {
+            stream.forEach(item -> {
+                try {
+                    Movie movie = objectMapper.readValue(item.substring(item.indexOf(',') + 1), Movie.class);
+                    movies.add(movie);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity(new ResponseDTO<>("Respaldo no encontrado", null))
+                    .build();
+        }
         return Response.ok()
-                .entity(new ResponseDTO<String>("Respaldo consultado exitosamente", null))
+                .entity(new ResponseDTO<>("Respaldo consultado exitosamente", movies))
                 .build();
     }
 }

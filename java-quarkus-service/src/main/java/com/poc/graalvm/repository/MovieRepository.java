@@ -1,6 +1,6 @@
 package com.poc.graalvm.repository;
 
-import com.poc.graalvm.model.IMDB;
+import com.poc.graalvm.model.Imdb;
 import com.poc.graalvm.model.Movie;
 import io.quarkus.mongodb.panache.PanacheMongoRepository;
 import org.bson.types.ObjectId;
@@ -27,7 +27,7 @@ public class MovieRepository implements PanacheMongoRepository<Movie> {
         update(movie);
     }
 
-    public void updateMovie(String id, IMDB imdb){
+    public void updateMovie(String id, Imdb imdb){
         ObjectId idDB = new ObjectId(id);
         Movie movie =findById(idDB);
         movie.setImdb(imdb);
