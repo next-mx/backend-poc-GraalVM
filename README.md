@@ -1,8 +1,53 @@
 # Backend PoC GraalVM
 > Prueba de concepto de Graal Virtual Machine
 
+## Información General
 
-## Objetivo
+#### Versión del documento
+> 1.0.0
+
+##### Fecha del documento
+> 30-01-2020
+
+
+#### Autores
+
+| Nombre        | Planeta       | Tribu  |
+| ------------- |:-------------:| :-----:|
+| [Alejandro Jesús Torres Dimas](alejandrojesus.torres.dimas.next@bbva.com) | Software Crafter |  |
+| [Crisanto Jerónimo García](crisanto.jeronimo.next@gmail.com) | Software Crafter | Backend |
+| [Daniel Ramírez Herrera](daniel.ramirez3.next@bbva.com) | Software Crafter | DevSecOps |
+| [Edgar Alan Valdes Iglesias](edgaralan.valdes.iglesias.next@bbva.com) | Software Crafter | Backend |
+| [José Salvador Cortés Figueroa](josesalvador.cortes.next@bbva.com) | Software Crafter | Backend |
+| [Octavio Martínez José](octavio.martinez.jose.next@bbva.com) | Software Crafter |  |
+
+
+
+#### Tecnologías
+| Nombre        | Versión       | Tipo  |
+| ------------- |:-------------:| :-----:|
+| `GraalVM` | 19.2.1 CE 64-Bit | Virtual Machine |
+| `Java` | OpenJDK 1.8.0_232 | Lenguaje |
+| `Python` | 3.7.3 | Lenguaje |
+| `NodeJS` | 10.18.1 | Runtime |
+| `Micronaut` | 1.2.5 | Framework |
+| `Quarkus` | 0.26.1 | Framework |
+| `Spring-boot` | 2.2.0 | Framework |
+| React | 16.10.2 | Framework |
+| Angular | 1.7.8 | Framework |
+| `MongoDB` | 4.2.1 | Base de datos NoSQL |
+| `Docker` | 19.03.4 | Contenedores |
+| `MacOS` | Catalina 10.15.2 | Sistema Operativo |
+
+
+## Introducción
+> [GraalVM](https://www.graalvm.org) es una nueva máquina virtual creada por [Oracle](https://www.oracle.com/index.html) para ejecutar con alto rendimiento(menor consumo de RAM y menor tiempo de arranque) aplicaciones escritas en JavaScript, Python, Ruby, R, lenguajes basados en la JVM como Java, Scala, Groovy, Kotlin, Clojure y lenguajes basados en LLVM como C y C++.
+ 
+> Elimina el aislamiento entre lenguajes de programación y permite la interoperabilidad en un runtime compartido en aplicaciones políglotas. Además brinda una utilería para generar aplicaciones nativas(binarios) que podrán ejecutarse sin tener que instalar el JRE.
+
+
+
+### Objetivo
 > **Validar las principales características de esta tecnología:**
 1. Imágenes nativas
 2. Aplicaciones políglotas
@@ -11,15 +56,14 @@
 > **Usando los 3 lenguajes más importantes actualmente:**
 1. Java
 2. Javascript con Node
-3. Python(conscientes de que este leguaje aún está en fase experimental)
+3. Python(conscientes de que este lenguaje aún está en fase experimental)
 
-> **Crearémos los siguientes componentes:** 
+> **Se crearon los siguientes componentes:** 
 * Microservicio Java con Quarkus(se creará aplicación nativa)
 * Microservicio Java con Micronaut(se creará aplicación nativa)
 * Microservicio Java con Spring-boot(se creará aplicación nativa)
 * Microservicio Políglota(python como pivote y secundarios javascript y java)
 * Microservicio Políglota(javascript-Node como pivote y secundarios python y java)
-* Aplicación front-end con React
 * Aplicación front-end con Angular
  
  > **Se considerarán las funcionalidades requeridas frecuentemente:**
@@ -41,70 +85,233 @@
  6. Estabilidad de la aplicación
  7. Compatibilidad de librerías y frameworks
 
-## Introducción
-> [GraalVM](https://www.graalvm.org) es una nueva máquina virtual creada por [Oracle](https://www.oracle.com/index.html) para ejecutar con alto rendimiento(menor consumo de RAM y menor tiempo de arranque) aplicaciones escritas en JavaScript, Python, Ruby, R, lenguajes basados en la JVM como Java, Scala, Groovy, Kotlin, Clojure y lenguajes basados en LLVM como C y C++.
- 
-> Elimina el aislamiento entre lenguajes de programación y permite la interoperabilidad en un runtime compartido en aplicaciones políglotas. Además brinda una utilería para generar aplicaciones nativas(binarios) que podrán ejecutarse sin tener que instalar el JRE.
 
-## Metodología
-> Comparativa con medición cuantitativo y cualitativo
-
-
-#### Infraestructura
-> Se requiere un proyecto privado con repositorios git
-
-
-#### Estimación de Costes
-> No genera costos económicos
-
-
-#### Planning de tiempos
-> Cada integrante dedicará **8 horas semanales** de las cuales 5 serán fuera del horario laboral
-
-* **Definición de objetivos, alcances y Documento propuesta** - del 4 al 8 de noviembre de 2019
-* **Ejecución** - Del 11 de noviembre al 16 de diciembre de 2019
-* **Review final y Documento de entrega** - del 17 al 30 de diciembre de 2019
-* **Formación y/o Artículo para blog** - Después del 2 de enero de 2020
+### Estado del arte
+> GraalVM es distribuido como versiones:
+>- Enterprise Edition(Oracle Java)
+>- Community Edition(OpenJDK)
+>
+> para plataformas x86 64 bits con sistemas operativos:
+>- Linux
+>- macOS
+>- Windows
+>
+> El 09-05-2019 fue liberada la versión 19.0.0 como primer versión productiva con soporte para Java 8 y
+> fue hasta la versión 19.3.0 que añadieron compatibilidad con Java 11.
+>
+> En el útlimo año se vuelto bastante popular, varios artículos se han escrito en diferentes blogs y 
+> se han hecho presentaciones en los útlimos pequeñosy grandes eventos que tienen que ver con desarrollo de software tales
+> como el Oracle Code One.
+>
+> Oracle ha impulsado mucho esta tecnología tanto que ha creado el [Intership Program](https://www.graalvm.org/community/internship/)
+> en diferentes paises del mundo para reunir desarrolladores de software que aprendan, usen y contribuyan a GraalVM.
+>
+> Actualmente no existe otra tecnología similar a GraalVM que ofrezca los mismos beneficios para Java.
 
 
-## Información General
-> Las pruebas se ejecutarán con los siguientes requerimientos técnicos y tecnológicos:
+## Material
+> Las pruebas y mediciones se realizaron en una computadora Mackbook Pro con las siguientes características:
+> * CPU: Intel i5 Dual Core 2.3 GHz
+> * RAM: 16 GB 2133 MHz LPDDR3
+> * HD: 250 GB Flash Storage
 
-| Nombre        | Versión       | Tipo  |
+> La definición del modelo y datos de prueba se encuentran en la carpeta [resources/db/](https://github.com/beeva/backend-poc-GraalVM/blob/master/resources/db/Collections.md) del repositorio
+
+> La definición del API REST que expone cada microservicio está definido en la carpeta [resources/api/](https://github.com/beeva/backend-poc-GraalVM/tree/master/resources/api) del repositorio
+
+> Los payloads de pruebas y variables(con Postman) se enuentran en la carpeta [resources/api/](https://github.com/beeva/backend-poc-GraalVM/tree/master/resources/api) del repositorio
+
+
+## Métodos
+> Para replicar esta PoC es necesario seguir las siguientes instrucciones, la secuencia es importante.
+> 
+> **NOTA**: Las versiones están arriba en la sección **Tecnología** de este documento
+
+#### Instalación
+
+* ##### SDKman
+> [SDKMAN!](https://sdkman.io) es una herramienta para administrar versiones paralelas de multiples Software Development Kits sobre los sistemas operativos más populares basados en linux/unix.
+> Provee una Interface de Línea de Comandos(CLI) y un API para instalar, intercambiar, borrados y listados de candidatos.
+> 
+> Sigue las instrucciones para instalarlo en [https://sdkman.io/install](https://sdkman.io/install)
+
+* ##### GraalVM
+> [GraalVM](https://www.graalvm.org) es la nueva máquina virtual que probaremos en esta PoC. 
+> 
+> En una terminal ejecuta los siguientes comandos:
+```bash
+sdk ls java
+sdk i java 19.2.1-grl
+gu install native-image
+```
+
+* ##### Open JDK
+> [Open JDK](https://adoptopenjdk.net) es una versión de código abierto de la JVM de Oracle. 
+> 
+> En una terminal ejecuta los siguientes comandos:
+```bash
+sdk ls java
+sdk i java 8.0.232.j9-adpt
+```
+
+* ##### NodeJS
+> [NodeJS](https://nodejs.org/es/) es un entorno de ejecución para javascript. 
+> 
+> Descarga la versión **node-v10.18.1.pkg** en [https://nodejs.org/dist/latest-v10.x/](https://nodejs.org/dist/latest-v10.x/), una vez descargado ejecuta el archivo .pkg y sigue las instrucciones en la pantalla que se te mostrará
+
+> o usa [Homebrew](https://docs.brew.sh/Installation)
+```bash
+brew install node@10
+```
+
+* ##### Docker
+> [Docker](https://www.docker.com) es una herramienta que provee un camino para desplegar aplicaciones de forma segura y asilada en un contenedor en el cual se empaquetan todas sus dependencias y librerías. 
+> 
+> Sigue las instrucciones para instalarlo en [https://docs.docker.com/install/](https://docs.docker.com/install/)
+
+
+#### Ejecución
+
+* ##### MongoDB
+> [MongoDB](https://www.mongodb.com) es un sistema de base de datos NoSQL orientado a documentos de código abierto
+> 
+> Sigue las instrucciones para ejecutarlo en la carpeta [resuorces/db](https://github.com/beeva/backend-poc-GraalVM/tree/master/resources/db)
+
+* ##### Java Micronaut Service
+> [Micronaut](https://micronaut.io) Es un framework moderno para desarrollar microservicios full stack, basado en la JVM
+> diseñado para construir aplicaciones modulares faciles de testear.
+> 
+> Sigue las instrucciones para ejecutarlo en la carpeta [java-micronaut-service](https://github.com/beeva/backend-poc-GraalVM/tree/master/java-micronaut-service)
+
+* ##### Java Quarkus Service
+> [Quarkus](https://quarkus.io) es un framework nativo de Java para Kubernetes diseñado para GraalVM y JVM, creado a partir de las mejores librerías y estándares Java del mercado
+> 
+> Sigue las instrucciones para ejecutarlo en la carpeta [java-quarkus-service](https://github.com/beeva/backend-poc-GraalVM/tree/master/java-quarkus-service)
+
+* ##### Java Spring-boot Service
+> [Spring-boot](https://spring.io/projects/spring-boot) es un proyecto de **Spring Framework** que facilita la configuración y desarrollo de aplicaciones
+>
+> Sigue las instrucciones para ejecutarlo en la carpeta [java-springboot-service](https://github.com/beeva/backend-poc-GraalVM/tree/master/java-springboot-service)
+
+* ##### JavaScript Node Service
+> [NodeJS](https://nodejs.org/es/) es un entorno de ejecución para javascript. 
+> 
+> Sigue las instrucciones para ejecutarlo en la carpeta [javascript-node-service](https://github.com/beeva/backend-poc-GraalVM/tree/master/javascript-node-service)
+
+* ##### Python Polyglot Service
+> [Python](https://www.python.org/) es un lenguaje de programación interpretado, multiproposito y multiparadigma ya que soporta orientación a objetos, imperativa y funcional
+> 
+> Sigue las instrucciones para ejecutarlo en la carpeta [python-polyglot-service](https://github.com/beeva/backend-poc-GraalVM/tree/master/python-polyglot-service)
+
+
+
+## Resultados
+
+#### Java Micronaut Service
+
+| Metrica        | GraalVM       | JVM OpenJDK | Imagen Nativa |
+| ------------- |:-------------:| :-----:| ------------- |
+| Tamaño del componente generado(MB) | 169 MB | 18.6 MB  |  61 MB |
+| Consumo de RAM en tiempo de compilación(MB)  | 4.3 GB   | 100 MB  | 5.8 GB  |
+| Consumo de RAM en tiempo de ejecución(MB)  |  160MB  |  20 MB | 400 MB |
+| Consumo de CPU en tiempo de compilación(MB)  |  3.72%  | 0.63%  | 50% |
+| Consumo de CPU en tiempo de ejecución(MB)  |  3%  |  0.50% |  3%  |
+| Tiempo de startup(Segundos)  |   |   |   |
+| Compatibilidad de librerías y frameworks  | 100%   | 90%  |  80%  |
+| Comportamientos en tiempo de compilación  |  Bueno  |  Bueno |  Bueno  |
+| Comportamientos en tiempo de ejecución  |  Muy Bueno | Bueno   |   Muy bueno   |
+
+> Comentarios generales/adicionales sobre los resultados de este componente particular
+
+
+#### Java Quarkus Service
+
+| Metrica        | GraalVM       | JVM OpenJDK | Imagen Nativa |
+| ------------- |:-------------:| :-----:| ------------- |
+| Tamaño del componente generado(MB) |  |   |   |
+| Consumo de RAM en tiempo de compilación(MB)  |    |   |   |
+| Consumo de RAM en tiempo de ejecución(MB)  |    |   |
+| Consumo de CPU en tiempo de compilación(MB)  |    |   |   |
+| Consumo de CPU en tiempo de ejecución(MB)  |    |   |    |
+| Tiempo de startup(Segundos)  |    |   |   |
+| Compatibilidad de librerías y frameworks  |    |   |    |
+| Comportamientos en tiempo de compilación  |    |   |    |
+| Comportamientos en tiempo de ejecución  |    |   |      |
+
+
+> Comentarios generales/adicionales sobre los resultados de este componente particular
+
+
+#### Java Spring-boot Service
+
+| Metrica        | GraalVM       | JVM OpenJDK | Imagen Nativa |
+| ------------- |:-------------:| :-----:| ------------- |
+| Tamaño del componente generado(MB) |  |   |   |
+| Consumo de RAM en tiempo de compilación(MB)  |    |   |   |
+| Consumo de RAM en tiempo de ejecución(MB)  |    |   |
+| Consumo de CPU en tiempo de compilación(MB)  |    |   |   |
+| Consumo de CPU en tiempo de ejecución(MB)  |    |   |    |
+| Tiempo de startup(Segundos)  |    |   |   |
+| Compatibilidad de librerías y frameworks  |    |   |    |
+| Comportamientos en tiempo de compilación  |    |   |    |
+| Comportamientos en tiempo de ejecución  |    |   |      |
+
+> Comentarios generales/adicionales sobre los resultados de este componente particular
+
+
+#### Javascript Node Service
+
+| Metrica        | GraalVM       | NodeJS |
 | ------------- |:-------------:| :-----:|
-| GraalVM | 19.2.1 CE 64-Bit | Virtual Machine |
-| Java | OpenJDK 1.8.0_232 | Lenguaje |
-| Python | 3.7.3 | Lenguaje |
-| Node | 10.16.3 | Runtime |
-| Micronaut | 1.2.5 | Framework |
-| Quarkus | 0.26.1 | Framework |
-| Spring-boot | 2.2.0 | Framework |
-| React | 16.10.2 | Framework |
-| Angular | 1.7.8 | Framework |
-| Docker | 19.03.4 | Contenedores |
-| MacOS | 10.15 | Sistema Operativo |
-| MongoDB | 4.2.1 | Base de datos NoSQL |
-| Linux | Ubuntu 19.10 | Sistema Operativo |
-| Linux | Fedora 30 / CentOS 7 | Sistema Operativo |
-| Linux | Alpine 3.10.3 | Sistema Operativo  |
+| Tamaño del componente generado(MB) |  |   |
+| Consumo de RAM en tiempo de compilación(MB)  |    |   |
+| Consumo de RAM en tiempo de ejecución(MB)  |    |   |
+| Consumo de CPU en tiempo de compilación(MB)  |    |   |
+| Consumo de CPU en tiempo de ejecución(MB)  |    |   |
+| Tiempo de startup(Segundos)  |    |   |
+| Compatibilidad de librerías y frameworks  |    |   |
+| Comportamientos en tiempo de compilación  |    |   |
+| Comportamientos en tiempo de ejecución  |    |   |
 
-#### Autores
+> Comentarios generales/adicionales sobre los resultados de este componente particular
 
-| Nombre        | Planeta       | Tribu  |
+
+#### Python Polyglot Service
+
+| Metrica        | GraalVM       | Python |
 | ------------- |:-------------:| :-----:|
-| [Alejandro Jesús Torres Dimas](alejandrojesus.torres.dimas.next@bbva.com) | Software Crafter |  |
-| [Crisanto Jerónimo García](crisanto.jeronimo.next@gmail.com) | Software Crafter | Backend |
-| [Daniel Ramírez Herrera](daniel.ramirez3.next@bbva.com) | Software Crafter | DevSecOps |
-| [Edgar Alan Valdes Iglesias](edgaralan.valdes.iglesias.next@bbva.com) | Software Crafter | Backend |
-| [José Eduardo Radilla Mendoza](joseeduardo.radilla.next@bbva.com) | Software Crafter | Backend |
-| [José Daniel Hernández Osorio](josedaniel.hernandez.osorio.next@bbva.com) | Software Crafter | Backend |
-| [José Salvador Cortés Figueroa](josesalvador.cortes.next@bbva.com) | Software Crafter | Backend |
-| [Octavio Martínez José](octavio.martinez.jose.next@bbva.com) | Software Crafter |  |
+| Tamaño del componente generado(MB) |  |   |
+| Consumo de RAM en tiempo de compilación(MB)  |    |   |
+| Consumo de RAM en tiempo de ejecución(MB)  |    |   |
+| Consumo de CPU en tiempo de compilación(MB)  |    |   |
+| Consumo de CPU en tiempo de ejecución(MB)  |    |   |
+| Tiempo de startup(Segundos)  |    |   |
+| Compatibilidad de librerías y frameworks  |    |   | 
+| Comportamientos en tiempo de compilación  |    |   |
+| Comportamientos en tiempo de ejecución  |    |   |
+
+> Comentarios generales/adicionales sobre los resultados de este componente particular
 
 
-##### Fecha del documento
-> 14-11-2019
 
+## Discusión
+> En esta sección se comentan los resultados uno a uno, se discuten las comparativas. Es aquí donde debe ir TODO juicio de valor de quien lo escribe, opiniones, etc. En esta sección se deberá revisar el triángulo: tiempo-alcance-incertidumbre con el objetivo de resolver las conclusiones de la última sección.
 
-##### Tecnologías relacionadas
-> `GraalVM` `Java` `Python` `Node` `React`  `Angular`  `Micronaut`  `Quarkus`  `Spring-boot`  `Docker`  `Native application`
+### Limitaciones
+> En esta sección se describen las limitaciones de la PoC:
+> * Cosas que no se han podido probar (por qué no se ha probado, el alcance de tu trabajo y de tus conclusiones)
+> * Evaluaciones que no se han realizado y que molaría hacer (futuras PoCs?)
+> * Limitaciones de la tecnología: Las limitaciones propias de la tecnología deberán discutirse en Discusión y en Resultados así como derivar en conclusiones.
+
+### Ejemplo de caso de uso
+> En esta sección se discute, a la vista de resultados, una posible aplicación dentro de [BBVA Next Technologies](https://www.bbvanexttechnologies.com/) de la(s) tecnología(s) evaluada(s). No es necesario implementarla, sino dar idea de utilidades posibles de la tecnología
+
+#### Costes
+> Aquí se deben describir los costes del supuesto caso de uso. Pueden ser aproximados, pero en líneas generales deben dar una idea de las posibilidades de la tecnología desde el punto de vista económico.
+
+## Conclusiones
+>En esta sección deben estar todas las conclusiones del trabajo. **Cuidado con realizar especulaciones**, es importante que sean conclusiones que deriven directamente del trabajo realizado y de la tecnología: pros y contras así como limitaciones de implantación. Es importante que en las conclusiones aparezcan ventajas y desventajas de la tecnología como resultado de la PoC.
+Información relevante que es deseable responder:
+¿Es válida la tecnología para producción? ¿Bajo qué condiciones y parámetros?
+¿Cómo se relaciona con otras tecnologías del radar?
+

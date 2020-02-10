@@ -27,3 +27,4 @@ Thumbs.db
 poc-graalvm-micronaut
 node_modules/
 *.iml
+logs/
