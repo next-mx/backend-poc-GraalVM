@@ -373,56 +373,71 @@ _
 
 ```json
 {
-"message": "Respaldo consultado exitosamente",
-"result": [
-    {
-        "_id": {
-            "$oid": "573a1390f29313caabcd4132"
-        },
-        "title": "Avengers: Endgame",
-        "year": {
-            "$numberInt": "2019"
-        },
-        "runtime": {
-            "$numberInt": "1"
-        },
-        "cast": [
-            "Thanos"
-        ],
-        "poster": "https://pulpfictioncine.com/contenido/4809/se-revela-epico-poster-de-avengers-endgame#&gid=1&pid=1",
-        "plot": "Tras los eventos devastadores de Avengers: Infinity War, el universo está en ruinas debido a los efectos del titán loco, Thanos",
-        "fullplot": "Tras los eventos devastadores de Avengers: Infinity War, el universo está en ruinas debido a los efectos del titán loco, Thanos. Con la ayuda de los aliados restantes, los Vengadores deben reunirse una vez más para deshacer las acciones de Thanos y restaurar el orden del universo de una vez y para siempre, sin importar las consecuencias que pueda tener, aunque algunos pagarán el precio. 2​ Además cuenta con la aparición de Ant-Man, Wasp y Capitana Marvel.",
-        "lastupdated": {
-            "$date": {
-                "$numberLong": "1440565425000"
-            }
-        },
-        "type": "movie",
-        "directors": [
-            "Anthony y Joe Russo"
-        ],
-        "imdb": {
-            "rating": {
-                "$numberDouble": "5.9"
+    "message": "Respaldo consultado exitosamente",
+    "result": [
+        {
+            "_id": "5e436987f528b6186601ee2d",
+            "title": "Avengers: Endgame",
+            "year": 2019,
+            "runtime": 1,
+            "cast": [
+                "Thanos"
+            ],
+            "poster": "https://pulpfictioncine.com/contenido/4809/se-revela-epico-poster-de-avengers-endgame#&gid=1&pid=1",
+            "plot": "Tras los eventos devastadores de Avengers: Infinity War, el universo está en ruinas debido a los efectos del titán loco, Thanos",
+            "fullplot": "Tras los eventos devastadores de Avengers: Infinity War, el universo está en ruinas debido a los efectos del titán loco, Thanos. Con la ayuda de los aliados restantes, los Vengadores deben reunirse una vez más para deshacer las acciones de Thanos y restaurar el orden del universo de una vez y para siempre, sin importar las consecuencias que pueda tener, aunque algunos pagarán el precio. 2​ Además cuenta con la aparición de Ant-Man, Wasp y Capitana Marvel.",
+            "lastupdated": 1440565425000,
+            "type": "movie",
+            "directors": [
+                "Anthony y Joe Russo"
+            ],
+            "imdb": {
+                "rating": 5.9,
+                "votes": 1032,
+                "id": 1
             },
-            "votes": {
-                "$numberInt": "1032"
-            },
-            "id": {
-                "$numberInt": "1"
-            }
+            "countries": [
+                "USA"
+            ],
+            "rated": "NOT RATED",
+            "genres": [
+                "Superhéroes",
+                "Acción",
+                "Ciencia ficción"
+            ]
         },
-        "countries": [
-            "USA"
-        ],
-        "rated": "NOT RATED",
-        "genres": [
-            "Superhéroes",
-            "Acción",
-            "Ciencia ficción"
-        ]
-    }
-  ]
+        {
+            "_id": "5e44c226bb90620d4a40ae66",
+            "title": "Avengers: Endgame",
+            "year": 2019,
+            "runtime": 1,
+            "cast": [
+                "Thanos"
+            ],
+            "poster": "https://pulpfictioncine.com/contenido/4809/se-revela-epico-poster-de-avengers-endgame#&gid=1&pid=1",
+            "plot": "Tras los eventos devastadores de Avengers: Infinity War, el universo está en ruinas debido a los efectos del titán loco, Thanos",
+            "fullplot": "Tras los eventos devastadores de Avengers: Infinity War, el universo está en ruinas debido a los efectos del titán loco, Thanos. Con la ayuda de los aliados restantes, los Vengadores deben reunirse una vez más para deshacer las acciones de Thanos y restaurar el orden del universo de una vez y para siempre, sin importar las consecuencias que pueda tener, aunque algunos pagarán el precio. 2​ Además cuenta con la aparición de Ant-Man, Wasp y Capitana Marvel.",
+            "lastupdated": 1440565425000,
+            "type": "movie",
+            "directors": [
+                "Anthony y Joe Russo"
+            ],
+            "imdb": {
+                "rating": 5.9,
+                "votes": 1032,
+                "id": 1
+            },
+            "countries": [
+                "USA"
+            ],
+            "rated": "NOT RATED",
+            "genres": [
+                "Superhéroes",
+                "Acción",
+                "Ciencia ficción"
+            ]
+        }
+    ]
 }
 ```
 
