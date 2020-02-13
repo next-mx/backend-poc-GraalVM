@@ -18,11 +18,7 @@
     "name": "Crisanto Jeronimo",
     "email": "cjeronimomx@gmail.com",
     "text": "Muy buena para algunos criticada por otros.",
-    "date": {
-        "$date": {
-            "$numberLong": "995052309000"
-        }
-    }
+    "date": 995052309000
 }
 ```
      
@@ -65,19 +61,14 @@
 
 ```json	
 {
-    "_id": {
-        "$oid": "5a9427648b0beebeb69579d5"
-    },
-    "name": "Crisanto Jeronimo",
-    "email": "cjeronimomx@gmail.com",
-    "movie_id": {
-        "$oid": "573a1390f29313caabcd4132"
-    },
-    "text": "Muy buena para algunos criticada por otros.",
-    "date": {
-        "$date": {
-            "$numberLong": "995052309000"
-        }
+    "message": "Comentario consultado exitosamente",
+    "result": {
+        "_id": "5e4370972c7f431c6b32dea6",
+        "name": "Crisanto Jeronimo",
+        "email": "cjeronimomx@gmail.com",
+        "text": "Muy buena para algunos criticada por otros.",
+        "date": 995052309000,
+        "movie_id": "5e436985f528b6186601ee2c"
     }
 }
 ```
@@ -100,14 +91,11 @@
 
 ```json
 {
-    "name": "Crisanto Jeronimo",
+    
+    "name": "Crisanto Jeronimo G",
     "email": "cjeronimomx@gmail.com",
-    "text": "Muy buena para algunos, criticada por otros.",
-    "date": {
-        "$date": {
-            "$numberLong": "995052308000"
-        }
-    }
+    "text": "En espera de la siguiente....",
+    "date": 995052309000
 }
 ```
  
@@ -139,7 +127,7 @@
 
 ```json
 {
-    "text": "Muy buena para algunos pero criticada por otros."
+    "text": "Muy buena para algunos pero criticada por otros que no saben."
 }
 ```
 
