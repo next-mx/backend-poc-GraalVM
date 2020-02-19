@@ -97,8 +97,8 @@
 > El 09-05-2019 fue liberada la versión 19.0.0 como primer versión productiva con soporte para Java 8 y
 > fue hasta la versión 19.3.0 que añadieron compatibilidad con Java 11.
 >
-> En el útlimo año se vuelto bastante popular, varios artículos se han escrito en diferentes blogs y 
-> se han hecho presentaciones en los útlimos pequeñosy grandes eventos que tienen que ver con desarrollo de software tales
+> En el útlimo año se ha vuelto bastante popular, varios artículos se han escrito en diferentes blogs y 
+> se han hecho presentaciones en los útlimos pequeños y grandes eventos que tienen que ver con desarrollo de software, tales
 > como el Oracle Code One.
 >
 > Oracle ha impulsado mucho esta tecnología tanto que ha creado el [Intership Program](https://www.graalvm.org/community/internship/)
@@ -117,7 +117,7 @@
 
 > La definición del API REST que expone cada microservicio está definido en la carpeta [resources/api/](https://github.com/beeva/backend-poc-GraalVM/tree/master/resources/api) del repositorio
 
-> Los payloads de pruebas y variables(con Postman) se enuentran en la carpeta [resources/api/](https://github.com/beeva/backend-poc-GraalVM/tree/master/resources/api) del repositorio
+> Los payloads de pruebas y variables(con Postman) y jmx de Jmeter se enuentran en la carpeta [resources/test/](https://github.com/beeva/backend-poc-GraalVM/tree/develop/resources/test) del repositorio
 
 
 ## Métodos
@@ -208,7 +208,7 @@ brew install node@10
 #### Java Micronaut Service
 
 | Métrica                                                         | GraalVM  | JVM OpenJDK | Imagen Nativa |
-| --------------------------------------------------------------- |:--------:| :----------:| ------------- |
+| --------------------------------------------------------------- |:--------:| :----------:| :-----------: |
 | Tamaño del componente generado                                  | 15 MB    | 15 MB       | 58 MB         |
 | Consumo de RAM en tiempo de compilación                         | 832 MB   | 377 MB      | 6.83 GB       |
 | Consumo de CPU en tiempo de compilación                         | 54%      | 32%         | 97.3%         |
@@ -226,7 +226,7 @@ brew install node@10
 #### Java Quarkus Service
 
 | Métrica                                                         | GraalVM  | JVM OpenJDK | Imagen Nativa |
-| --------------------------------------------------------------- |:--------:| :----------:| ------------- |
+| --------------------------------------------------------------- |:--------:| :----------:| :-----------: |
 | Tamaño del componente generado                                  | 365 KB   | 374 KB      | 45 MB         |
 | Consumo de RAM en tiempo de compilación                         | 470 MB   | 320 MB      | 8.5 GB        |
 | Consumo de CPU en tiempo de compilación                         | 67%      | 70%         | 96%           |
@@ -244,7 +244,7 @@ brew install node@10
 #### Java Spring-boot Service
 
 | Métrica                                                         | GraalVM  | JVM OpenJDK | Imagen Nativa |
-| --------------------------------------------------------------- |:--------:| :----------:| ------------- |
+| --------------------------------------------------------------- |:--------:| :----------:| :-----------: |
 | Tamaño del componente generado                                  | 23 MB    | 23 MB       | NA            |
 | Consumo de RAM en tiempo de compilación                         | 890 MB   | 421 MB      | NA            |
 | Consumo de CPU en tiempo de compilación                         | 54%      | 19.7%       | NA            |
@@ -262,7 +262,7 @@ brew install node@10
 #### Javascript Node Service
 
 | Métrica                                                         | GraalVM  | NodeJS      | Imagen Nativa |
-| --------------------------------------------------------------- |:--------:| :----------:| ------------- |
+| --------------------------------------------------------------- |:--------:| :----------:| :-----------: |
 | Tamaño del componente generado                                  | 3.6 KB   | 3 KB        | NA            |
 | Consumo de RAM en tiempo de compilación                         | NA       | NA          | NA            |
 | Consumo de CPU en tiempo de compilación                         | NA       | NA          | NA            |
