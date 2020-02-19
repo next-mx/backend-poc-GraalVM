@@ -9,22 +9,25 @@ cd java-micronaut-service
 #### OpenJDK
 ```bash
 sdk u java 8.0.242.hs-adpt
-./gradlew clean assemble         
+./gradlew clean
+./gradlew assemble         
 java -jar build/libs/poc-graalvm-micronaut-0.1-all.jar  #./gradlew clean run
 ```
 
 #### GraalVM
 ```bash
 sdk u java 19.2.1-grl
-./gradlew clean assemble 
+./gradlew clean
+./gradlew assemble 
 java -jar build/libs/poc-graalvm-micronaut-0.1-all.jar  #./gradlew clean run
 ```
 
 #### Imagen Nativa
 ```bash
 sdk u java 19.2.1-grl
-./gradlew clean assemble          
-native-image --no-server -cp build/libs/java-micronaut-service-0.1-all.jar  # generación de imagen nativa
+./gradlew clean
+./gradlew assemble          
+native-image --no-server -cp build/libs/poc-graalvm-micronaut-0.1-all.jar  # generación de imagen nativa
 ./poc-graalvm-micronaut           
 ```
 

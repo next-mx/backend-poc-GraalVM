@@ -7,19 +7,18 @@
 > 1.0.0
 
 ##### Fecha del documento
-> 30-01-2020
+> 18-02-2020
 
 
 #### Autores
 
 | Nombre        | Planeta       | Tribu  |
 | ------------- |:-------------:| :-----:|
-| [Alejandro Jesús Torres Dimas](alejandrojesus.torres.dimas.next@bbva.com) | Software Crafter |  |
 | [Crisanto Jerónimo García](crisanto.jeronimo.next@gmail.com) | Software Crafter | Backend |
-| [Daniel Ramírez Herrera](daniel.ramirez3.next@bbva.com) | Software Crafter | DevSecOps |
-| [Edgar Alan Valdes Iglesias](edgaralan.valdes.iglesias.next@bbva.com) | Software Crafter | Backend |
-| [José Salvador Cortés Figueroa](josesalvador.cortes.next@bbva.com) | Software Crafter | Backend |
 | [Octavio Martínez José](octavio.martinez.jose.next@bbva.com) | Software Crafter |  |
+| [José Salvador Cortés Figueroa](josesalvador.cortes.next@bbva.com) | Software Crafter | Backend |
+| [Alejandro Jesús Torres Dimas](alejandrojesus.torres.dimas.next@bbva.com) | Software Crafter |  |
+| [Edgar Alan Valdes Iglesias](edgaralan.valdes.iglesias.next@bbva.com) | Software Crafter | Backend |
 
 
 
@@ -50,23 +49,22 @@
 ### Objetivo
 > **Validar las principales características de esta tecnología:**
 1. Imágenes nativas
-2. Aplicaciones políglotas
+2. Compatibilidad con frameworks y librerías
 3. Alto rendimiento
  
 > **Usando los 3 lenguajes más importantes actualmente:**
 1. Java
-2. Javascript con Node
+2. Javascript con NodeJS
 3. Python(conscientes de que este lenguaje aún está en fase experimental)
 
 > **Se crearon los siguientes componentes:** 
-* Microservicio Java con Quarkus(se creará aplicación nativa)
-* Microservicio Java con Micronaut(se creará aplicación nativa)
-* Microservicio Java con Spring-boot(se creará aplicación nativa)
-* Microservicio Políglota(python como pivote y secundarios javascript y java)
-* Microservicio Políglota(javascript-Node como pivote y secundarios python y java)
-* Aplicación front-end con Angular
+* Microservicio Java con Quarkus(se creó aplicación nativa)
+* Microservicio Java con Micronaut(se creó aplicación nativa)
+* Microservicio Java con Spring-boot(no fue posible generar aplicación nativa porque aun no es soportado)
+* Microservicio Javascript con NodeJS
+* Microservicio Python con Django(No se pudo implementar por incompatibilidad con librerías)
  
- > **Se considerarán las funcionalidades requeridas frecuentemente:**
+ > **Se consideraron las funcionalidades requeridas frecuentemente:**
  * Lectura-escritura de archivos de texto
  * Operaciones CRUD
  * Persistencia en Base de Datos
@@ -75,13 +73,13 @@
  * Ejecución de procesos programados
  * Operaciones aritméticas que incluyan cantidades numéricas grandes(BigDecimal, BigInteger)
  
- > **Medirémos y compararémos los resultados dados por los compiladores, interpretes y runtimes con y sin GraalVM:**
+ > **Se midieron y compararon los resultados dados por los compiladores, interpretes y runtimes con y sin GraalVM:**
  1. Comportamientos en tiempo de compilación y ejecución
- 2. Tamaño del componente generado(.jar, .sh, .js, imagen docker)
+ 2. Tamaño del componente generado(.jar, .sh, .js)
  2. Consumo de RAM en tiempo de compilación y ejecución
  3. Consumo de CPU en tiempo de compilación y ejecución
  4. Tiempo de startup
- 5. Tiempos de respuesta
+ 5. Tiempos de respuesta en peticiones HTTP
  6. Estabilidad de la aplicación
  7. Compatibilidad de librerías y frameworks
 
@@ -209,88 +207,81 @@ brew install node@10
 
 #### Java Micronaut Service
 
-| Metrica        | GraalVM       | JVM OpenJDK | Imagen Nativa |
-| ------------- |:-------------:| :-----:| ------------- |
-| Tamaño del componente generado(MB) | 169 MB | 18.6 MB  |  61 MB |
-| Consumo de RAM en tiempo de compilación(MB)  | 4.3 GB   | 100 MB  | 5.8 GB  |
-| Consumo de RAM en tiempo de ejecución(MB)  |  160MB  |  20 MB | 400 MB |
-| Consumo de CPU en tiempo de compilación(MB)  |  3.72%  | 0.63%  | 50% |
-| Consumo de CPU en tiempo de ejecución(MB)  |  3%  |  0.50% |  3%  |
-| Tiempo de startup(Segundos)  |   |   |   |
-| Compatibilidad de librerías y frameworks  | 100%   | 90%  |  80%  |
-| Comportamientos en tiempo de compilación  |  Bueno  |  Bueno |  Bueno  |
-| Comportamientos en tiempo de ejecución  |  Muy Bueno | Bueno   |   Muy bueno   |
+| Métrica                                                         | GraalVM  | JVM OpenJDK | Imagen Nativa |
+| --------------------------------------------------------------- |:--------:| :----------:| ------------- |
+| Tamaño del componente generado                                  | 15 MB    | 15 MB       | 58 MB         |
+| Consumo de RAM en tiempo de compilación                         | 832 MB   | 377 MB      | 6.83 GB       |
+| Consumo de CPU en tiempo de compilación                         | 54%      | 32%         | 97.3%         |
+| Consumo de RAM en tiempo de ejecución                           | 334.1 MB | 145.4 MB    | 14.3 MB       |
+| Consumo de CPU en tiempo de ejecución                           | 0.1%     | 0.2%        | 0%            |
+| Tiempo de startup                                               | 6.3s     | 6.4s        | 22ms          |
+| Tiempo de compilación                                           | 7s       | 7s          | 3.86m         |
+| Consumo de CPU con 100 peticiones HTTP (GET y POST) por segundo | 64.95%   | 62.32%      | 62.19%        |
+| Consumo de RAM con 100 peticiones HTTP (GET y POST) por segundo | 3.5 GB   | 3.1 GB      | 1.63 GB       |
+| Throughput mínimo con 100 peticiones HTTP (GET y POST)          | 29.0/s   | 32.2/s      | 23.0/s        |
 
-> Comentarios generales/adicionales sobre los resultados de este componente particular
+> Con este framework se alcanza el througthput más alto en la aplicación nativa
 
 
 #### Java Quarkus Service
 
-| Metrica        | GraalVM       | JVM OpenJDK | Imagen Nativa |
-| ------------- |:-------------:| :-----:| ------------- |
-| Tamaño del componente generado(MB) |  |   |   |
-| Consumo de RAM en tiempo de compilación(MB)  |    |   |   |
-| Consumo de RAM en tiempo de ejecución(MB)  |    |   |
-| Consumo de CPU en tiempo de compilación(MB)  |    |   |   |
-| Consumo de CPU en tiempo de ejecución(MB)  |    |   |    |
-| Tiempo de startup(Segundos)  |    |   |   |
-| Compatibilidad de librerías y frameworks  |    |   |    |
-| Comportamientos en tiempo de compilación  |    |   |    |
-| Comportamientos en tiempo de ejecución  |    |   |      |
+| Métrica                                                         | GraalVM  | JVM OpenJDK | Imagen Nativa |
+| --------------------------------------------------------------- |:--------:| :----------:| ------------- |
+| Tamaño del componente generado                                  | 365 KB   | 374 KB      | 45 MB         |
+| Consumo de RAM en tiempo de compilación                         | 470 MB   | 320 MB      | 8.5 GB        |
+| Consumo de CPU en tiempo de compilación                         | 67%      | 70%         | 96%           |
+| Consumo de RAM en tiempo de ejecución                           | 384 MB   | 168 MB      | 7.6 MB        |
+| Consumo de CPU en tiempo de ejecución                           | 0.5%     | 0.4%        | 0.2%          |
+| Tiempo de startup                                               | 16.2s    | 16.2s       | 14ms          |
+| Tiempo de compilación                                           | 5.4s     | 6.5s        | 3.55m         |
+| Consumo de CPU con 100 peticiones HTTP (GET y POST) por segundo | 60.16%   | 62.32%      | 54.5%         |
+| Consumo de RAM con 100 peticiones HTTP (GET y POST) por segundo | 2.15 GB  | 1.9 GB      | 703 MB        |
+| Throughput mínimo con 100 peticiones HTTP (GET y POST)          | 30.0/s   | 29.0/s      | 10.9/s        |
 
-
-> Comentarios generales/adicionales sobre los resultados de este componente particular
+> En general con este framework se logran los mejores resultados para GraalVM
 
 
 #### Java Spring-boot Service
 
-| Metrica        | GraalVM       | JVM OpenJDK | Imagen Nativa |
-| ------------- |:-------------:| :-----:| ------------- |
-| Tamaño del componente generado(MB) |  |   |   |
-| Consumo de RAM en tiempo de compilación(MB)  |    |   |   |
-| Consumo de RAM en tiempo de ejecución(MB)  |    |   |
-| Consumo de CPU en tiempo de compilación(MB)  |    |   |   |
-| Consumo de CPU en tiempo de ejecución(MB)  |    |   |    |
-| Tiempo de startup(Segundos)  |    |   |   |
-| Compatibilidad de librerías y frameworks  |    |   |    |
-| Comportamientos en tiempo de compilación  |    |   |    |
-| Comportamientos en tiempo de ejecución  |    |   |      |
+| Métrica                                                         | GraalVM  | JVM OpenJDK | Imagen Nativa |
+| --------------------------------------------------------------- |:--------:| :----------:| ------------- |
+| Tamaño del componente generado                                  | 23 MB    | 23 MB       | NA            |
+| Consumo de RAM en tiempo de compilación                         | 890 MB   | 421 MB      | NA            |
+| Consumo de CPU en tiempo de compilación                         | 54%      | 19.7%       | NA            |
+| Consumo de RAM en tiempo de ejecución                           | 533.7 MB | 252.1 MB    | NA            |
+| Consumo de CPU en tiempo de ejecución                           | 0.4%     | 0.2%        | NA            |
+| Tiempo de startup                                               | 17.8s    | 17.8s       | NA            |
+| Tiempo de compilación                                           | 6s       | 1s          | NA            |
+| Consumo de CPU con 100 peticiones HTTP (GET y POST) por segundo | 69.97%   | 67.2%       | NA            |
+| Consumo de RAM con 100 peticiones HTTP (GET y POST) por segundo | 3.03 GB  | 2.99 GB     | NA            |
+| Throughput mínimo con 100 peticiones HTTP (GET y POST)          | 27.2/s   | 26.3/s      | NA            |
 
-> Comentarios generales/adicionales sobre los resultados de este componente particular
+> Aún no soporta completamente la compilación a aplicación nativa, [aquí hay una demo](https://www.infoq.com/presentations/spring-boot-graalvm/) 
 
 
 #### Javascript Node Service
 
-| Metrica        | GraalVM       | NodeJS |
-| ------------- |:-------------:| :-----:|
-| Tamaño del componente generado(MB) |  |   |
-| Consumo de RAM en tiempo de compilación(MB)  |    |   |
-| Consumo de RAM en tiempo de ejecución(MB)  |    |   |
-| Consumo de CPU en tiempo de compilación(MB)  |    |   |
-| Consumo de CPU en tiempo de ejecución(MB)  |    |   |
-| Tiempo de startup(Segundos)  |    |   |
-| Compatibilidad de librerías y frameworks  |    |   |
-| Comportamientos en tiempo de compilación  |    |   |
-| Comportamientos en tiempo de ejecución  |    |   |
+| Métrica                                                         | GraalVM  | NodeJS      | Imagen Nativa |
+| --------------------------------------------------------------- |:--------:| :----------:| ------------- |
+| Tamaño del componente generado                                  | 3.6 KB   | 3 KB        | NA            |
+| Consumo de RAM en tiempo de compilación                         | NA       | NA          | NA            |
+| Consumo de CPU en tiempo de compilación                         | NA       | NA          | NA            |
+| Consumo de RAM en tiempo de ejecución                           | 855.7 MB | 49.8 MB     | NA            |
+| Consumo de CPU en tiempo de ejecución                           | 0.1%     | 0.1%        | NA            |
+| Tiempo de startup                                               | 0.54s    | 0.13s       | NA            |
+| Tiempo de compilación                                           | NA       | NA          | NA            |
+| Consumo de CPU con 100 peticiones HTTP (GET y POST) por segundo | 63.87%   | 44.7%       | NA            |
+| Consumo de RAM con 100 peticiones HTTP (GET y POST) por segundo | 1.1 GB   | 179.9 MB    | NA            |
+| Throughput mínimo con 100 peticiones HTTP (GET y POST)          | 8.6/s    | 20.0/s      | NA            |
 
-> Comentarios generales/adicionales sobre los resultados de este componente particular
+> La compilación a aplicación nativa solo está disponible para java, en este microservicio se obtiene el througthput más bajo con GraalVM
 
 
-#### Python Polyglot Service
+#### Python Django Service
 
-| Metrica        | GraalVM       | Python |
-| ------------- |:-------------:| :-----:|
-| Tamaño del componente generado(MB) |  |   |
-| Consumo de RAM en tiempo de compilación(MB)  |    |   |
-| Consumo de RAM en tiempo de ejecución(MB)  |    |   |
-| Consumo de CPU en tiempo de compilación(MB)  |    |   |
-| Consumo de CPU en tiempo de ejecución(MB)  |    |   |
-| Tiempo de startup(Segundos)  |    |   |
-| Compatibilidad de librerías y frameworks  |    |   | 
-| Comportamientos en tiempo de compilación  |    |   |
-| Comportamientos en tiempo de ejecución  |    |   |
-
-> Comentarios generales/adicionales sobre los resultados de este componente particular
+> No fue posible desarrollar este microservicio con Django ya que la implementación de
+> python en GraalVM solo soporta un número muy limitado de librerías
+> https://www.graalvm.org/docs/reference-manual/languages/python/
 
 
 

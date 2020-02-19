@@ -9,14 +9,16 @@ cd java-springboot-service
 #### OpenJDK
 ```bash
 sdk u java 8.0.242.hs-adpt
-./gradlew clean assemble         
+./gradlew clean
+./gradlew assemble         
 java -jar build/libs/java-springboot-service-1.0.0.jar  #./gradlew clean bootRun 
 ```
 
 #### GraalVM
 ```bash
 sdk u java 19.2.1-grl
-./gradlew clean assemble 
+./gradlew clean
+./gradlew assemble 
 java -jar build/libs/java-springboot-service-1.0.0.jar  #./gradlew clean bootRun 
 ```
 

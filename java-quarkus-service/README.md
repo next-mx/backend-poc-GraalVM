@@ -10,21 +10,24 @@ cd java-quarkus-service
 #### OpenJDK
 ```bash
 sdk u java 8.0.242.hs-adpt
-./mvnw clean package             
+./mvnw clean
+./mvnw package -DskipTests             
 java -jar target/poc-graalvm-quarkus-1.0-SNAPSHOT-runner.jar    # ./mvnw compile quarkus:dev              
 ```
 
 #### GraalVM
 ```bash
 sdk u java 19.2.1-grl
-./mvnw clean package           
+./mvnw clean
+./mvnw package -DskipTests           
 java -jar target/poc-graalvm-quarkus-1.0-SNAPSHOT-runner.jar            
 ```
 
 #### Imagen Nativa
 ```bash
 sdk u java 19.2.1-grl
-./mvnw clean package -Pnative   
+./mvnw clean
+./mvnw package -Pnative -DskipTests   
 target/poc-graalvm-quarkus-1.0-SNAPSHOT-runner        
 ```
 
