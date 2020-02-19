@@ -32,8 +32,6 @@
 | `Micronaut` | 1.2.5 | Framework |
 | `Quarkus` | 0.26.1 | Framework |
 | `Spring-boot` | 2.2.0 | Framework |
-| React | 16.10.2 | Framework |
-| Angular | 1.7.8 | Framework |
 | `MongoDB` | 4.2.1 | Base de datos NoSQL |
 | `Docker` | 19.03.4 | Contenedores |
 | `MacOS` | Catalina 10.15.2 | Sistema Operativo |
@@ -220,8 +218,6 @@ brew install node@10
 | Consumo de RAM con 100 peticiones HTTP (GET y POST) por segundo | 3.5 GB   | 3.1 GB      | 1.63 GB       |
 | Throughput mínimo con 100 peticiones HTTP (GET y POST)          | 29.0/s   | 32.2/s      | 23.0/s        |
 
-> Con este framework se alcanza el througthput más alto en la aplicación nativa
-
 
 #### Java Quarkus Service
 
@@ -237,8 +233,6 @@ brew install node@10
 | Consumo de CPU con 100 peticiones HTTP (GET y POST) por segundo | 60.16%   | 62.32%      | 54.5%         |
 | Consumo de RAM con 100 peticiones HTTP (GET y POST) por segundo | 2.15 GB  | 1.9 GB      | 703 MB        |
 | Throughput mínimo con 100 peticiones HTTP (GET y POST)          | 30.0/s   | 29.0/s      | 10.9/s        |
-
-> En general con este framework se logran los mejores resultados para GraalVM
 
 
 #### Java Spring-boot Service
@@ -256,8 +250,6 @@ brew install node@10
 | Consumo de RAM con 100 peticiones HTTP (GET y POST) por segundo | 3.03 GB  | 2.99 GB     | NA            |
 | Throughput mínimo con 100 peticiones HTTP (GET y POST)          | 27.2/s   | 26.3/s      | NA            |
 
-> Aún no soporta completamente la compilación a aplicación nativa, [aquí hay una demo](https://www.infoq.com/presentations/spring-boot-graalvm/) 
-
 
 #### Javascript Node Service
 
@@ -274,8 +266,6 @@ brew install node@10
 | Consumo de RAM con 100 peticiones HTTP (GET y POST) por segundo | 1.1 GB   | 179.9 MB    | NA            |
 | Throughput mínimo con 100 peticiones HTTP (GET y POST)          | 8.6/s    | 20.0/s      | NA            |
 
-> La compilación a aplicación nativa solo está disponible para java, en este microservicio se obtiene el througthput más bajo con GraalVM
-
 
 #### Python Django Service
 
@@ -285,24 +275,38 @@ brew install node@10
 
 
 
-## Discusión
-> En esta sección se comentan los resultados uno a uno, se discuten las comparativas. Es aquí donde debe ir TODO juicio de valor de quien lo escribe, opiniones, etc. En esta sección se deberá revisar el triángulo: tiempo-alcance-incertidumbre con el objetivo de resolver las conclusiones de la última sección.
+## Conclusiones
+> Después de haber utilizado esta tecnología y haber comparado resultados se ha comprobado que el alto performance 
+> no es el que presume la documentación, la generación de aplicaciones nativas aún tiene varias limitantes lo cual tiene
+> mejor resulto Golang.
+>
+> En general se recomienda usar los runtimes nativos de cada lenguaje y No GraalVM, ya que los tiempos y consumos de recurso
+> son mejores en los runtimes nativos.
+>
+> * Con Microanut framework se alcanza el througthput más alto en la aplicación nativa.
+> * En general con Quarkus framework se logran los mejores resultados para GraalVM.
+> * Spring-Boot no soporta oficialmente la compilación a aplicación nativa pero ya existe un esfuerzo para tener este feature,
+> [aquí hay una demo hecha por Pivotal](https://www.infoq.com/presentations/spring-boot-graalvm/)
+> * Con NodeJS se obtiene el througthput más bajo usando GraalVM en comparación con los otros frameworks validados.
+> * La compilación a aplicación nativa solo está disponible para java.
+> * La compilación a imagen nativa tiene algunos defectos:
+> * 1. El tiempo de compilación es alto.
+>   2. El tamaño del componente generado es pesado comparado contra un jar común.
+>   3. Requiere de un equipo de computo potente ya que el consumo de CPU y RAM es muy alto.
 
-### Limitaciones
-> En esta sección se describen las limitaciones de la PoC:
-> * Cosas que no se han podido probar (por qué no se ha probado, el alcance de tu trabajo y de tus conclusiones)
-> * Evaluaciones que no se han realizado y que molaría hacer (futuras PoCs?)
-> * Limitaciones de la tecnología: Las limitaciones propias de la tecnología deberán discutirse en Discusión y en Resultados así como derivar en conclusiones.
+
+### Limitaciones de la PoC
+> * No fue posible validar la versión Enterprise de GraalVM en la que se esperaría que el performance sean mayor que la 
+> versión community la cual se utilizó en esta PoC.
+> * No fue posible probar la versión 20.0.0 de GraalVM(presume tener varias mejoras y features) porque fue liberada justo el día en el que finaliza esta PoC.
+> * Por tiempos quedó pendiente implementar aplicaciones políglotas.
+> * Sería bueno implementar un microservicio similar a los de esta PoC utilizando [Golang](https://golang.org/) y medir la aplicación nativa de GraalVM contra la que genera Go.
+
 
 ### Ejemplo de caso de uso
-> En esta sección se discute, a la vista de resultados, una posible aplicación dentro de [BBVA Next Technologies](https://www.bbvanexttechnologies.com/) de la(s) tecnología(s) evaluada(s). No es necesario implementarla, sino dar idea de utilidades posibles de la tecnología
+> Algunas ideas son:
+> * Una imagen docker genérica que sirva para contenerizar aplicaciones escritas en diferentes lenguajes de programación.
+> * Creación de un lenguaje ya que GraalVM soporta a través de Truffle la compilación/ejecución de lenguajes externos.
+> * Implementación de una herramienta similar a Jupyter o Colab.
 
-#### Costes
-> Aquí se deben describir los costes del supuesto caso de uso. Pueden ser aproximados, pero en líneas generales deben dar una idea de las posibilidades de la tecnología desde el punto de vista económico.
-
-## Conclusiones
->En esta sección deben estar todas las conclusiones del trabajo. **Cuidado con realizar especulaciones**, es importante que sean conclusiones que deriven directamente del trabajo realizado y de la tecnología: pros y contras así como limitaciones de implantación. Es importante que en las conclusiones aparezcan ventajas y desventajas de la tecnología como resultado de la PoC.
-Información relevante que es deseable responder:
-¿Es válida la tecnología para producción? ¿Bajo qué condiciones y parámetros?
-¿Cómo se relaciona con otras tecnologías del radar?
 
