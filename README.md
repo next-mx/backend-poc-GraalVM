@@ -290,7 +290,7 @@ brew install node@10
 > * Con NodeJS se obtiene el througthput más bajo usando GraalVM en comparación con los otros frameworks validados.
 > * La compilación a aplicación nativa solo está disponible para java.
 > * La compilación a imagen nativa tiene algunos defectos:
-> * 1. El tiempo de compilación es alto.
+>   1. El tiempo de compilación es alto.
 >   2. El tamaño del componente generado es pesado comparado contra un jar común.
 >   3. Requiere de un equipo de computo potente ya que el consumo de CPU y RAM es muy alto.
 
@@ -307,6 +307,6 @@ brew install node@10
 > Algunas ideas son:
 > * Una imagen docker genérica que sirva para contenerizar aplicaciones escritas en diferentes lenguajes de programación.
 > * Creación de un lenguaje ya que GraalVM soporta a través de Truffle la compilación/ejecución de lenguajes externos.
-> * Implementación de una herramienta similar a Jupyter o Colab.
+> * Implementación de una herramienta similar a [Jupyter](https://jupyter.org/) o [Colab](https://colab.research.google.com/notebooks/intro.ipynb#recent=true).
 
 
